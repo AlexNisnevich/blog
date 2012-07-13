@@ -9,6 +9,7 @@ desc 'Build site with Jekyll'
 task :build => :clean do
   compass
   jekyll
+  make_symlink
 end
 
 desc 'Start server with --auto'
@@ -62,4 +63,9 @@ end
 
 def compass(opts = '')
   sh 'compass compile -c config.rb --force ' + opts
+end
+
+@dir = 'blog'
+def make_symlink
+  sh 'cd _site && sudo ln -s . ' + @dir
 end
