@@ -7,12 +7,12 @@ markdown: rdiscount
 
 # configuration required for some pages
 
-domain: blog.example.com
-title: My Blog Title
-author: Me
-email: me@example.com
+domain: alex.nisnevich.com
+title: Alex Nisnevich
+author: Alex Nisnevich
+email: alex.nisnevich@gmail.com
 
-# configuration for ehancements, uncomment to enable
+# configuration for enhancements, uncomment to enable
 
 # feedburner:
 #   id: feedburnerid
@@ -20,8 +20,12 @@ email: me@example.com
 # google_analytics:
 #   account: UA-XXXXX-X
 
-# github:
-#   username: ghusername
+github:
+  username: AlexNisnevich
 
 # disqus:
 #   id: disqusid
+
+# settings
+
+show_related_posts: false # enable once there's actually more than a few posts

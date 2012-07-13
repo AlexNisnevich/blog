@@ -1,5 +1,13 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono);
+@import url(http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911);
+@import url(http://fonts.googleapis.com/css?family=Average);
 .highlight {
-  background: #ffffff;
+  background: #000;
+  padding: 5px 1em;
+}
+.highlight code {
+  padding: 0;
+  line-height: 1em;
 }
 .highlight .c {
   color: #999988;
@@ -140,4 +148,103 @@
 }
 .highlight .il {
   color: #009999;
+}
+
+body {
+  background-color: #333;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: white;
+}
+
+a {
+  color: white;
+}
+a:hover {
+  background-color: white;
+  color: #333;
+}
+
+h2, h2 a {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 30px;
+  margin-top: 4px;
+  margin-bottom: 7px;
+  color: #EBFFB4;
+  text-decoration: none;
+}
+
+code {
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  background-color: black;
+  padding: 4px;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+#page {
+  width: 750px;
+  margin: 20px auto;
+}
+#page #header {
+  width: 100%;
+  padding: 4px;
+  margin-bottom: 15px;
+  font-family: Helvetica, Arial, sans-serif;
+  text-align: right;
+}
+#page #header a {
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 4px;
+}
+#page #header a.secondary_link {
+  margin-left: 15px;
+  color: #444;
+}
+#page #body {
+  width: 100%;
+  font-family: 'Average', 'Goudy Bookletter 1911', Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.5em;
+}
+#page #body .postdate {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #999;
+}
+#page #footer {
+  width: 100%;
+  border-top: 1px solid #999;
+  margin: 1em auto;
+  padding: 1.2em 0;
+  clear: both;
+  font-size: 11px;
+  color: #ccc;
+  text-align: right;
+}
+
+#related {
+  margin-top: 1em;
+  border-top: 4px solid #ccc;
+  padding-top: 1em;
+}
+
+#archive li {
+  list-style-type: none;
+}
+#archive time {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #999;
+  padding-right: 2px;
+}
+#archive a {
+  padding: 0 4px;
 }

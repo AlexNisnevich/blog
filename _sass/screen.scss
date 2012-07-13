@@ -1,3 +1,115 @@
 @import "mixins/syntax";
 
-// add your styles, see http://compass-style.org/
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono);
+@import url(http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911);
+@import url(http://fonts.googleapis.com/css?family=Average);
+
+body {
+    background-color: #333;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: white;
+}
+
+a {
+    color: white;
+
+    &:hover {
+        background-color: white;
+        color: #333;
+    }
+}
+
+h2, h2 a {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    margin-top: 4px;
+    margin-bottom: 7px;
+    color: #EBFFB4;
+    text-decoration: none;
+}
+
+code {
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    background-color: black;
+    padding: 4px;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+#page {
+    width: 750px;
+    margin: 20px auto;
+
+    #header {
+        width: 100%;
+        padding: 4px;
+        margin-bottom: 15px;
+        font-family: Helvetica, Arial, sans-serif;
+        text-align: right;
+
+        a {
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 0 4px;
+
+            &.secondary_link {
+                margin-left: 15px;
+                color: #444;
+            }
+        }
+    }
+
+    #body {
+        width: 100%;
+        font-family: 'Average', 'Goudy Bookletter 1911', Georgia, 'Times New Roman', serif;
+        font-size: 17px;
+        line-height: 1.5em;
+
+        .postdate {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #999;
+        }
+    }
+
+    #footer {
+        width: 100%;
+        border-top: 1px solid #999;
+        margin: 1em auto;
+        padding: 1.2em 0;
+        clear: both;
+        font-size: 11px;
+        color: #ccc;
+        text-align: right;
+    }
+}
+
+#related {
+    margin-top: 1em;
+    border-top: 4px solid #ccc;
+    padding-top: 1em;
+}
+
+#archive {
+    li {
+        list-style-type: none;
+    }
+
+    time {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #999;
+        padding-right: 2px;
+    }
+
+    a {
+        padding: 0 4px;
+    }
+}
