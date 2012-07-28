@@ -31,11 +31,11 @@ export DISPLAY=:0.0
 
 After this, running `google-chrome` works. So far, so good.
 
-Now comes the next problem: the original window was full-screen. Could I make the new instance be full-screen as well?
+Now comes the next problem: the original window was full screen. Could I make the new instance be full screen as well?
 
 ### Making it full screen
 
-Suprisingly, there is no command-line switch for full-screen mode! The closest I could find was `--app`, which didn't seem to do anything. Well, if we can't start the browser full-screen, can we at least make the window full-screen after it starts?
+Suprisingly, there is no command-line switch for full-screen mode! The closest I could find was [--app](http://peter.sh/experiments/chromium-command-line-switches/#app), which didn't seem to do anything. Well, if we can't start the browser in full screen, can we at least make the window full screen after it starts?
 
 Here the [xdotool](http://www.semicomplete.com/projects/xdotool/) keyboard/mouse simulator package can come in handy - we can use it to mimic an F11 keypress as follows:
 
