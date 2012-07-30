@@ -28,4 +28,4 @@ disqus:
 
 # settings
 
-show_related_posts: true
+show_related_posts: false # enable once there's actually more than a few posts
