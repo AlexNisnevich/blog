@@ -23,9 +23,9 @@ email: alex.nisnevich@gmail.com
 github:
   username: AlexNisnevich
 
-# disqus:
-#   id: disqusid
+disqus:
+  id: alex-nisnevich-blog
 
 # settings
 
-show_related_posts: false # enable once there's actually more than a few posts
+show_related_posts: true

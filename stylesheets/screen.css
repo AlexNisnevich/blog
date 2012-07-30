@@ -229,7 +229,7 @@ li {
   text-align: right;
 }
 
-#related {
+#related, #comments {
   margin-top: 1em;
   border-top: 4px solid #ccc;
   padding-top: 1em;

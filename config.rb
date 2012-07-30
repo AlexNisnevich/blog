@@ -1,4 +1,4 @@
-http_path = "/"
+http_path = "/blog/"
 css_dir = "stylesheets"
 sass_dir = "_sass"
 images_dir = "images"
