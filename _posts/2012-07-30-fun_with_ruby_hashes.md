@@ -49,7 +49,7 @@ irb(main):011:0> h
 => {:a=>{:b=>{:c=>5}}}
 {% endhighlight %}
 
-One downside is that `[]` is now destructive, so `h[key]` will always create elements if they don't already exist. `Hash#has_key?` should always be used where appropriate to avoid unwanted keys being created.
+One downside is that `[]` is now destructive, so `h[key]` will always create elements if they don't already exist. [Hash#has_key?](http://www.ruby-doc.org/core-1.9.3/Hash.html#method-i-has_key-3F) should always be used where appropriate to avoid unwanted keys being created.
 
 ### Default values
 
@@ -58,7 +58,7 @@ You might already know that `Hash.new(X)` will create a hash that returns `X` as
 {% highlight bash %}
 irb(main):001:0> polite_hash = Hash.new("I'm so sorry")
 => {}
-irb(main):002:0> five_hash['not a key']
+irb(main):002:0> polite_hash['not a key']
 => "I'm so sorry"
 {% endhighlight %}
 
@@ -75,7 +75,7 @@ irb(main):006:0> bad_hash[:player2]
 => {:wins=>1, :ties=>0, :losses=>0}
 {% endhighlight %}
 
-Uh oh, what happened here? It turns out that the default value of a hash is a single object that is used for all default values, so changing it once will change it for all default values, with nothing being stored in the hash itself: 
+Uh oh, what happened here? It turns out that the default value of a hash is a single object that is used for all default values, so changing it once will change it for all default values, with nothing being stored in the hash itself:
 
 {% highlight bash %}
 irb(main):007:0> bad_hash.default
@@ -103,7 +103,7 @@ irb(main):012:0> players
 
 ### Deep sort
 
-As of Ruby 1.9, hashes preserve their order of keys, but there are no methods for reordering keys. What do we do if we want to sort the elements in a hash by key?
+[As of Ruby 1.9](http://www.igvita.com/2009/02/04/ruby-19-internals-ordered-hash/), hashes preserve their order of keys, but there are no methods for reordering keys. What do we do if we want to sort the elements in a hash by key?
 
 Fortunately hashes include the [Enumerable](http://www.ruby-doc.org/core-1.9.3/Enumerable.html) module, and thus have a [sort](http://www.ruby-doc.org/core-1.9.3/Enumerable.html#method-i-sort) method, but that returns an array of pairs, not a hash. To sort a hash by key and return a hash, we need to do:
 
