@@ -8,7 +8,7 @@ markdown: rdiscount
 # configuration required for some pages
 
 domain: alex.nisnevich.com
-title: Alex Nisnevich
+title: AlexNisnevich.blog
 author: Alex Nisnevich
 email: alex.nisnevich@gmail.com
 
@@ -17,8 +17,8 @@ email: alex.nisnevich@gmail.com
 # feedburner:
 #   id: feedburnerid
 
-# google_analytics:
-#   account: UA-XXXXX-X
+google_analytics:
+  account: UA-345959-11
 
 github:
   username: AlexNisnevich
