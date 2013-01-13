@@ -18,6 +18,10 @@ task :server => :clean do
   jekyll('--server --auto')
 end
 
+task :make_symlink do
+  make_symlink
+end
+
 desc 'Build and deploy'
 task :deploy => :build do
   sh 'rsync -rtzh --progress --delete _site/ username@servername:/var/www/websitename/'

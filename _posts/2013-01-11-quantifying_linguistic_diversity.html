@@ -1,0 +1,532 @@
+---
+layout: post
+title: Quantifying Linguistic Diversity
+tags: [language, economics, ruby, scraping, mechanize, graphs]
+---
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<h3>Adventures in Reinventing the Wheel</h3>
+
+<img class="figure" src="/blog/images/linguistic_diversity_1.png">
+
+<p>A few days ago, one of my friends posted this status on Facebook, and it got me thinking: how could I test a hypothesis like this? Supposing I were to use GDP per capita as a measure of affluence, I would simply have to compare it to a measure of linguistic diversity, and compute the correlation coefficient.</p>
+
+<p>But does such a measure of linguistic diversity exist? I wasn't aware of one, so I decided to come up with my own, which I would call the <strong>Linguistic Diversity Index (LDI)</strong>. I thought about a few potential ways to measure the diversity of languages in a country, and ulimately settled on this definition: <em>the percentage probability that two random residents of a given country have different native languages</em>. Compared to other potential measurements (such as the popularity of the most common language within a country), this definition for the LDI has the advantage of taking into account every language spoken in a country, while still being easy to visualize.</p>
+
+<p>Computing the LDI is pretty straightforward. Given a country with population <b>P</b> and <b>n</b> languages, with <b>L<sub>1</sub></b>, <b>L<sub>2</sub></b>, ..., <b>L<sub>n</sub></b> speakers, respectively, the LDI of the country is:</p>
+
+<img class="figure" src="/blog/images/linguistic_diversity_3.png">
+
+<p>Now, if I had bothered to do a Google search at this point, I would have found out that there actually is such a thing as a <a href="http://en.wikipedia.org/wiki/Linguistic_diversity_index">Linguistic Diversity Index</a> (also known as Greenberg’s diversity index), and, moreover, it's defined more or less the same way that I defined it (namely, <em>the probability that any two people of the country selected at random would have different mother tongues</em>), and the data listed on the Wikipedia page is very close to what I ultimately obtained, as it was calculated using similar data. But I didn't realize that an LDI already existed at the time, and so I ended up essentially duplicating the existing work on the topic.</p>
+
+<h3>Scraping Ethnologue Data with Mechanize</h3>
+
+<p>Let me take some time to show how I collected the data for the LDI. If you'd rather just skip ahead to the pretty charts, <a href="#results">go right ahead</a>. I won't be mad.</p>
+
+<p>Still here? Awesome.</p>
+
+<p>In order to calculate the LDI, I needed to find the most accurate data possible on the number of speakers of different languages within each country, and so I turned to <a href="http://www.ethnologue.com">Ethnologue</a>, a database of statistics on ~7000 languages. Each country's page in Ethnologue looks like this (with the red boxes indicating the numbers that I want to extract):</p>
+
+<img class="figure" src="/blog/images/linguistic_diversity_2.png">
+
+<p>Doing this by hand would be incredibly tedious, so I needed to find a way to scrape all of the country pages on Ethnologue. I wasn't sure what the best way to do this in Ruby would be, so I asked my trusty assistant, <a href="https://github.com/gleitz/howdoi">howdoi</a>:</p>
+
+{% highlight bash %}
+> howdoi scrape web page in ruby
+take a look at this library http://mechanize.rubyforge.org/
+{% endhighlight %}
+
+<p>Ah, excellent! <a href="http://mechanize.rubyforge.org/">Mechanize</a> does just what I want, and has spiffy syntax to boot (for example, <code>languages = country_page / "#main table p"</code> literally <em>divides</em> the page into an array of sections matched by the CSS selector <code>#main table p</code>). The full script that I used to gather all of the data I needed clocks in at around 50 lines, and the trickiest bit was coming up with the appropriate regexes to extract the right things:</p>
+
+{% highlight ruby %}
+require 'mechanize'
+
+agent = Mechanize.new
+language_regex = Regexp.new(/]\r\n\t\t\t\t\t\t([0-9,]*)\.? /)
+
+index_page = agent.get('http://www.ethnologue.com/country_index.asp?place=all')
+
+index_page.links_with(:href => /show_country.asp/).each do |country_link|
+  country = country_link.text().strip()
+  speakers = []
+
+  country_page = agent.get('http://www.ethnologue.com/' + country_link.href)
+
+  # get language speakers from table
+  languages = country_page / "#main table p"
+  if languages.length() > 0
+    speakers += languages.map do |l|
+      language_regex.match(l.children()[0].content())[1].gsub(',','').to_i rescue 0
+    end
+  end
+
+  # get immigrant language speakers
+  description = (country_page / "#main blockquote")[0].children()[0].content()
+  immigrant_languages_description = description.scan(/Immigrant languages:.*?\./)[0]
+  if immigrant_languages_description
+    immigrant_languages = immigrant_languages_description.scan(/\(([0-9,]*)\)/)
+                                                         .map{|x| x[0].gsub(',','').to_i}
+    speakers += immigrant_languages
+  end
+
+  # get language speakers from subpages (if any)
+  country_page.links_with(:href => /show_country.asp/).each do |subpage_link|
+    subpage = agent.get('http://www.ethnologue.com/' + subpage_link.href)
+
+    subpage_languages = subpage / "#main table p"
+    if subpage_languages.length() > 0
+      subpage_speakers = subpage_languages.map do |l|
+        language_regex.match(l.children()[0].content())[1].gsub(',','').to_i rescue 0
+      end
+    end
+
+    speakers += subpage_speakers
+  end
+
+  # compute diversity index
+  total_speakers = speakers.inject(0, &:+)
+  diversity_index = if total_speakers > 0
+                      (1 - speakers.map{|x| x**2}.inject(0, &:+).to_f / total_speakers ** 2) * 100
+                    else
+                      "Insufficient data for meaningful answer"
+                    end
+
+  puts "#{country.ljust(40)}\t#{diversity_index}"
+end
+{% endhighlight %}
+
+<p>Note that I make a few simplifying assumptions here. For one thing, I didn't use Ethnologue's given value for the total population of each country, but rather set <b>P = L<sub>1</sub> + L<sub>2</sub> + ... + L<sub>n</sub></b>. This was important because I've noted Ethnologue's total population values to typically be more out of date than the language data, and I didn't want LDI values below zero, which could occur if, say, <b>L<sub>1</sub> > P</b>. Ethnologue language data is also imperfect - for example, some minor languages don't have their speaker count listed - but I assumed that the data was accurate enough as a whole for my computed LDI values to be meaningful.</p>
+
+<a name="results"></a>
+<h3>Results</h3>
+
+<p>After running the script, I got <a href="https://gist.github.com/raw/4509555/9088d048b93bc9c267cccfb2c4455bab989671c6/output">these results</a>. But raw data is boring. Let's make it into a map!</p>
+
+<div id="map_canvas" class="chart"></div>
+
+<p>There's some interesting patterns that can be seen from the map. It appears that countries in Sub-Saharan Africa and South and Southeast Asia tend to have the highest rates of linguistic diversity (Papua New Guinea is at the very top, with over 600 different languages spoken and a diversity index of 99.02). All in all, thoughout the world, diversity appears to be the norm, rather than homogeneity: even Europe has its fair share of high-LDI countries (admittedly, a lot of this is made murky by the question of what is a language and what is a dialect).</p>
+
+<p>Now I finally have all of the data that I need to test my friend's hypothesis about the relationship between language diversity and affluence. Using <a href="http://en.wikipedia.org/wiki/List_of_countries_by_GDP_(PPP)_per_capita">GDP (PPP) per capita data</a> from the World Bank, I get the following plot:</p>
+
+<div id="chart_div" class="chart"></div>
+
+<p>There is a weak negative correlation (<b>&#x3C1; = - 0.215</b>), suggesting that the relationship between language diversity and affluence is tenuous at best. Interestingly, while there are a great deal of countries that are both very poor and highly linguistically diverse, the 7 wealhiest countries all have LDI in the <b>48-78</b> range, perhaps suggesting that some level of linguistic diversity is economically useful in establishing a nation as a trade hub. Of course, correlation does not imply causation, and there aren't many conclusions that can reasonably be drawn from this chart without more outside information.</p>
+
+<h3>Conclusion</h3>
+
+<p>All told, this was a fun little project. It was unfortunate that I only found out later that the LDI already exists, and so my data collection was unnecessary, but it was nice to get some experience in scraping data, and I think that I've come up with some novel ways to present language diversity data. In the end, I feel that there is certainly room for more research to be done in the interconnection between the linguistic and economic spheres of countries.</p>
+
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+			['ID', 'Linguistic Diversity Index', 'GDP (PPP)/capita in Int$', 'Region'],
+			['Luxembourg', 48.86, 89012, 'Europe'],
+			['Qatar', 60.79, 88314, 'Asia'],
+			['Singapore', 77.33, 60688, 'Asia'],
+			['Norway', 67.65, 60405, 'Europe'],
+			['Kuwait', 55.64, 54283, 'Asia'],
+			['Brunei', 58.53, 51760, 'Asia'],
+			['Switzerland', 57.73, 51262, 'Europe'],
+			['United States', 31.87, 48112, 'North America'],
+			['United Arab Emirates', 77.71, 47893, 'Asia'],
+			['Netherlands', 27.61, 42772, 'Europe'],
+			['Austria', 53.48, 42196, 'Europe'],
+			['Ireland', 16.54, 41682, 'Europe'],
+			['Sweden', 14.65, 41467, 'Europe'],
+			['Denmark', 5.48, 40908, 'Europe'],
+			['Canada', 59.90, 40370, 'Europe'],
+			['Australia', 12.36, 39721, 'Oceania'],
+			['Germany', 36.92, 39491, 'Europe'],
+			['Belgium', 74.74, 38768, 'Europe'],
+			['Finland', 14.97, 37464, 'Europe'],
+			['Iceland', 0.00, 36485, 'Europe'],
+			['Equatorial Guinea', 41.68, 36202, 'Africa'],
+			['United Kingdom', 13.41, 35657, 'Europe'],
+			['France', 26.81, 35246, 'Europe'],
+			['Japan', 3.32, 34314, 'Asia'],
+			['Italy', 58.61, 32647, 'Europe'],
+			['Cyprus', 33.15, 32254, 'Europe'],
+			['Spain', 51.18, 32045, 'Europe'],
+			['Bahamas, The', 38.62, 31978, 'North America'],
+			['South Korea', 0.30, 30286, 'Asia'],
+			['New Zealand', 10.70, 30057, 'Oceania'],
+			['Oman', 69.29, 28684, 'Asia'],
+			['Israel', 66.52, 27825, 'Asia'],
+			['Malta', 41.19, 27284, 'Europe'],
+			['Slovenia', 17.41, 26954, 'Europe'],
+			['Seychelles', 6.67, 26241, 'Africa'],
+			['Czech Republic', 14.59, 26208, 'Europe'],
+			['Greece', 14.38, 25850, 'Europe'],
+			['Portugal', 2.20, 25372, 'Europe'],
+			['Trinidad and Tobago', 69.64, 25074, 'North America'],
+			['Saudi Arabia', 13.80, 24268, 'Asia'],
+			['Slovakia', 23.66, 23910, 'Europe'],
+			['Bahrain', 66.29, 23645, 'Asia'],
+			['Estonia', 45.71, 21995, 'Europe'],
+			['Hungary', 2.40, 21663, 'Europe'],
+			['Poland', 6.61, 21261, 'Europe'],
+			['Russia', 25.00, 21246, 'Europe'],
+			['Lithuania', 34.06, 20321, 'Europe'],
+			['Croatia', 21.06, 19469, 'Europe'],
+			['Barbados', 9.10, 19320, 'North America'],
+			['Antigua and Barbuda', 24.84, 18492, 'North America'],
+			['Latvia', 58.35, 17569, 'Europe'],
+			['Argentina', 23.31, 17554, 'South America'],
+			['Chile', 3.50, 17310, 'South America'],
+			['Saint Kitts and Nevis', 1.98, 17226, 'North America'],
+			['Turkey', 27.12, 17110, 'Asia'],
+			['Libya', 50.02, 16897, 'Africa'],
+			['Malaysia', 74.29, 16051, 'Asia'],
+			['Gabon', 76.19, 15852, 'Africa'],
+			['Panama', 32.37, 15589, 'South America'],
+			['Mexico', 13.88, 15266, 'North America'],
+			['Romania', 16.88, 15139, 'Europe'],
+			['Uruguay', 9.23, 15078, 'South America'],
+			['Belarus', 39.66, 14938, 'Europe'],
+			['Bulgaria', 26.34, 14825, 'Europe'],
+			['Botswana', 51.23, 14746, 'Africa'],
+			['Lebanon', 16.12, 14609, 'Asia'],
+			['Mauritius', 58.70, 14420, 'Africa'],
+			['Palau', 7.75, 13758, 'Oceania'],
+			['Montenegro', 56.71, 13432, 'Europe'],
+			['Dominica', 31.32, 13288, 'North America'],
+			['Kazakhstan', 69.86, 13099, 'Asia'],
+			['Venezuela', 5.06, 12749, 'South America'],
+			['Costa Rica', 4.95, 12157, 'North America'],
+			['Serbia', 62.84, 11883, 'Europe'],
+			['Brazil', 10.34, 11640, 'South America'],
+			['Saint Lucia', 13.43, 11597, 'North America'],
+			['Iran', 82.07, 11508, 'Asia'],
+			['Macedonia', 57.81, 11258, 'Europe'],
+			['South Africa', 87.41, 10960, 'Africa'],
+			['Grenada', 6.43, 10837, 'North America'],
+			['Saint Vincent and the Grenadines', 0.86, 10715, 'North America'],
+			['Peru', 38.76, 10234, 'South America'],
+			['Azerbaijan', 45.51, 10067, 'Asia'],
+			['Colombia', 3.69, 10033, 'South America'],
+			['Dominican Republic', 5.34, 9796, 'North America'],
+			['Turkmenistan', 38.56, 9420, 'Asia'],
+			['Tunisia', 1.16, 9351, 'Africa'],
+			['Bosnia and Herzegovina', 65.95, 9076, 'Europe'],
+			['Maldives', 0.78, 8871, 'Africa'],
+			['Albania', 57.74, 8866, 'Europe'],
+			['Ecuador', 29.12, 8669, 'South America'],
+			['Algeria', 31.70, 8655, 'Africa'],
+			['Thailand', 74.06, 8646, 'Asia'],
+			['China', 50.94, 8400, 'Asia'],
+			['Suriname', 78.84, 7891, 'Africa'],
+			['Ukraine', 49.49, 7208, 'Europe'],
+			['Jamaica', 1.11, 7083, 'North America'],
+			['El Salvador', 0.43, 6831, 'North America'],
+			['Namibia', 80.97, 6779, 'Africa'],
+			['Belize', 76.93, 6672, 'North America'],
+			['Egypt', 53.58, 6281, 'Africa'],
+			['Swaziland', 21.03, 6057, 'Africa'],
+			['Jordan', 49.56, 5966, 'Asia'],
+			['Angola', 81.29, 5920, 'Africa'],
+			['Bhutan', 88.37, 5846, 'Asia'],
+			['Armenia', 7.70, 5789, 'Asia'],
+			['Sri Lanka', 31.96, 5582, 'Asia'],
+			['Paraguay', 35.20, 5501, 'South America'],
+			['Georgia', 58.21, 5465, 'Asia'],
+			['Syria', 52.70, 5252, 'Asia'],
+			['Bolivia', 68.00, 5099, 'South America'],
+			['Morocco', 46.58, 4952, 'Africa'],
+			['Guatemala', 68.99, 4928, 'North America'],
+			['Tonga', 1.41, 4886, 'Oceania'],
+			['Fiji', 60.85, 4757, 'Oceania'],
+			['Mongolia', 33.15, 4742, 'Asia'],
+			['Indonesia', 81.63, 4636, 'Asia'],
+			['Samoa', 0.20, 4475, 'Oceania'],
+			['Vanuatu', 97.35, 4451, 'Oceania'],
+			['Congo, Rep.', 85.72, 4360, 'Africa'],
+			['Philippines', 85.53, 4119, 'Asia'],
+			['Cape Verde', 6.98, 4095, 'Africa'],
+			['Honduras', 5.57, 4047, 'North America'],
+			['Iraq', 67.45, 3864, 'Asia'],
+			['Nicaragua', 8.23, 3812, 'North America'],
+			['India', 94.01, 3627, 'Asia'],
+			['Guyana', 7.96, 3438, 'South America'],
+			['Micronesia, Fed. Sts.', 77.21, 3412, 'Oceania'],
+			['Vietnam', 24.23, 3412, 'Asia'],
+			['Moldova', 58.98, 3369, 'Europe'],
+			['Uzbekistan', 43.69, 3287, 'Asia'],
+			['Solomon Islands', 96.71, 2923, 'Oceania'],
+			['Laos', 67.37, 2790, 'Asia'],
+			['Pakistan', 73.58, 2745, 'Asia'],
+			['Papua New Guinea', 99.02, 2676, 'Oceania'],
+			['Mauritania', 18.34, 2554, 'Africa'],
+			['Nigeria', 87.58, 2533, 'Africa'],
+			['Kyrgyzstan', 67.01, 2399, 'Asia'],
+			['Cameroon', 94.36, 2359, 'Africa'],
+			['Cambodia', 16.93, 2358, 'Asia'],
+			['Kiribati', 3.30, 2337, 'Oceania'],
+			['Yemen', 57.89, 2333, 'Asia'],
+			['Sudan &  South Sudan', 54.37, 2325, 'Africa'],
+			['Tajikistan', 48.21, 2324, 'Asia'],
+			['Djibouti', 57.06, 2296, 'Africa'],
+			['São Tomé and Príncipe', 38.96, 2077, 'Africa'],
+			['Senegal', 77.47, 1967, 'Africa'],
+			['Ghana', 80.51, 1871, 'Africa'],
+			['Gambia, The', 78.05, 1809, 'Africa'],
+			['Côte d\'Ivoire', 91.62, 1789, 'Africa'],
+			['Bangladesh', 38.57, 1777, 'Asia'],
+			['Kenya', 87.57, 1710, 'Africa'],
+			['Lesotho', 26.04, 1703, 'Africa'],
+			['Zambia', 87.77, 1621, 'Africa'],
+			['Benin', 92.11, 1617, 'Africa'],
+			['East Timor', 89.68, 1578, 'Asia'],
+			['Chad', 94.43, 1521, 'Africa'],
+			['Tanzania', 94.68, 1512, 'Africa'],
+			['Uganda', 92.57, 1345, 'Africa'],
+			['Burkina Faso', 77.19, 1301, 'Africa'],
+			['Rwanda', 0.40, 1282, 'Africa'],
+			['Nepal', 73.75, 1252, 'Asia'],
+			['Guinea-Bissau', 87.14, 1243, 'Africa'],
+			['Haiti', 0.02, 1171, 'North America'],
+			['Afghanistan', 74.06, 1139, 'Asia'],
+			['Guinea', 75.32, 1124, 'Africa'],
+			['Comoros', 54.54, 1110, 'Africa'],
+			['Ethiopia', 86.40, 1109, 'Africa'],
+			['Mali', 87.40, 1091, 'Africa'],
+			['Togo', 89.73, 1049, 'Africa'],
+			['Mozambique', 93.23, 975, 'Africa'],
+			['Madagascar', 72.12, 966, 'Africa'],
+			['Malawi', 52.47, 893, 'Africa'],
+			['Sierra Leone', 82.16, 871, 'Africa'],
+			['Central African Republic', 95.90, 810, 'Africa'],
+			['Niger', 63.98, 727, 'Africa'],
+			['Burundi', 0.41, 604, 'Africa'],
+			['Eritrea', 62.71, 585, 'Africa'],
+			['Liberia', 91.60, 585, 'Africa'],
+			['Congo, Dem. Rep.', 94.71, 373, 'Africa']
+		]);
+
+		var options = {
+			title: 'Linguistic Diversity vs GDP/capita',
+			hAxis: {title: 'Linguistic Diversity Index (% chance that two residents have different native languages)'},
+			vAxis: {
+				title: 'GDP (PPP)/capita in Int$ (World Bank, 2005-2011)',
+				logScale: true,
+				minValue: 100,
+				maxValue: 100000,
+				gridlines: {count: 4}
+			},
+			sizeAxis: {minSize: 5, maxSize: 5},
+			bubble: {textStyle: {color: 'transparent'}}
+		};
+
+		var chart = new google.visualization.BubbleChart(document.getElementById('chart_div'));
+		chart.draw(data, options);
+	}
+</script>
+<script type='text/javascript'>
+	google.load('visualization', '1', {'packages': ['geomap']});
+	google.setOnLoadCallback(drawMap);
+
+	function drawMap() {
+		var data = google.visualization.arrayToDataTable([
+			['Country', 'Linguistic Diversity Index'],
+			['Luxembourg', 48.86],
+			['Qatar', 60.79],
+			['Singapore', 77.33],
+			['Norway', 67.65],
+			['Kuwait', 55.64],
+			['Brunei', 58.53],
+			['Switzerland', 57.73],
+			['United States', 31.87],
+			['United Arab Emirates', 77.71],
+			['Netherlands', 27.61],
+			['Austria', 53.48],
+			['Ireland', 16.54],
+			['Sweden', 14.65],
+			['Denmark', 5.48],
+			['Canada', 59.90],
+			['Australia', 12.36],
+			['Germany', 36.92],
+			['Belgium', 74.74],
+			['Finland', 14.97],
+			['Iceland', 0.00],
+			['Equatorial Guinea', 41.68],
+			['United Kingdom', 13.41],
+			['France', 26.81],
+			['Japan', 3.32],
+			['Italy', 58.61],
+			['Cyprus', 33.15],
+			['Spain', 51.18],
+			['Bahamas, The', 38.62],
+			['South Korea', 0.30],
+			['New Zealand', 10.70],
+			['Oman', 69.29],
+			['Israel', 66.52],
+			['Malta', 41.19],
+			['Slovenia', 17.41],
+			['Seychelles', 6.67],
+			['Czech Republic', 14.59],
+			['Greece', 14.38],
+			['Portugal', 2.20],
+			['Trinidad and Tobago', 69.64],
+			['Saudi Arabia', 13.80],
+			['Slovakia', 23.66],
+			['Bahrain', 66.29],
+			['Estonia', 45.71],
+			['Hungary', 2.40],
+			['Poland', 6.61],
+			['Russia', 25.00],
+			['Lithuania', 34.06],
+			['Croatia', 21.06],
+			['Barbados', 9.10],
+			['Antigua and Barbuda', 24.84],
+			['Latvia', 58.35],
+			['Argentina', 23.31],
+			['Chile', 3.50],
+			['Saint Kitts and Nevis', 1.98],
+			['Turkey', 27.12],
+			['Libya', 50.02],
+			['Malaysia', 74.29],
+			['Gabon', 76.19],
+			['Panama', 32.37],
+			['Mexico', 13.88],
+			['Romania', 16.88],
+			['Uruguay', 9.23],
+			['Belarus', 39.66],
+			['Bulgaria', 26.34],
+			['Botswana', 51.23],
+			['Lebanon', 16.12],
+			['Mauritius', 58.70],
+			['Palau', 7.75],
+			['Montenegro', 56.71],
+			['Dominica', 31.32],
+			['Kazakhstan', 69.86],
+			['Venezuela', 5.06],
+			['Costa Rica', 4.95],
+			['Serbia', 62.84],
+			['Brazil', 10.34],
+			['Saint Lucia', 13.43],
+			['Iran', 82.07],
+			['Macedonia', 57.81],
+			['South Africa', 87.41],
+			['Grenada', 6.43],
+			['Saint Vincent and the Grenadines', 0.86],
+			['Peru', 38.76],
+			['Azerbaijan', 45.51],
+			['Colombia', 3.69],
+			['Dominican Republic', 5.34],
+			['Turkmenistan', 38.56],
+			['Tunisia', 1.16],
+			['Bosnia and Herzegovina', 65.95],
+			['Maldives', 0.78],
+			['Albania', 57.74],
+			['Ecuador', 29.12],
+			['Algeria', 31.70],
+			['Thailand', 74.06],
+			['China', 50.94],
+			['Suriname', 78.84],
+			['Ukraine', 49.49],
+			['Jamaica', 1.11],
+			['El Salvador', 0.43],
+			['Namibia', 80.97],
+			['Belize', 76.93],
+			['Egypt', 53.58],
+			['Swaziland', 21.03],
+			['Jordan', 49.56],
+			['Angola', 81.29],
+			['Bhutan', 88.37],
+			['Armenia', 7.70],
+			['Sri Lanka', 31.96],
+			['Paraguay', 35.20],
+			['Georgia', 58.21],
+			['Syria', 52.70],
+			['Bolivia', 68.00],
+			['Morocco', 46.58],
+			['Guatemala', 68.99],
+			['Tonga', 1.41],
+			['Fiji', 60.85],
+			['Mongolia', 33.15],
+			['Indonesia', 81.63],
+			['Samoa', 0.20],
+			['Vanuatu', 97.35],
+			['CG', 85.72],
+			['Philippines', 85.53],
+			['Cape Verde', 6.98],
+			['Honduras', 5.57],
+			['Iraq', 67.45],
+			['Nicaragua', 8.23],
+			['India', 94.01],
+			['Guyana', 7.96],
+			['Micronesia', 77.21],
+			['Vietnam', 24.23],
+			['Moldova', 58.98],
+			['Uzbekistan', 43.69],
+			['Solomon Islands', 96.71],
+			['Laos', 67.37],
+			['Pakistan', 73.58],
+			['Papua New Guinea', 99.02],
+			['Mauritania', 18.34],
+			['Nigeria', 87.58],
+			['Kyrgyzstan', 67.01],
+			['Cameroon', 94.36],
+			['Cambodia', 16.93],
+			['Kiribati', 3.30],
+			['Yemen', 57.89],
+			['Sudan', 54.37],
+			['Tajikistan', 48.21],
+			['Djibouti', 57.06],
+			['Sao Tome and Principe', 38.96],
+			['Senegal', 77.47],
+			['Ghana', 80.51],
+			['Gambia, The', 78.05],
+			['Bangladesh', 38.57],
+			['Kenya', 87.57],
+			['Lesotho', 26.04],
+			['Zambia', 87.77],
+			['Benin', 92.11],
+			['East Timor', 89.68],
+			['Chad', 94.43],
+			['Tanzania', 94.68],
+			['Uganda', 92.57],
+			['Burkina Faso', 77.19],
+			['Rwanda', 0.40],
+			['Nepal', 73.75],
+			['Guinea-Bissau', 87.14],
+			['Haiti', 0.02],
+			['Afghanistan', 74.06],
+			['Guinea', 75.32],
+			['Comoros', 54.54],
+			['Ethiopia', 86.40],
+			['Mali', 87.40],
+			['Togo', 89.73],
+			['Mozambique', 93.23],
+			['Madagascar', 72.12],
+			['Malawi', 52.47],
+			['Sierra Leone', 82.16],
+			['Central African Republic', 95.90],
+			['Niger', 63.98],
+			['Burundi', 0.41],
+			['Eritrea', 62.71],
+			['Liberia', 91.60],
+			['CD', 94.71],
+			['Zimbabwe', 51.82],
+			['North Korea', 0],
+			['Somalia', 34.87],
+			['Myanmar', 53.03],
+			['Cuba', 0.07],
+			['French Guiana', 44.99],
+			['CI', 91.62],
+			['Greenland', 24.19]
+		]);
+
+		var options = {
+			dataMode: 'regions',
+			width: 700,
+			height: 400
+		};
+
+		var container = document.getElementById('map_canvas');
+		var geomap = new google.visualization.GeoMap(container);
+		geomap.draw(data, options);
+	};
+</script>

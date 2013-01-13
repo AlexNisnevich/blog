@@ -14,8 +14,8 @@ email: alex.nisnevich@gmail.com
 
 # configuration for enhancements, uncomment to enable
 
-# feedburner:
-#   id: feedburnerid
+feedburner:
+   id: alexnisnevich
 
 google_analytics:
   account: UA-345959-11
@@ -28,4 +28,4 @@ disqus:
 
 # settings
 
-show_related_posts: false # enable once there's actually more than a few posts
+show_related_posts: false # wait until I have ~10 posts

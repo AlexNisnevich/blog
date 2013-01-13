@@ -221,6 +221,15 @@ li {
   text-transform: uppercase;
   color: #999;
 }
+#page #body img.figure {
+  display: block;
+  margin: 0 auto;
+}
+#page #body .chart {
+  width: 700px;
+  height: 400px;
+  margin: 1em auto;
+}
 #page #footer {
   width: 100%;
   border-top: 1px solid #999;
