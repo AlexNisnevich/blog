@@ -178,7 +178,7 @@ h2, h2 a {
 }
 
 code {
-  font-family: 'Ubuntu Mono', monospace;
+  font-family: "Ubuntu Mono", monospace;
   font-size: 14px;
   background-color: black;
   padding: 4px;
@@ -211,7 +211,7 @@ li {
 }
 #page #body {
   width: 100%;
-  font-family: 'Average', 'Goudy Bookletter 1911', Georgia, 'Times New Roman', serif;
+  font-family: "Average", "Goudy Bookletter 1911", Georgia, "Times New Roman", serif;
   font-size: 17px;
   line-height: 1.5em;
 }
@@ -232,7 +232,7 @@ li {
 }
 #page #footer {
   width: 100%;
-  border-top: 1px solid #999;
+  border-top: 1px solid #999999;
   margin: 1em auto;
   padding: 1.2em 0;
   clear: both;
@@ -243,7 +243,7 @@ li {
 
 #related, #comments {
   margin-top: 1em;
-  border-top: 4px solid #ccc;
+  border-top: 4px solid #cccccc;
   padding-top: 1em;
 }
 
