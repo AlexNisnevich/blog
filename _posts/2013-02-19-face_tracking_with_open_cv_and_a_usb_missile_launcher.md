@@ -8,9 +8,9 @@ tags: [fun, python, usb, linux, osx, windows, opencv, vision, ai, hardware]
 
 ![Demonstration of Sentinel](/blog/images/sentinel.png)
 
-I recently got my roommate a [Dream Cheeky Thunder](http://www.dreamcheeky.com/thunder-missile-launcher) USB missile launcher. It was fun to play around for a bit, but the included software was very limited in its functionality. Just when I was ready to dismiss the camera as an overpriced toy, my roommate came up with a great idea: could we mount a camera to the turret and make it automatically aim and fire at faces?
+I recently got my roommate a [Dream Cheeky Thunder](http://www.dreamcheeky.com/thunder-missile-launcher) USB missile launcher. It was fun to play around with for a bit, but the included software was very limited in its functionality. Just when I was ready to dismiss the camera as an overpriced toy, my roommate came up with a great idea: could we mount a camera to the turret and make it automatically aim and fire at faces?
 
-After a couple weeks of experimentation, we came up with [Sentinel](http://www.dreamcheeky.com/thunder-missile-launcher), a Python script that does just that, making heavy use of the excellent [OpenCV](http://opencv.org/) computer vision library. Here's how we did it.
+After a couple weeks of experimentation, we came up with [Sentinel](https://github.com/AlexNisnevich/sentinel), a Python script that does just that, making heavy use of the excellent [OpenCV](http://opencv.org/) computer vision library. Here's how we did it.
 
 ### Step Zero. The concept
 
@@ -18,12 +18,12 @@ The main loop of the program is conceptually quite simple:
 
 {% highlight python %}
 while True:
-camera.capture()
-face_detected, x_adj, y_adj = camera.face_detect()
-camera.display()
-if face_detected:
-   turret.adjust(x_adj, y_adj)
-   turret.ready_aim_fire()
+   camera.capture()
+   face_detected, x_adj, y_adj = camera.face_detect()
+   camera.display()
+   if face_detected:
+      turret.adjust(x_adj, y_adj)
+      turret.ready_aim_fire()
 {% endhighlight %}
 
 At each iteration, the camera takes a picture, which is then processed to detect any faces. If a face is detected, the turret adjust itself to bring the face closer to the center of the camera's field of view. If the face is close enough to the center and the turret is armed, it then fires a missile at its target. The camera's output is also sent to the screen, with an ominous red reticule drawn over a detected face.
@@ -108,26 +108,26 @@ This behavior is actually intentional in OpenCV: images are stored in a buffer a
 Our solution was a little hackish but succeeded in correcting the problem: we simply made a `clear_buffer` method that repeatedly grabs images from the buffer until only the latest image is left, slowing the process down slightly but greatly improving the turret's behavior:
 
 {% highlight python %}
-   # grabs several images from buffer to attempt to clear out old images
-   def clear_buffer(self):
-      for i in range(self.opts.buffer_size):
-         if not self.webcam.retrieve(channel=0):
-            raise ValueError('no more images in buffer, mate')
+# grabs several images from buffer to attempt to clear out old images
+def clear_buffer(self):
+   for i in range(self.opts.buffer_size):
+      if not self.webcam.retrieve(channel=0):
+         raise ValueError('no more images in buffer, mate')
 {% endhighlight %}
 
 The webcam is set up for use with OpenCV via `self.webcam = cv2.VideoCapture(int(self.opts.camera))` within the `Camera` class's initializer, and frames are captured like this:
 
 {% highlight python %}
-   # on Windows and OS X, use OpenCV to grab latest camera frame and store in self.current_frame
+# on Windows and OS X, use OpenCV to grab latest camera frame and store in self.current_frame
 
-   if not self.webcam.grab():
-      raise ValueError('frame grab failed')
-   self.clear_buffer()
+if not self.webcam.grab():
+   raise ValueError('frame grab failed')
+self.clear_buffer()
 
-   retval, most_recent_frame = self.webcam.retrieve(channel=0)
-   if not retval:
-      raise ValueError('frame capture failed')
-   self.current_frame = most_recent_frame
+retval, most_recent_frame = self.webcam.retrieve(channel=0)
+if not retval:
+   raise ValueError('frame capture failed')
+self.current_frame = most_recent_frame
 {% endhighlight %}
 
 We're currently using OpenCV for photo capture in OS X as well, though it doesn't seem to work as well as in Windows, so we're looking for alternative tools we can use to capture photos from within the script.
@@ -242,7 +242,7 @@ def adjust(self, right_dist, down_dist):
 
 Note that the only way to move the turret a certain distance is to estimate how long the turret's rotation would last and send it commands to move and stop with the appropriate timing.
 
-Finally, `Turret.ready_aim_fire` detects if the face was close enough to the center of the camera to fire, turning on the turret's LED as a warning before firing a missile (unless the `--disarm` flag is passed to the script). Then the loop continues, until the turret has fired all four of its missiles:
+Finally, `Turret.ready_aim_fire` detects if the face was close enough to the center of the camera to fire, turning on the turret's LED as a warning before firing a missile (if the `--disarm` flag is passed to the script, the LED is turned on, but no missile is fired). Then the loop continues, until the turret has fired all four of its missiles:
 
 {% highlight python %}
 # turn on LED if face detected in range, and fire missiles if armed
@@ -270,6 +270,7 @@ If you have a Dream Cheeky brand USB missile launcher (though it wouldn't take m
 We've gotten Sentinel working on Windows, OS X, and several Linux distros, though installing the dependencies (OpenCV, PyUSB, and others, depending on platform) can take some work.
 
 We're currently hard at work on some more features, including:
+
 - different modes of operation (such as a "sweep mode", in which the turret continually pans until it locates a face, rather than staying idle when it doesn't see a face)
 - a "kill-cam" feature that stores the pictures that it takes right as it shoots a target
 - easier installation of dependencies (especially on Windows)
