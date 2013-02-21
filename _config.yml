@@ -28,4 +28,5 @@ disqus:
 
 # settings
 
-show_related_posts: false # wait until I have ~10 posts
+show_related_posts: true
+num_related_posts: 3

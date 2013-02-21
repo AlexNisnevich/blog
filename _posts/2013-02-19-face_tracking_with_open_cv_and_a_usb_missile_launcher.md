@@ -12,6 +12,12 @@ I recently got my roommate a [Dream Cheeky Thunder](http://www.dreamcheeky.com/t
 
 After a couple weeks of experimentation, we came up with [Sentinel](https://github.com/AlexNisnevich/sentinel), a Python script that does just that, making heavy use of the excellent [OpenCV](http://opencv.org/) computer vision library. Here's how we did it.
 
+### But first, a video demo!
+
+<center><iframe width="640" height="480" src="http://www.youtube.com/embed/L2It-kK0yfM" frameborder="0" allowfullscreen></iframe></center>
+
+_Note: The above video was filmed while our computers were rather bogged down, and Sentinel usually runs signficantly faster than that (especially on Windows and OS X, where it can go as fast as 3 iterations per second)._
+
 ### Step Zero. The concept
 
 The main loop of the program is conceptually quite simple:
