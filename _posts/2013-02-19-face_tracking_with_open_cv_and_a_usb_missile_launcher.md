@@ -8,7 +8,7 @@ tags: [fun, python, usb, linux, osx, windows, opencv, vision, ai, hardware]
 
 ![Demonstration of Sentinel](/blog/images/sentinel.png)
 
-I recently got my roommate a [Dream Cheeky Thunder](http://www.dreamcheeky.com/thunder-missile-launcher) USB missile launcher. It was fun to play around with for a bit, but the included software was very limited in its functionality. Just when I was ready to dismiss the camera as an overpriced toy, my roommate came up with a great idea: could we mount a camera to the turret and make it automatically aim and fire at faces?
+I recently got my roommate a [Dream Cheeky Thunder](http://www.dreamcheeky.com/thunder-missile-launcher) USB missile launcher. It was fun to play around with for a bit, but the included software was very limited in its functionality. Just when I was ready to dismiss it as an overpriced toy, my roommate came up with a great idea: could we mount a camera to the turret and make it automatically aim and fire at faces?
 
 After a couple weeks of experimentation, we came up with [Sentinel](https://github.com/AlexNisnevich/sentinel), a Python script that does just that, making heavy use of the excellent [OpenCV](http://opencv.org/) computer vision library. Here's how we did it.
 
