@@ -12,19 +12,22 @@ task :build => :clean do
   make_symlink
 end
 
-desc 'Start server with --auto'
-task :server => :clean do
+desc 'Start server'
+task :server do
   compass
-  jekyll('--server --auto')
+  jekyll('--server')
+  # run "rake symlink" in another thread
 end
 
-task :make_symlink do
+task :symlink do
   make_symlink
 end
 
 desc 'Build and deploy'
 task :deploy => :build do
-  sh 'rsync -rtzh --progress --delete _site/ username@servername:/var/www/websitename/'
+  sh 'rm -rf _site/blog'
+  sh 'rm -rf _site/build'
+  sh './_deploy.sh'
 end
 
 desc 'Check links for site already running on localhost:4000'
@@ -71,5 +74,5 @@ end
 
 @dir = 'blog'
 def make_symlink
-  sh 'cd _site && sudo ln -s . ' + @dir
+  sh 'mkdir -p _site && cd _site && sudo ln -s . ' + @dir
 end

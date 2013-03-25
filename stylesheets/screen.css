@@ -188,6 +188,17 @@ li {
   margin-bottom: 0.5em;
 }
 
+table {
+  border-collapse: collapse;
+}
+table td, table th {
+  border: 1px solid #eeeeee;
+  padding: 2px 4px;
+}
+table td:first-child, table th:first-child {
+  display: none;
+}
+
 #page {
   width: 750px;
   margin: 20px auto;
