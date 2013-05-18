@@ -34,6 +34,10 @@ code {
     font-size: 14px;
     background-color: black;
     padding: 4px;
+
+    &.has-jax {
+        padding: 0;
+    }
 }
 
 li {

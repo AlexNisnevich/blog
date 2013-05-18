@@ -183,6 +183,9 @@ code {
   background-color: black;
   padding: 4px;
 }
+code.has-jax {
+  padding: 0;
+}
 
 li {
   margin-bottom: 0.5em;
