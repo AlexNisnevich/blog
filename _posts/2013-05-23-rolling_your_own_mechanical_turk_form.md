@@ -53,6 +53,8 @@ In order to integrate with Mechanical Turk, the form needs to:
 - submit results to `https://www.mturk.com/mturk/externalSubmit`
 - pass on the `assignmentId` parameter  (I also pass on the `hitId` parameter, just in case)
 
+The controller action should look like:
+
 {% highlight ruby %}
 class SurveyController < ApplicationController
   def show
@@ -64,7 +66,7 @@ class SurveyController < ApplicationController
 end
 {% endhighlight %}
 
-The template of the form should look like this:
+The template of the form should look like:
 
 {% highlight erb %}
 <% form_tag("https://www.mturk.com/mturk/externalSubmit", :method => "post") do |form| %>

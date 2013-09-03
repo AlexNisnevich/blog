@@ -1,0 +1,49 @@
+---
+layout: post
+title: Postmortem - 10 Second Roguelike
+tags: [creations, games, javascript, ludum dare, fun, roguelikes]
+---
+
+<p style="text-align: center;">[<a href="http://www.ludumdare.com/compo/2013/08/30/10-second-roguelike-postmortem">Original post on ludumdare.com</a>]</p>
+
+<p style="text-align: center;"><a href="http://www.ludumdare.com/compo/ludum-dare-27/?action=preview&amp;uid=3353"><img class="aligncenter" alt="" src="http://www.ludumdare.com/compo/wp-content/compo2/273708/3353-shot0.png" width="661" height="307" /></a></p>
+<p style="text-align: left;">Well, I've never done one of these before, so here goes nothing.</p>
+
+<h2>What went right</h2>
+<strong>Long brainstorming session</strong>
+
+<p>I was fortunate in having a group of friends help me brainstorm ideas when the theme was first announced. About a dozen ideas were thrown around, some interesting and some worthless, until I finally settled on this one. My first few ideas were tempting but also ultimately crappy, so being able to bounce back ideas with other people saved me from falling into the usual trap of doing the first thing that fell into my head.</p>
+
+<strong>Playing to my strengths</strong>
+
+<p>This isn't the <a href="http://alex.nisnevich.com/untrusted">first roguelikelike</a> I've made, and for good reason, aside from loving the genre: I'm not any good at art, at all. In almost any other genre, I'd be forced to spend long hours putting together terrible art, but fortunately this wasn't an issue for me here.</p>
+
+<strong>Not reinventing the wheel</strong>
+
+<p>For level generation and field-of-view computation, I used <a href="http://ondras.github.io/rot.js/hp/">rot.js</a>, an excellent set of utilities specifically designed for roguelikes. I probably could have managed without rot.js, but when you only have 48 hours, why not limit the work you have to do as much as possible? Using rot.js also offered the huge advantage of giving me something vaguely playable within an hour or two of starting, meaning that I could spend the rest of the competition working on making gameplay as fun as possible.</p>
+
+<strong>Addictive gameplay</strong>
+
+<p>My main objective with this game was making it as fun and as fast-paced as possible. To this end, I made death be completely harmless, let players immediately create a new character in one click and jump back in the game, and provided a silly soundtrack to accompany the dungeon romp. When my playtesters (er, friends) started to refuse to give me back the computer, I knew that I had stumbled onto something.</p>
+
+<strong>A little bit of flair</strong>
+
+<p>Roguelikes are inherently rather bland visually, so small touches to make the game look good were important for the player experience. Things like smooth lighting, a shiny experience bar, and a memorial to dead characters at the end of the game were all relatively quick to implement and provided a nice distraction from the big-picture stuff for me, while making the game look much more polished. Don't skimp on the small stuff!</p>
+<h2>What went wrong</h2>
+<strong>No good plan for the second day</strong>
+
+<p>Most of the game features (timer, dungeon exploration, combat, character creation) were completed in the first 24 hours, which made me very optimistic about the next 24 hours. However, while there were a lot of things that I wanted to do (including items, spells, and more interesting monsters), I spent so much time debating about what order to do them in that I wasn't able to work most of these features into the game. In the end, my second day consisted mainly of making levels and creating the boss fight and ending, as well as doing a lot of playtesting and minor tweaking. Next time around, I'd like to budget my time a little more effectively, especially for the second day.</p>
+
+<strong>Not enough replay value</strong>
+
+<p>Well, you beat the boss, and then the game is over. Several playtesters told me the game needed to have a way to continue playing after the boss fight, but, given how messy my second day was, I declined to implement this at the time. I did eventually address this issue by adding an Infinite mode to the post-compo version though.</p>
+
+<strong>Dungeon annoyances</strong>
+
+<p>I didn't spend enough time making sure that all dungeon stairs are reachable within 10 seconds. Sometimes the stairs aren't, though they should still be reachable if you have a faster character (speed &gt; 1.0). And I'm pretty sure there's a (small) chance of the boss appearing in an unreachable location on the final level, though I haven't personally seen that. Regardless, I should have spent more time ensuring that every game is beatable, regardless of luck of the draw.</p>
+
+<strong>Not enough lore</strong>
+
+<p>The game's story consists of two paragraphs of flavor text that I hastily cobbled together as the minutes were counting down. I suppose it's not that big a deal for a game that seems to have more in common with Quake than with Rogue, but it still would have been nice to have an actual story.</p>
+<h2>All in all</h2>
+I've taken part in three Ludum Dares before, but this was by far my most successful one: I made a game that most players found to be fun, which is a feat that I have never really achieved before. Next time around, I will hopefully interpret the theme a little more creatively, and I hope to address my biggest issue from LD27: insufficient planning of secondary game features. Still, I'm pretty happy with Ten Second Roguelike. Let me know what you think!
