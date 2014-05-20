@@ -1,0 +1,52 @@
+---
+layout: post
+title: Postmortem - Asteroid Tycoon
+tags: [creations, games, javascript, ludum dare, fun, asteroid tycoon, jam, dmitry, greg, jimmy, jordan, natasha, tikhon]
+date: 2014-05-07
+---
+
+<p style="text-align: center;">[<a href="http://www.ludumdare.com/compo/2014/05/07/asteroid-tycoon-postmortem/">Original post on ludumdare.com</a>]</p>
+
+<p style="text-align: center;"><a href="http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&amp;uid=3353"><img class="aligncenter" alt="" src="http://www.ludumdare.com/compo/wp-content/compo2/342546/3353-shot0.png" width="675" height="425" /></a></p>
+<p style="text-align: left;">For this Ludum Dare, I worked with a group of friends to create <a href="http://www.ludumdare.com/compo/ludum-dare-29/?action=preview&amp;uid=3353">Asteroid Tycoon</a>. I’ve done the Compo a few times in the past, but none of us had ever game jammed in a team before, and it was quite the experience. I’ve learned that doing Ludum Dare with a team brings with it both enormous benefits and unexpected challenges.</p>
+
+<h2>What went right</h2>
+<strong>Diverse talent</strong>
+
+<p>Being able to work with an artist, a UI designer, a game designer, an amateur musician, etc (some people filled multiple of these roles) was an amazing experience compared to previous Ludum Dares. For the first time, I’ve submitted a game that actually looks and feels really solid.</p>
+
+<strong>Combining multiple ideas together</strong>
+
+<p>During our team brainstorming session, a few ideas became big hits: a candy-box-like about building an asteroid mining empire, something involving moles and tunneling, and a game with programmable robots. The idea for Asteroid Tycoon came about as we realized that we could combine elements from these three ideas into a coherent concept.</p>
+
+<strong>Constant balance tweaking</strong>
+
+<p>Gameplay elements underwent many changes as work on the game went on. For example, the robot upgrade progression initially was triggered by amount of minerals collected (a different mineral for each robot), but switching to a depth-based system proved to be a lot more enjoyable for the player. For much of the weekend (at least once we had something playable), at least one person (usually a team member taking a break) was playing the game at all times, so we constantly had feedback that we used to adjust parameters, and in many cases, rework entire mechanics.</p>
+
+<strong>Cute little touches</strong>
+
+<p>Little things like the marquee seem to have made a big difference in enjoyment and immersion. Also, some of our last-minute graphical tweaks, such as the beaming-down animation from the ship, improved the look of the game rather significantly.</p>
+<h2>What went wrong</h2>
+<strong>Repetitive music</strong>
+
+<p>Once we had a short loop of music, we deemed that “good enough for now” and decided to come back to the music situation if we had time. Unfortunately, we didn’t have any more time to work on music, and the result was slightly disastrous, as the constantly repeating main loop proved to be annoying to many players. We quickly added a mute button, but the damage was already done. In the future, I’d hesitate to add music unless it was sufficiently varied to not be a hindrance.</p>
+
+<strong>Not enough organization</strong>
+
+<p>Never having worked with a team on Ludum Dare before meant that my default workflow was an informal, poorly defined task list and a single development branch in git. This is reasonable enough for one person, but proved to be a disaster when working with a team of 7 people. On several occasions, lack of communication led to two programmers separately implementing the exact same feature or our two artists stepping on each others’ toes. Meanwhile, all work being on a single branch meant that nearly every commit resulted in a merge conflict, which proved to be very time-consuming in the long run. In retrospect, we should have had a more well-defined task-assignment scheme and used feature branches.</p>
+
+<strong>Gameplay not explained clearly enough</strong>
+
+<p>The primary gameplay mechanic in Asteroid Tycoon works as follows: you first click on a robot to build and then click on a destination square for it to try to move to. However, we didn’t explain this very clearly within the game itself, which led to many players thinking that they had to click on the surface or on the spaceship — the result being that the robots reached their destination immediately and from then on proceeded to move in a way that would have appeared to be more or less random to the players.</p>
+
+<p>To make matters worse, important information is conveyed to the player via printouts that regularly appear but go away on the next mouse-click. What we didn’t anticipate was that most players click around so quickly that they don’t even get a chance to see the printout before accidentally closing it (old printouts are still saved in the top-left panel, but most players never bothered to use it).</p>
+
+<p>In retrospect, we should have done a better job of explaining exactly how gameplay works from the start, and come up with a different way to hide printouts (perhaps by giving them a Close button). These are both hopefully things that we will work on in the post-Jam version.</p>
+
+<strong>Only starting work after 18 hours</strong>
+
+<p>We made the conscious decision to not start work until noon (PST) Saturday, to give our brains plenty of time to process our different ideas. While this gave us lots of brainstorming time, it put us at a disadvantage time-wise compared to most Jam teams, and led to us being very pressed for time near the end (compounded by the fact that many of us had to go to work on Monday). In the future, I’d like to spend a little less time brainstorming and perhaps at least try to get a little bit of actual coding done Friday night.</p>
+<h2>All in all</h2>
+<p>After trying a Ludum Dare with a team for the first time, I don’t know if I can go back to doing the Compo! Not only were we able to build something bigger and more polished than any one of us could do on their own, but we had lots of fun working as a group. We’ll try to work together in future Ludum Dares.</p>
+
+<p>As far as Asteroid Tycoon goes, we’re really happy with how it turned out. We’ll probably tweak it a little bit post-Jam — primarily to make the instructions more clear, make the music a little less repetitive, and fix some sneaky bugs that people have reported.</p>
