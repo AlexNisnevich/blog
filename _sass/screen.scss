@@ -98,6 +98,12 @@ table {
             color: #999;
         }
 
+        .quote {
+            background-color:#444;
+            margin-left:20px;
+            padding: 10px
+        }
+
         img.figure {
             display: block;
             margin: 0 auto;
@@ -144,4 +150,15 @@ table {
     a {
         padding: 0 4px;
     }
+}
+
+// one-off styles
+.appetiteObscureTitle {
+    font: 34px Coustard, helvetica, arial;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+    color: #ccc;
 }

@@ -8,14 +8,14 @@ end
 desc 'Build site with Jekyll'
 task :build => :clean do
   compass
-  jekyll
+  jekyll('build')
   make_symlink
 end
 
 desc 'Start server'
 task :server do
   compass
-  jekyll('--server')
+  jekyll('serve')
   # run "rake symlink" in another thread
 end
 

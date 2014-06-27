@@ -179,7 +179,7 @@ h2, h2 a {
 }
 
 code {
-  font-family: "Ubuntu Mono", monospace;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 14px;
   background-color: black;
   padding: 4px;
@@ -197,7 +197,7 @@ table {
   border-collapse: collapse;
 }
 table td, table th {
-  border: 1px solid #eeeeee;
+  border: 1px solid #eee;
   padding: 2px 4px;
 }
 table td:first-child, table th:first-child {
@@ -227,7 +227,7 @@ table td:first-child, table th:first-child {
 }
 #page #body {
   width: 100%;
-  font-family: "Average", "Goudy Bookletter 1911", Georgia, "Times New Roman", serif;
+  font-family: 'Average', 'Goudy Bookletter 1911', Georgia, 'Times New Roman', serif;
   font-size: 17px;
   line-height: 1.5em;
 }
@@ -236,6 +236,11 @@ table td:first-child, table th:first-child {
   font-size: 12px;
   text-transform: uppercase;
   color: #999;
+}
+#page #body .quote {
+  background-color: #444;
+  margin-left: 20px;
+  padding: 10px;
 }
 #page #body img.figure {
   display: block;
@@ -248,7 +253,7 @@ table td:first-child, table th:first-child {
 }
 #page #footer {
   width: 100%;
-  border-top: 1px solid #999999;
+  border-top: 1px solid #999;
   margin: 1em auto;
   padding: 1.2em 0;
   clear: both;
@@ -259,7 +264,7 @@ table td:first-child, table th:first-child {
 
 #related, #comments {
   margin-top: 1em;
-  border-top: 4px solid #cccccc;
+  border-top: 4px solid #ccc;
   padding-top: 1em;
 }
 
@@ -275,4 +280,14 @@ table td:first-child, table th:first-child {
 }
 #archive a {
   padding: 0 4px;
+}
+
+.appetiteObscureTitle {
+  font: 34px Coustard, helvetica, arial;
+  font-weight: normal;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #ccc;
 }
