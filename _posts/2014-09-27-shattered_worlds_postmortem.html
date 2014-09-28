@@ -1,0 +1,79 @@
+---
+layout: post
+title: Postmortem - Shattered Worlds
+tags: [creations, games, javascript, ludum dare, fun, shattered worlds, jam, aylan, beth, greg, jordan, natasha, tikhon]
+date: 2014-09-27
+---
+
+<p style="text-align: center;">[<a href="http://www.ludumdare.com/compo/2014/09/11/shattered-worlds-postmortem/">Original post on ludumdare.com</a>]</p>
+
+<p style="text-align: center;"><a href="http://www.ludumdare.com/compo/ludum-dare-30/?action=preview&amp;uid=3353"><img class="aligncenter" alt="" src="http://www.ludumdare.com/compo/wp-content/compo2/375043/3353-shot0.png" width="675" height="360" /></a></p>
+
+<p style="text-align: left;">True to my promise in <a href="http://www.ludumdare.com/compo/2014/05/07/asteroid-tycoon-postmortem/">my last postmortem</a>, I worked in a team again for LD#30. We had a great mix of veterans (Alex, Greg, Natasha, Tikhon doing coding, and Jordan doing art and design) and newcomers (Beth doing level design and writing, and Aylan doing music and SFX), and we’re pretty proud with our end result: <a href="http://www.ludumdare.com/compo/ludum-dare-30/?action=preview&uid=3353">Shattered Worlds</a>.</p>
+
+<p>Let’s talk about what we did right and wrong. But words are boring, so let’s illustrate this postmortem with a selection of some of the <a href="https://github.com/mroth/lolcommits">lolcommits</a> that some of us took during the jam.</p>
+
+<h2>What went right</h2>
+<strong>Simplicity over complexity</strong>
+
+<p>Unlike <a href="http://www.ludumdare.com/compo/2014/05/07/asteroid-tycoon-postmortem/">last time</a>‘s brainstorming session, where we tried to combine many ideas together into a very complex game, this time around we tried to distill our ideas down into a core gameplay element. We tried a few ideas that involved manipulating properties of different worlds before finally settling on the mechanic of overlaying levels together.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/4eaa8b3b909-550x412.jpg" width="280" height="210"></p>
+
+<strong>A mechanic that gave us a lot to work with</strong>
+
+<p>At the same time, we were fortunate to not be constricted too much by our gameplay mechanic. We were able to come up with a wide variety of settings and obstacles to go with it, from bees to bears to lasers.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/f123088f27d-550x412.jpg" width="280" height="210"></p>
+
+<strong>Good team composition and task management</strong>
+
+<p>Having a team of people with diverse talents came in handy once again, as we were able to split up the work pretty well. Compared to last time, we had one more designer and a few fewer programmers. This seemed like a pretty positive change: two designers meant that a lot of thought went into every aspect of level design and also that Jordan was free to focus more time on the art assets, while we had just enough programmers that we all knew what we were doing and weren’t stepping on each others’ toes too much.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/7794fec672f-550x412.jpg" width="280" height="210"></p>
+
+<strong>Distinctive style and flavor</strong>
+
+<p>We tried hard to make a game that looked and felt unique, and I feel that we did a pretty good job in that regard. Giving each world type a completely different palette and style helped (initially we were hoping to have distinctive music for each world too, but sadly our musician didn’t have quite enough time to make that happen), as did the quirky in-game messages. There are certainly places where we could have used more polish, but overall I think we didn’t do too bad in the style department.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/2cd46efd02b-550x412.jpg" width="280" height="210"></p>
+
+<strong>Hint system</strong>
+
+<p>We always think our games are easier to figure out than they actually are, simply by virtue of playing them over and over while making them. In light of this, Tikhon had the foresight to propose a hint system to guide players when they needed help. Many of us initially thought that hints would be unnecessary and would make the game too easy, but we have since seen the error of our ways: quite a few comments specifically mentioned the hints as an important component of the game.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/10600636_789688137760490_3532397712478429928_n-550x412.jpg" width="280" height="210"></p>
+
+<h2>What went wrong</h2>
+<strong>Switching frameworks in the middle of it all</strong>
+
+<p>For the first day of coding, we used <a href="http://www.createjs.com/#!/EaselJS">EaselJS</a>. Easel is ok, but none of us knew it particularly well, and it didn’t seem to have anything built-in that would help us make a platformer (all in all, we essentially used Easel as a wrapper for canvas). Our code quickly became a tangled mess of modified example code we found online and our own attempts at doing things like collision detection. It was clear that we couldn’t really go on like this.</p>
+
+<p>The solution was <a href="http://wellcaffeinated.net/PhysicsJS/">PhysicsJS</a>, an awesome physics simulation library that had all the tools we needed to cleanly and efficiently create the physics for our game. Unfortunately, porting our code over from Easel to PhysicsJS was not as easy as we had hoped, because the two libraries represent objects and their interactions in completely different and incompatible ways. Come Saturday evening, Tikhon began to spearhead the effort to switch to PhysicsJS while the rest of us continued working in Easel, but by Sunday we realized that the only way PhysicsJS would work for us would be if we essentially did a complete rewrite.</p>
+
+<p>This was a huge decision. Basically all the code that we wrote on Saturday and early Sunday had to be scrapped, and we had to build up the game almost from scratch. As Sunday came to an end, we just barely got a couple of levels working. The switch to PhysicsJS was complete, but it left us with less than a day left to implement most of the levels. Somehow, we still managed to finish. I still think the decision that we made was the correct one — our old physics were horribly buggy and PhysicsJS enabled us to do a lot of cool things that we hadn’t even considered at first (like movable crates in the zombie level, which we got essentially by accident). If we’d stuck with Easel instead, our final game may have had a few more levels in the end, but it wouldn’t play nearly as well. Of course, the best thing we could have done in hindsight would have been to actually research our framework / library options ahead of time rather than >24 hours in.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/10348289_789688051093832_9122273071838421218_n-550x412.jpg" width="280" height="210"></p>
+
+<strong>Balancing was pretty hard</strong>
+
+<p>In particular, the low-gravity space levels — while very cool conceptually — proved to be an enormous pain to plan for during level design, because for every level after the first space level, we had to consider the possibility of the player activating low-gravity and try to make the level non-trivial to beat. We definitely didn’t do the best possible job here: some levels are still much too easy with the use of low-gravity.</p>
+
+<p>If we’d had a little more time, we had plans for a system where some levels would be disabled from overlaying other levels, based on game objects not being able to overlap one another. This feature would have conceivably enabled us to make more levels without having to necessarily consider every possible pair of overlapping levels.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/b8580c6c5a9-550x412.jpg" width="280" height="210"></p>
+
+<strong>We couldn’t get the controls quite right</strong>
+
+<p>We spent some time making the game feel right as a platformer, and even had some of our platformer-loving friends playtest it from time to time, but we never got the feel quite right, not even within PhysicsJS. Fortunately, this doesn’t seem to bother too many people, though aforementioned platformer-loving friends were a bit unhappy with it.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/9d40db32a36-550x412.jpg" width="280" height="210"></p>
+
+<strong>Not much of an ending</strong>
+
+<p>You go through 11 levels accompassing four different worlds and fight through everything from space battles to a zombie siege, and when you reach the end you get … a dialog essentially saying “The End”. It would have been great to have a real ending of some kind, but by the last hour of the jam we unfortunately still had our hands full just making the rest of the game work. Alas.</p>
+
+<p style="text-align: center;"><img class="aligncenter" src="http://www.ludumdare.com/compo/wp-content/uploads/2014/09/10647105_789688724427098_8637058848905680658_n-550x412.jpg" width="280" height="210"></p>
+
+<h2>All in all</h2>
+<p>We’re pretty happy with how Shattered Worlds turned out, and LD#30 was a great experience overall. It seems to me that we’re improving as game creators and as a team (well, it’s not exactly the same team, but it’s close enough), though we’ll have to wait for judging to end to see how true that is. Hopefully we can make participating in the LD Jam a regular thing. :-)</p>
