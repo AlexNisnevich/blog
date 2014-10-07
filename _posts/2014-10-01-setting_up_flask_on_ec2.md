@@ -113,7 +113,4 @@ instead.
 
 For more information on this step, see [this DigitalRiver tutorial](https://www.digitalocean.com/community/tutorials/using-mod_wsgi-to-serve-applications-on-ubuntu-12-04).
 
-Troubleshooting
-==========
-
-Troubleshooting: log
+If you're made it this far, hopefully your Flask application is running correctly on EC2.
