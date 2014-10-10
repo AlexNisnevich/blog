@@ -2,7 +2,6 @@
 layout: post
 title: Setting up a Flask application on an EC2 Ubuntu instance with Apache + mod_wsgi
 tags: [amazon, ec2, python, flask, melodypy, music, linux, apache]
-draft: true
 ---
 
 Last weekend I had to restart [my melody.py live demo](http://melodypy.com), as the EC2 instance it was on was outdated. In the process I had to figure out again how to set up [Flask](http://flask.pocoo.org/) applications using [mod_wsgi](http://en.wikipedia.org/wiki/Mod_wsgi). As a relative newbie to both EC2 and Apache, the process took longer than I'd like, so I'm documenting the steps I took in detail, in part to make it easier for me next time I need to do something like this.
