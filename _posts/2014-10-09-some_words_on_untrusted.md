@@ -5,7 +5,7 @@ tags: [untrusted, game, javascript, education, creations, greg]
 draft: true
 ---
 
-It's been about three months since [Greg]() and I released [Untrusted]() into the world, so I thought that now's as good a time as any to write something about how Untrusted came to be.
+It's been about six months since [Greg](https://github.com/neunenak) and I released [Untrusted](http://untrustedgame.com) into the world, so I figure now's as good a time as any to write something about how Untrusted came to be.
 
 ## In the Beginning ...
 
@@ -35,6 +35,6 @@ It's been about three months since [Greg]() and I released [Untrusted]() into th
 - see untrusted-mentions on my desktop
 - by the numbers:
     - 350,000 plays
-    - GitHub: 2000 stars, 350 forks
+    - GitHub: ~2000 stars, 400 forks
 
 ## What's Next for Untrusted?
