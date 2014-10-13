@@ -55,7 +55,7 @@ April: final round of playtesting, release
 - initial spike on HN
 - after an hour, dad's server couldn't handle the load
     - problem:
-    - people became unable
+    - people became unable to load levels
 - solutions
     - short-term solution: move to github pages ASAP
     - move music to cloudfront
@@ -63,9 +63,20 @@ April: final round of playtesting, release
 
 ## Reactions to Untrusted
 
-- see untrusted-mentions on my desktop
-- by the numbers:
-    - 350,000 plays
-    - GitHub: ~2000 stars, 400 forks
+If I may brag for a moment: Six months after its release to the world, Untrusted has been played 700,000 times by 380,000 players from 196 countries (top five countries, in order: United States, Russia, China, Poland, France). The Untrusted GitHub repository has been starred nearly 2000 times and forked 400 times. It's certainly become much more popular than either of us had expected from our half-baked last-minute hackathon idea last year.
+
+A few articles have been written about us. My favorites include:
+  - [see untrusted-mentions.txt]
+
+Far more exciting are all the different ways we've seen Untrusted used:
+  - (e.g. schools, translations, mods)
+
+[some words go here]
 
 ## What's Next for Untrusted?
+
+[potential things in pipeline]
+
+As for the game itself, [...]
+
+[some words go here]
