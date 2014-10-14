@@ -47,7 +47,30 @@ In November, Greg and I came up with our plan for how to organize the game. We d
 
 Around New Year's, we posted our new Untrusted prototype on Facebook for our friends to playtest. One thing that we noticed was that, even after all of the security improvements we had tried to add over the past year, people still managed to find a bunch of different exploits that enabled them to arbitrarily skip levels. Now, we definitely feel that finding ways to break the system is a big part of what Untrusted is about, and we don't want to discourage it entirely, but if you can find a single exploit that lets you get around every level, that's not very fun. In light of this, we came up with a mechanism to completely prevent players from accessing methods we don't want them to access.
 
-[security]
+  Aside: our implementation of private methods:
+
+  function wrapExposedMethod(f, map) {
+      return function () {
+          var args = arguments;
+          return __game._callUnexposedMethod(function () {
+              return f.apply(map, args);
+          });
+      };
+  };
+
+  if (__game._isPlayerCodeRunning()) { throw 'Forbidden method call: map._reset()';}
+
+  this._callUnexposedMethod = function(f) {
+      if (__playerCodeRunning) {
+          __playerCodeRunning = false;
+          res = f();
+          __playerCodeRunning = true;
+          return res;
+      } else {
+          return f();
+      }
+  };
+
 
 After taking some time off Untrusted to rest, we went back at it in February, and over the next two months we finished Chapter 3 and added some features our friends had requested a lot during playtesting, such as a notepad pane and the ability to share your solutions through automatic [Gist](http://gist.github.com) saving. The most requested feature, the ability to edit multiple lines at once (that is, the ability to expand and contract multi-line blocks sections in the editor, and to delete or copy multiple lines) was implemented by our friend [Dmitry](https://github.com/dmazin) (who, incidentally, also contributed a couple pieces of music). This was such a huge and difficult code contribution (due to the complicated interactions it had with the boundaries of editable sections) that we specifically credit him for "implementation of multiline editing" in our [Acknowledgements](https://github.com/AlexNisnevich/untrusted) section.
 
