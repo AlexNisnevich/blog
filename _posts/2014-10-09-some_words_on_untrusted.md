@@ -9,15 +9,32 @@ It's been about six months since [Greg](https://github.com/neunenak) and I relea
 
 ## In the Beginning ...
 
-- hackathon
-- Greg's idea
-- working on the game
+Greg and I had wanted to make a game for a long time, and when we decided to participate in the spring 2013 CSUA hackathon at Berkeley, we figured it was as good a time as any. Greg had an idea for a game that would take place in a Unix filesystem, where gameplay would involve moving around the filesystem and doing different operations, and where the final level would be unbeatable unless you decompile the game and rewrite part of it. It was an interesting idea, and I'd still like to perhaps try it sometime, but we couldn't really come up with how we would implement it. I really liked the last part of the idea, though -- the bit about having to modify the code of the game to make it beatable. When we gave up on the original idea, I proposed making a game where . Greg thought that sounded pretty cool, so we got to work.
+
+- working on Untrusted during hackathon:
+  - choice of libraries: CodeMirror (I'd previously used it for PSM), rot.js (never tried before but roguelikes are cool)
+  - parser or eval? parser would be too hard -- eval all the way!
+  - limiting player control immediately became a challenge
+    - first attempts at a fix: 
+      - editable lines
+        - one of the hardest parts of this - kind of a pain to get working right in CodeMirror
+      - validators
+      - 80-char line limit
+      - simple VERBOTEN list
+  - not very many gameplay elements: player, exit, block, tree, trap
+  - levels
+    - most of the levels were simple block manipulation (these are still levels 1-4 in Untrusted)
+    - coming up with other approaches to levels was hard at the time:
+      - I had the idea of making a level with invisible traps that can be identified by color (this became level 05)
+      - Greg had the idea of letting the player bind functions calls to a keystroke -- this led to the function phone and what became level 08)
+
 - winning the hackathon
+
 - early prototype: http://alex.nisnevich.com/untr/hackathon/
 
 ## The Next Year
 
-Over the next year, we worked on Untrusted at an unpredictable pace, sometimes getting an enormous amount of new content done quickly and sometimes taking long breaks as our real lives caught up to us (Greg was working at Meraki at the time, while I was doing my Master's in NLP at Berkeley).
+Over the next year, we worked on Untrusted at an unpredictable pace, sometimes getting an enormous amount of new content done quickly and sometimes taking long breaks as our real lives caught up to us (during most of that time, Greg was working at Meraki, while I was doing my Masters at Berkeley).
 
 Our first round of work on Untrusted, in the first few months after the hackathon, was primarily devoted to cleaning up our ugly hacked-together codebase, creating a build system to make our lives easier, and throwing out some ideas for new gameplay elements. Levels that we created during this time include `07_colors` and `15_exceptionalCrossing`.
 
@@ -54,8 +71,8 @@ April: final round of playtesting, release
 
 - initial spike on HN
 - after an hour, dad's server couldn't handle the load
-    - problem:
-    - people became unable to load levels
+    - problem: too much bandwidth usage, esp because music
+    - people became unable to load levels (because each level was a separate AJAX call)
 - solutions
     - short-term solution: move to github pages ASAP
     - move music to cloudfront
