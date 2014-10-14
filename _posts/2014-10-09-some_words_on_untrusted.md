@@ -18,10 +18,13 @@ Greg and I had wanted to make a game for a long time, and when we decided to par
     - first attempts at a fix: 
       - editable lines
         - one of the hardest parts of this - kind of a pain to get working right in CodeMirror
+        - multi-line editing proved too hard to get working - remained undone until Dmitry did it a year later
       - validators
+        - in retrospect, we probably could have gotten some more mileage out of the validator mechanic
       - 80-char line limit
       - simple VERBOTEN list
   - not very many gameplay elements: player, exit, block, tree, trap
+    - we wanted to have dynamic critters, but it was too much work for the hackathon
   - levels
     - most of the levels were simple block manipulation (these are still levels 1-4 in Untrusted)
     - coming up with other approaches to levels was hard at the time:
@@ -34,7 +37,7 @@ Greg and I had wanted to make a game for a long time, and when we decided to par
 
 ## The Next Year
 
-Over the next year, we worked on Untrusted at an unpredictable pace, sometimes getting an enormous amount of new content done quickly and sometimes taking long breaks as our real lives caught up to us (during most of that time, Greg was working at Meraki, while I was doing my Masters at Berkeley).
+Over the next year, we worked on Untrusted at an unpredictable pace, sometimes getting an enormous amount of new content done quickly and sometimes taking long breaks as our real lives caught up to us (for most of this time, Greg was working at Meraki, while I was doing my Masters at Berkeley).
 
 Our first round of work on Untrusted, in the first few months after the hackathon, was primarily devoted to cleaning up our ugly hacked-together codebase, creating a build system to make our lives easier, and throwing out some ideas for new gameplay elements. Levels that we created during this time include `07_colors` and `15_exceptionalCrossing`.
 
@@ -85,7 +88,7 @@ If I may brag for a moment: Six months after its release to the world, Untrusted
 A few articles have been written about us. My favorites include:
   - [see untrusted-mentions.txt]
 
-Far more exciting are all the different ways we've seen Untrusted used:
+What excites us the most is all the different ways we've seen Untrusted used. For example:
   - (e.g. schools, translations, mods)
 
 [some words go here]
@@ -95,5 +98,11 @@ Far more exciting are all the different ways we've seen Untrusted used:
 [potential things in pipeline]
 
 As for the game itself, [...]
+  - we're no longer continually working on it
+  - but we're still maintaining it -- look at bugs and pull requests
+  - big push now is making the game more community-driven
+    - last major feature we added: custom level support
+    - related: mod support PR
+      - maybe I should approve the PR before publishing this blog post
 
 [some words go here]
