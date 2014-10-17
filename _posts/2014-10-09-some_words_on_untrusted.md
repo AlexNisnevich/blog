@@ -19,43 +19,29 @@ The first thing we had to settle was how broad the scope of this "hacking" mecha
 
 Ok, so if the player could modify each level, what would the levels themselves be like. We decided to go with a roguelike style, because it would mean that we wouldn't have to worry about graphics (though a surprising amount of work went into finding appropriate Unicode characters for things), the level maps could be represented pretty cleanly in code, there wouldn't be too many moving parts, and, honestly, we both just really like roguelikes.
 
-One final design hurdle was how to further limit the player's control over the code and not make all the puzzles too trivial. Since being able to edit all of the code to a level would be too much power, we decided to only make certain lines editable. [...]
+One final design hurdle was how to further limit the player's control over the code and not make all the puzzles too trivial. Since being able to edit all of the code to a level would be too much power, we decided to only make certain lines editable. Then, as an additional level of control, we added our validator mechanism (in retrospect, we probably could have done some more interesting puzzles involving validators, but mostly we've just used them for basic things like ensuring players don't create extra exits).
+
+With these pieces in place, we had the bulk of our design ready.
 
 ### Implementation
 
-Map
+The first steps we took in our implementation was creating the map, making it be able to load a level definition, and making the player moveable. We used the rather neat [http://ondras.github.io/rot.js/hp/](rot.js) library, which provided some nice abstractions, though we didn't end up using all that many features from it. After a couple hours of work, we had a Map class that could place objects though a simple API, as well as an interactive player object. It was time to move on to the meat of the game: the evaluator.
 
-Editor
+Actually, the evaluation part is fairly simple: we just call `eval`. Yup. We were considering building our own parser, but that would have taken way too much work for the hackathon and `eval` worked well enough for our needs that we never changed it afterwards. Of course, we do some interesting things around it: we first evaluate the player-provided `startLevel` method on a dummy map (that supports the map API but has no in-game effect and is not visible to the player) and run validators on it. We also introduced some basic security measures here and there, like making sure certain words couldn't be used (this could be easily circumvented though -- I go into some detail later about how we designed a more robust security system).
 
-Levels
+Now that we had a map that could be initialized based on user-provided code, the final piece of the puzzle was creating the editor. This actually turned out to be the hardest part of the hackathon for us. We used [CodeMirror 2](http://codemirror.net/), which supported _almost_ all of the features we wanted but was missing one big one that we had to do ourselves: uneditable lines and sections. Conceptually, this didn't seem too bad, but in between figuring out all the CodeMirror events we needed to handle and doing the right bookkeeping at all times (so that the editable areas would never move to where they shouldn't be) ended up being pretty tricky. We ended up having to make some compromises due to time pressure: for example, in the hackathon version of Untrusted, only one line can be edited at a time and you can't create new lines, so if you want to write multiple lines you have to go through the annoying process of navigating to each new line yourself. True multi-line editing was such a difficult feature to get working right with respect to uneditable areas that it took another year before it was properly implemented in Untrusted. 
 
-<!---
-- working on Untrusted during hackathon:
-  - choice of libraries: CodeMirror (I'd previously used it for PSM), rot.js (never tried before but roguelikes are cool)
-  - parser or eval? parser would be too hard -- eval all the way!
-  - limiting player control immediately became a challenge
-    - first attempts at a fix:
-      - editable lines
-        - one of the hardest parts of this - kind of a pain to get working right in CodeMirror
-        - multi-line editing proved too hard to get working - remained undone until Dmitry did it a year later
-      - validators
-        - in retrospect, we probably could have gotten some more mileage out of the validator mechanic
-      - 80-char line limit
-      - simple VERBOTEN list
-  - not very many gameplay elements: player, exit, block, tree, trap
-    - we wanted to have dynamic critters, but it was too much work for the hackathon
-  - levels
-    - most of the levels were simple block manipulation (these are still levels 1-4 in Untrusted)
-    - coming up with other approaches to levels was hard at the time:
-      - I had the idea of making a level with invisible traps that can be identified by color (this became level 05)
-      - Greg had the idea of letting the player bind functions calls to a keystroke -- this led to the function phone and what became level 08)
--->
+We had to cut some corners, but we finally had a working game engine. The rest of the time was mostly spent coming up with levels. I'll admit that we were a bit uncreative (perhaps our creative juices were burned out by the amount of work it took to get the editor working), and so the first four levels we came up with all have a similar feel: you are surrounded by blocks and need to find a way to get through them to the exit, in the face of increasingly tricky constraints (these are, with some rearrangement and tweaking, still the first four levels of Untrusted). 
+
+In an effort to inject a little bit of creativity into our game, Greg and I took some time off from coding and tried to each come up with a unique premise for an interesting level. I came up with an idea for a level with invisible traps that can be identified by coloring them (this became `05_minesweeper`), while Greg came up with an idea for level where the player had to bind a function call to a keystroke to get through an area (this became the basis for the function phone and `08_intoTheWoods`). We only had a couple of minutes to demo our project, so at the last minute I added a cheat key to skip between levels, so that we could present only the most interesting levels when we did our demo.
 
 ### End Result
 
-- winning the hackathon
+[Here it is](http://alex.nisnevich.com/untr/hackathon/), in all of its rough hackathony glory. 
 
-- early prototype: http://alex.nisnevich.com/untr/hackathon/
+It seems a bit embarrassingly unpolished when I look back on it now, but the hackathon judges really liked our idea, and Greg and I ended up winning first place (and some swanky 27' monitors). Given the surprisingly positive reception we got, we decided to continue working on Untrusted until we felt it was complete enough to release.
+
+We certainly didn't expect to work on it for another 14 months, though.
 
 ## The Next Year
 
