@@ -67,7 +67,7 @@ Our first approach was to simply have all unexposed methods begin with an unders
 
 What we eventually came up was this wrapper function for exposed methods:
 
-{% highlight bash %}
+{% highlight javascript %}
 function wrapExposedMethod(f, obj) {
     return function () {
         var args = arguments;
@@ -80,7 +80,7 @@ function wrapExposedMethod(f, obj) {
 
 where `__game` is a reference to the Game object, which has a local variable `__playerCodeRunning` and the following methods:
 
-{% highlight bash %}
+{% highlight javascript %}
 this._isPlayerCodeRunning = function () { return __playerCodeRunning; }
 
 this._callUnexposedMethod = function(f) {
@@ -97,7 +97,7 @@ this._callUnexposedMethod = function(f) {
 
 Now, to enforce exposure of methods, all we need to do is (1) wrap all exposed methods with `wrapExposedMethod` and (2) check `__game._isPlayerCodeRunning()` at the beginning of each unexposed method. For example, the Map class could have methods like:
 
-{% highlight bash %}
+{% highlight javascript %}
 this.sampleExposedMethod = wrapExposedMethod(f, function ( [args] ) {
     ...
 }, this);
