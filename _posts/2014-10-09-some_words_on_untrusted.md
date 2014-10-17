@@ -104,7 +104,6 @@ this.sampleExposedMethod = wrapExposedMethod(f, function ( [args] ) {
 
 this.sampleUnexposedMethod = function ( [args] ) {
     if (__game._isPlayerCodeRunning()) { throw 'Forbidden method call: sampleUnexposedMethod()';}
-
     ...
 };
 {% endhighlight %}
