@@ -133,20 +133,29 @@ March: Chapter 3 complete, DOM and final levels, level versioning
 April: final round of playtesting, release
 -->
 
-## Release
+## Release & Disaster
 
-- initial spike on HN
-- after an hour, dad's server couldn't handle the load
-    - problem: too much bandwidth usage, esp because music
-    - people became unable to load levels (because each level was a separate AJAX call)
-- solutions
-    - short-term solution: move to github pages ASAP
-    - move music to cloudfront
-    - overnight, Greg and I fixed level loading to prevent this issue from occurring again - all levels now loaded from start (except bonus levels + scripts for lvl21)
+When I [posted Untrusted to Hacker News](https://news.ycombinator.com/item?id=7547942) on the morning of April 7th, we decided we were aiming for maybe 10-20 upvotes, 50-100 if we were lucky.
+
+We hit the front page almost immediately. Then we rose to 10th place. Then 5th. Then all the way to the top.
+
+About an hour after the post, Untrusted began breaking: players were beating levels without advancing to the next level and getting stuck in loops. At first there were just a few isolated reports of this, but soon enough the game stopped working for everyone.
+
+There were now thousands of people trying to play Untrusted and it wasn't working. It was a disaster.
+
+I did my best to track down the problem. It turned out that hosting Untrusted along with all of its music (a 200MB soundtrack) on my own VPS server was a terrible decision: the server hit its bandwidth cap within an hour and the hosting provider assumed that I was getting DDOSed and began rate-limiting all requests. Now, since Untrusted loads levels through AJAX calls, this meant that everyone playing the game at the time suddenly became sporadically (and soon, completely) unable to load levels. Even worse, we hadn't considered the possibility of the AJAX level requests failing and had no built-in error handling to speak of, so the game still acted as though the next level was loaded in these situations, causing bizarre bugs all around, such as levels being overwritten by other levels. Even worse than that, since level code was constantly written to localStorage, this meant that players' game states were becoming corrupted to the point that even after this outage went away, the game would still be unplayable until they cleared localStorage.
+
+We had to act fast. For lack of a better idea, I moved everything over to GitHub Pages and set up a server-side redirect ASAP. Until the redirect started working, I had to work on damage control in Hacker News, apologizing profusely and directing people to our GH Pages URL (until I finished setting up GH Pages, I suggested that people could clone the repository themselves and play Untrusted locally -- not the best thing to tell frustrated players but the best I could come up with at the time). I also temporarily special-cased some code in to detect when players' localStorage` was messed up and fix it as unintrusively as possible.
+
+After the situation stabilized, we began the process of moving all the music over to Amazon CloudFront. (Theoretically GitHub Pages doesn't have any bandwidth limits, but I didn't want to surprise them with 5TB/month, which April ended up being.) CloudFront handled the load it needed very well but ended up being a little expensive, so we added a small donation button and tried some tricks to reduce requests (like not requesting music while the game is muted).
+
+That night, Greg and I also rewrote level loading system from scratch, so that this problem could never happen again. Instead of the game making AJAX requests for each level, all the levels are now packed into an array inside the minified source as part of the build process. This took a fair bit of bash wizardry and actually ended up one of the trickiest parts of coding the game (at least in my opinion -- Greg's a lot better at bash than I am).
+
+Over the next month, Untrusted spread rapidly through word-of-mouth on Twitter, Reddit, and Facebook (in about that order). Fortunately there were no more major outages.
 
 ## Reactions to Untrusted
 
-If I may brag for a moment: Six months after its release to the world, Untrusted has been played 700,000 times by 380,000 players from 196 countries (top five countries, in order: United States, Russia, China, Poland, France). The Untrusted GitHub repository has been starred nearly 2000 times and forked 400 times. It's certainly become much more popular than either of us had expected from our half-baked last-minute hackathon idea last year.
+If I may brag for a moment: Six months after its release to the world, Untrusted has been played 700,000 times by 380,000 players from 196 countries (top five countries, in order: United States, Russia, China, Poland, France). The Untrusted GitHub repo has been starred nearly 2000 times and forked 400 times. It's certainly become much more popular than either of us had expected from our half-baked last-minute hackathon idea last year.
 
 A few articles have been written about us. My favorites include:
 
