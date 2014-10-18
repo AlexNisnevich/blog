@@ -38,7 +38,7 @@ In an effort to inject a little bit of creativity into our game, Greg and I took
 
 [Here it is](http://alex.nisnevich.com/untr/hackathon/), in all of its rough hackathony glory. 
 
-It seems a bit embarrassingly unpolished when I look back on it now, but the hackathon judges really liked our idea, and Greg and I ended up winning first place (and some swanky 27' monitors). Given the surprisingly positive reception we got, we decided to continue working on Untrusted until we felt it was complete enough to release.
+It seems a bit embarrassingly unpolished when I look back on it now, but the hackathon judges really liked our idea, and Greg and I ended up winning first place (and some swanky 27" monitors). Given the surprisingly positive reception we got, we decided to continue working on Untrusted until we felt it was complete enough to release.
 
 We certainly didn't expect to work on it for another 14 months, though.
 
@@ -142,13 +142,15 @@ About an hour after the post, Untrusted began breaking: players were beating lev
 
 There were now thousands of people trying to play Untrusted and it wasn't working. It was a disaster.
 
-I did my best to track down the problem. It turned out that hosting Untrusted along with all of its music (a 200MB soundtrack) on my own VPS server was a terrible decision: the server hit its bandwidth cap within an hour and the hosting provider assumed that I was getting DDOSed and began rate-limiting all requests. Now, since Untrusted loads levels through AJAX calls, this meant that everyone playing the game at the time suddenly became sporadically (and soon, completely) unable to load levels. Even worse, we hadn't considered the possibility of the AJAX level requests failing and had no built-in error handling to speak of, so the game still acted as though the next level was loaded in these situations, causing bizarre bugs all around, such as levels being overwritten by other levels. Even worse than that, since level code was constantly written to localStorage, this meant that players' game states were becoming corrupted to the point that even after this outage went away, the game would still be unplayable until they cleared localStorage.
+I did my best to track down the problem. It turned out that hosting Untrusted along with all of its music (a 200MB soundtrack) on my own VPS server was a terrible decision: the server hit its bandwidth cap within an hour and the hosting provider assumed that I was getting DDOSed and began rate-limiting all requests. Now, since Untrusted loads levels through AJAX calls, this meant that everyone playing the game at the time suddenly became sporadically (and soon, completely) unable to load levels. Even worse, we hadn't considered the possibility of the AJAX level requests failing and had no built-in error handling to speak of. So, the game still acted as though the next level was loaded in these situations, causing levels to be overwritten by other levels and other bizarre bugs. Even worse than that, since level code was constantly written to localStorage, this meant that players' game states were becoming corrupted to the point that even after this outage went away, the game would still be unplayable until they cleared localStorage.
+
+Yeah, it was bad.
 
 We had to act fast. For lack of a better idea, I moved everything over to GitHub Pages and set up a server-side redirect ASAP. Until the redirect started working, I had to work on damage control in Hacker News, apologizing profusely and directing people to our GH Pages URL (until I finished setting up GH Pages, I suggested that people could clone the repository themselves and play Untrusted locally -- not the best thing to tell frustrated players but the best I could come up with at the time). I also temporarily special-cased some code in to detect when players' localStorage` was messed up and fix it as unintrusively as possible.
 
 After the situation stabilized, we began the process of moving all the music over to Amazon CloudFront. (Theoretically GitHub Pages doesn't have any bandwidth limits, but I didn't want to surprise them with 5TB/month.) CloudFront handled the load it needed very well but ended up being a little expensive, so we added a small donation button and tried some tricks to reduce requests (like not requesting music while the game is muted).
 
-That night, Greg and I also rewrote level loading system from scratch, so that this problem could never happen again. Instead of the game making AJAX requests for each level, all the levels are now packed into an array inside the minified source as part of the build process. This took a fair bit of bash wizardry and actually ended up one of the trickiest parts of coding the game (at least in my opinion -- Greg's a lot better at bash than I am).
+That night, Greg and I also rewrote the level loading system from scratch, so that this problem could never happen again. Instead of the game making AJAX requests for each level, all the levels are now packed into an array inside the minified source as part of the build process. This took a fair bit of bash wizardry and actually ended up one of the trickiest parts of coding the game (at least in my opinion -- Greg's a lot better at bash than I am).
 
 Over the next month, Untrusted spread rapidly through word-of-mouth on Twitter, Reddit, and Facebook (in about that order). Fortunately there were no more major outages.
 
@@ -158,7 +160,7 @@ If I may brag for a moment: Six months after its release to the world, Untrusted
 
 A few articles have been written about us. Some of my favorites are:
 
-- PC Gamer's [list of 100 best free online games](http://www.pcgamer.com/2014/05/30/the-best-free-online-games-on-pc/3/)
+- our mention in PC Gamer's [list of 100 best free online games](http://www.pcgamer.com/2014/05/30/the-best-free-online-games-on-pc/3/)
 - Rachel Ponce's review, ["Untrusted is a game more like real world programming than you might think"](http://www.brainsforgames.rachelnponce.com/2014/04/mini-review-untrusted-is-game-more-like.html)
 - [Games with Purpose's review](http://gameswithpurpose.org/untrusted/)
 - [GameSideStory's review](http://www.gamesidestory.com/2014/09/05/gametest-untrusted-navigateur/) (in French)
@@ -170,7 +172,7 @@ What excites us the most is all the different ways we've seen Untrusted used. Fo
 - [Janos Gyerik](https://github.com/janosgyerik) forked Untrusted and began constructing a new level set called [HangoverX](http://janosgyerik.github.io/hangoverx/), including some fiendishly clever puzzles.
 - [mikespook](https://github.com/mikespook) has created a [Chinese localization](https://github.com/mikespook/untrusted) of Untrusted, as well as adding mod support to the game and beginning to work on a new level set.
 - A few companies have reached out to us about using modified Untrusted level sets for interviews.
-- Someone even made an [Untrusted subreddit](http://www.reddit.com/r/untrusted), though it died pretty quickly.
+- Someone even made an [Untrusted subreddit](http://www.reddit.com/r/untrusted), though it was only active for a few days.
 
 All in all, we've been completely overwhelmed by the community that's developed around our game. Thanks for all your support, guys :-)
 
@@ -178,6 +180,6 @@ All in all, we've been completely overwhelmed by the community that's developed 
 
 There are some exciting applications of Untrusted in the pipeline. A group in Colombia has been working on making a Spanish-language version of Untrusted designed to serve as an introduction to programming, and we've also heard of a similar development effort taking place in India. We're pretty excited to see what will happen with these. To tell the truth, we had never actually intended Untrusted to be an educational game -- our goal was just to make a fun little game for programmers. But seeing all of these different people take our silly game and use it to help people get into programming has been incredible.
 
-As for the game itself, we're no longer continually working on it, but we are still maintaining it, fixing bugs as they pop up and looking through pull requests we've received. Our main goal now is the make the game more community-driven -- to this end, the last major feature we added to Untrusted was [custom level support](https://github.com/AlexNisnevich/untrusted#contributing-levels) (bonus levels become available from the menu after when you get to the last level of the game). We haven't gotten as many level submissions as we'd expected so far, but that's our fault for adding this feature long after the main waves of players have died down.
+As for the game itself, we're no longer continually working on it, but we are still maintaining it, fixing bugs as they pop up and looking through pull requests we've received. Our main goal now is the make the game more community-driven -- to this end, the last major feature we added to Untrusted was [custom level support](https://github.com/AlexNisnevich/untrusted#contributing-levels) (player-submitted bonus levels become available from the main menu after when you get to the last level of the game). We haven't gotten as many level submissions as we'd expected so far, but that's our fault for adding this feature long after the main waves of players have died down.
 
 Greg and I both learned a great deal from creating, releasing, and maintaining Untrusted, and we'll certainly keep these lessons in mind as we work on our future projects, whatever they may be.
