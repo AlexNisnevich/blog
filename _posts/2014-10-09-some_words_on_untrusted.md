@@ -2,7 +2,6 @@
 layout: post
 title: Some Words on Untrusted
 tags: [untrusted, game, javascript, education, creations, greg]
-draft: true
 ---
 
 It's been about six months since [Greg](https://github.com/neunenak) and I released [Untrusted](http://untrustedgame.com) into the world, so I figure now's as good a time as any to write something about how Untrusted came to be.
@@ -147,37 +146,38 @@ I did my best to track down the problem. It turned out that hosting Untrusted al
 
 We had to act fast. For lack of a better idea, I moved everything over to GitHub Pages and set up a server-side redirect ASAP. Until the redirect started working, I had to work on damage control in Hacker News, apologizing profusely and directing people to our GH Pages URL (until I finished setting up GH Pages, I suggested that people could clone the repository themselves and play Untrusted locally -- not the best thing to tell frustrated players but the best I could come up with at the time). I also temporarily special-cased some code in to detect when players' localStorage` was messed up and fix it as unintrusively as possible.
 
-After the situation stabilized, we began the process of moving all the music over to Amazon CloudFront. (Theoretically GitHub Pages doesn't have any bandwidth limits, but I didn't want to surprise them with 5TB/month, which April ended up being.) CloudFront handled the load it needed very well but ended up being a little expensive, so we added a small donation button and tried some tricks to reduce requests (like not requesting music while the game is muted).
+After the situation stabilized, we began the process of moving all the music over to Amazon CloudFront. (Theoretically GitHub Pages doesn't have any bandwidth limits, but I didn't want to surprise them with 5TB/month.) CloudFront handled the load it needed very well but ended up being a little expensive, so we added a small donation button and tried some tricks to reduce requests (like not requesting music while the game is muted).
 
 That night, Greg and I also rewrote level loading system from scratch, so that this problem could never happen again. Instead of the game making AJAX requests for each level, all the levels are now packed into an array inside the minified source as part of the build process. This took a fair bit of bash wizardry and actually ended up one of the trickiest parts of coding the game (at least in my opinion -- Greg's a lot better at bash than I am).
 
 Over the next month, Untrusted spread rapidly through word-of-mouth on Twitter, Reddit, and Facebook (in about that order). Fortunately there were no more major outages.
 
-## Reactions to Untrusted
+## And Since Then
 
-If I may brag for a moment: Six months after its release to the world, Untrusted has been played 700,000 times by 380,000 players from 196 countries (top five countries, in order: United States, Russia, China, Poland, France). The Untrusted GitHub repo has been starred nearly 2000 times and forked 400 times. It's certainly become much more popular than either of us had expected from our half-baked last-minute hackathon idea last year.
+If I may brag for a moment: Six months after its release to the world, Untrusted has been played 700,000 times by 380,000 players from 196 countries (top five countries, in order: United States, Russia, China, Poland, France). The [Untrusted GitHub repo](https://github.com/AlexNisnevich/untrusted) has been starred nearly 2000 times and forked 400 times. It's certainly become much more popular than either of us had expected from our half-baked last-minute hackathon idea last year.
 
-A few articles have been written about us. My favorites include:
+A few articles have been written about us. Some of my favorites are:
 
-  - [see untrusted-mentions.txt]
+- PC Gamer's [list of 100 best free online games](http://www.pcgamer.com/2014/05/30/the-best-free-online-games-on-pc/3/)
+- Rachel Ponce's review, ["Untrusted is a game more like real world programming than you might think"](http://www.brainsforgames.rachelnponce.com/2014/04/mini-review-untrusted-is-game-more-like.html)
+- [Games with Purpose's review](http://gameswithpurpose.org/untrusted/)
+- [GameSideStory's review](http://www.gamesidestory.com/2014/09/05/gametest-untrusted-navigateur/) (in French)
 
 What excites us the most is all the different ways we've seen Untrusted used. For example:
 
-  - (e.g. schools, translations, mods)
+- The Tech Club at [Vianney Griffiths High School](https://twitter.com/vianneygriffins) in St. Louis has [used Untrusted to teach basic programming concepts](https://twitter.com/drewmca/status/454721438348361729/photo/1). Greg and I ended up videochatting with the students of the Tech Club and sharing our experiences with programming.
+- [CoderDojo Scotland](https://twitter.com/CoderScot) has also been [using Untrusted as an educational tool](https://twitter.com/CoderScot/status/462247784419430400).
+- [Janos Gyerik](https://github.com/janosgyerik) forked Untrusted and began constructing a new level set called [HangoverX](http://janosgyerik.github.io/hangoverx/), including some fiendishly clever puzzles.
+- [mikespook](https://github.com/mikespook) has created a [Chinese localization](https://github.com/mikespook/untrusted) of Untrusted, as well as adding mod support to the game and beginning to work on a new level set.
+- A few companies have reached out to us about using modified Untrusted level sets for interviews.
+- Someone even made an [Untrusted subreddit](http://www.reddit.com/r/untrusted), though it died pretty quickly.
 
-[some words go here]
+All in all, we've been completely overwhelmed by the community that's developed around our game. Thanks for all your support, guys :-)
 
 ## What's Next for Untrusted?
 
-[potential things in pipeline]
+There are some exciting applications of Untrusted in the pipeline. A group in Colombia has been working on making a Spanish-language version of Untrusted designed to serve as an introduction to programming, and we've also heard of a similar development effort taking place in India. We're pretty excited to see what will happen with these. To tell the truth, we had never actually intended Untrusted to be an educational game -- our goal was just to make a fun little game for programmers. But seeing all of these different people take our silly game and use it to help people get into programming has been incredible.
 
-As for the game itself, [...]
+As for the game itself, we're no longer continually working on it, but we are still maintaining it, fixing bugs as they pop up and looking through pull requests we've received. Our main goal now is the make the game more community-driven -- to this end, the last major feature we added to Untrusted was [custom level support](https://github.com/AlexNisnevich/untrusted#contributing-levels) (bonus levels become available from the menu after when you get to the last level of the game). We haven't gotten as many level submissions as we'd expected so far, but that's our fault for adding this feature long after the main waves of players have died down.
 
-  - we're no longer continually working on it
-  - but we're still maintaining it -- look at bugs and pull requests
-  - big push now is making the game more community-driven
-    - last major feature we added: custom level support
-    - related: mod support PR
-      - maybe I should approve the PR before publishing this blog post
-
-[some words go here]
+Greg and I both learned a great deal from creating, releasing, and maintaining Untrusted, and we'll certainly keep these lessons in mind as we work on our future projects, whatever they may be.
