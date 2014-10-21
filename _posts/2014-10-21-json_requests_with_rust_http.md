@@ -8,29 +8,20 @@ I've been playing around with [Rust]() a lot the past couple weeks. It's a neat 
 
 [...]
 
+https://gist.github.com/AlexNisnevich/418be2ba34e130977f5c
+
+[...]
+
 {% highlight rust %}
-extern crate serialize;
-extern crate http;
-extern crate url;
-
-use std::string::String;
-use serialize::json;
-use serialize::json::Json;
-use serialize::json::ToJson;
-use http::client::RequestWriter;
-use http::headers::content_type::MediaType;
-use http::headers::request;
-use http::method;
-use http::status;
-use url::Url;
-
 struct Request {
   method: method::Method,
   path: String,
   headers: request::HeaderCollection,
   body: Json
 }
+{% endhighlight %}
 
+{% highlight rust %}
 // Makes a JSON request with headers and body and expects a JSON response
 // Returns one of:
 //    Ok(Some(response)) : successfully received JSON response
@@ -63,7 +54,9 @@ fn json_request(request_params: Request) -> Result<Option<Json>, String> {
     _          => Err(response_text)
   }
 }
+{% endhighlight %}
 
+{% highlight rust %}
 fn main() {
   // see http://doc.rust-lang.org/serialize/json/ to learn how to serialize datatypes into Json
   // or pass your body as a raw Json string this way:
