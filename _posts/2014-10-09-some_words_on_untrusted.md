@@ -2,7 +2,6 @@
 layout: post
 title: Some Words on Untrusted
 tags: [untrusted, game, javascript, education, creations, greg]
-draft: true
 ---
 
 It's been about six months since [Greg](https://github.com/neunenak) and I released [Untrusted](http://untrustedgame.com) into the world, so I figure now's as good a time as any to write something about how Untrusted came to be.
