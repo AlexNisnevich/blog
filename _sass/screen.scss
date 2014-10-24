@@ -52,12 +52,6 @@ table {
     td, th {
       border: 1px solid #eee;
       padding: 2px 4px;
-
-      &:first-child {
-        // jekyll parses markdown table syntax incorrectly and creates extra elements
-        // so let's just hide those
-        display: none;
-      }
     }
 }
 
