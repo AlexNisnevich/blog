@@ -200,9 +200,6 @@ table td, table th {
   border: 1px solid #eee;
   padding: 2px 4px;
 }
-table td:first-child, table th:first-child {
-  display: none;
-}
 
 #page {
   width: 750px;
