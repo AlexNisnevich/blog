@@ -5,9 +5,15 @@ description: Alex Nisnevich's blog
 
 <ul id="archive">
   {% for post in site.posts %}
-    <li>
+    <li data-tag="#{{ post.tags.first }}">
       <time datetime="{{ post.date | xmlschema }}">{{ post.date | date: "%Y-%m-%d" }} ▸</time>
-      <a href="/blog{{ post.url }}">{{ post.title }}</a>
+      {% if post.external_url %}
+        <a href="{{ post.external_url }}" target="_blank">{{ post.title }}</a> 
+        <span class="external-site">(on <a href="http://{{ post.external_site }}" target="_blank">{{ post.external_site }}</a>)</span>
+      {% else %}
+        <a href="/blog{{ post.url }}">{{ post.title }}</a>
+      {% endif %}
+      <span><a class="tag">#{{ post.tags.first }}</a></span>
     </li>
   {% endfor %}
 </ul>

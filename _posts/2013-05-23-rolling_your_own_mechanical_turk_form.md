@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Rolling Your Own Mechanical Turk Form with ExternalQuestion and Rails
-tags: [amazon, mechanical turk, ruby, rails]
+tags: [code, amazon, mechanical turk, ruby, rails]
 date: 2013-05-23
 ---
 

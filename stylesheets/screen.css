@@ -268,6 +268,9 @@ table td, table th {
 #archive li {
   list-style-type: none;
 }
+#archive a {
+  padding: 0 4px;
+}
 #archive time {
   font-family: Verdana, Arial, Helvetica, sans-serif;
   font-size: 12px;
@@ -275,8 +278,40 @@ table td, table th {
   color: #999;
   padding-right: 2px;
 }
-#archive a {
-  padding: 0 4px;
+#archive .external-site {
+  color: #999;
+  font-size: 70%;
+}
+#archive .external-site a {
+  padding: 0;
+  color: #999;
+}
+#archive .external-site a:hover {
+  color: #333;
+}
+#archive a.tag {
+  font-size: 70%;
+  padding: 2px 4px;
+  border-radius: 7px;
+  border: 1px solid #AAA;
+  background-color: #444;
+  color: #AAA;
+}
+#archive a.tag:hover {
+  cursor: pointer;
+  background-color: #FFF;
+  border-color: #FFF;
+  color: #333;
+}
+#archive a.tag.selected {
+  background-color: #FFF;
+  border-color: #FFF;
+  color: #333;
+}
+#archive a.tag.selected:hover {
+  border: 1px solid #AAA;
+  background-color: #444;
+  color: #AAA;
 }
 
 .appetiteObscureTitle {

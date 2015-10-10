@@ -24,6 +24,7 @@
       })();
     </script>
     {% endif %}
+
   </head>
   <body>
     <div id="page">
@@ -47,7 +48,9 @@
 
     <script type="text/javascript"
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="javascripts/jquery-2.1.4.min.js"></script>
     <script>
+      // enable MathJax
       MathJax.Hub.Config({
         tex2jax: {
           skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
@@ -58,6 +61,22 @@
           for(i=0; i < all.length; i += 1) {
               all[i].SourceElement().parentNode.className += ' has-jax';
           }
+      });
+
+      // tags on index page
+      $("document").ready(function () {
+        $(".tag").click(function () {
+          if ($(this).hasClass("selected")) {
+            $(".tag").removeClass("selected");
+            $("#archive li").show();
+            window.location = '';
+          } else {
+            $(".tag").addClass("selected");
+            $("#archive li").hide();
+            $("#archive li[data-tag=" + $(this).text() + "]").show();
+            window.location.hash = $(this).text();
+          }
+        })
       });
     </script>
   </body>

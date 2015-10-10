@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A First Foray into Experiential Art
-tags: [appetite obscure, fun, games, food, drinks, maps, experiential art]
+tags: [games, appetite obscure, fun, food, drinks, maps, art, experiential art]
 date: 2014-06-27
 ---
 

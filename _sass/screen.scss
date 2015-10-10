@@ -133,6 +133,10 @@ table {
         list-style-type: none;
     }
 
+    a {
+        padding: 0 4px;
+    }
+
     time {
         font-family: Verdana, Arial, Helvetica, sans-serif;
         font-size: 12px;
@@ -141,8 +145,48 @@ table {
         padding-right: 2px;
     }
 
-    a {
-        padding: 0 4px;
+    .external-site {
+        color: #999;
+        font-size: 70%;
+
+        a {
+            padding: 0;
+            color: #999;
+
+            &:hover {
+                color: #333;
+            }
+        }
+    }
+
+    a.tag {
+        font-size: 70%;
+        padding: 2px 4px;
+        border-radius: 7px;
+
+        border: 1px solid #AAA;
+        background-color: #444;
+        color: #AAA;
+
+        &:hover {
+            cursor: pointer;
+
+            background-color: #FFF;
+            border-color: #FFF;
+            color: #333;
+        }
+
+        &.selected {
+            background-color: #FFF;
+            border-color: #FFF;
+            color: #333;
+
+            &:hover {
+                border: 1px solid #AAA;
+                background-color: #444;
+                color: #AAA;
+            }
+        }
     }
 }
 

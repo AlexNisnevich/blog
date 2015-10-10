@@ -1,7 +1,7 @@
 ---
 layout: post
 title: My Experience with Steam for Linux (64-bit Linux Mint Debian Edition)
-tags: [steam, linux, 64-bit, games]
+tags: [linux, steam, 64-bit, games]
 date: 2013-03-25
 ---
 

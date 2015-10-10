@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Introducing diffnow-cli
-tags: [shell, linux, curl, diffnow, comparison, utility]
+tags: [linux, shell, curl, diffnow, comparison, utility]
 published: false
 ---
 

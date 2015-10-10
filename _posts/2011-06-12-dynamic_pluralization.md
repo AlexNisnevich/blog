@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Dynamic Pluralization with PHP and jQuery
-tags: [php, yii, javascript, jquery, grammar]
+tags: [code, php, yii, javascript, jquery, grammar]
 date: 2012-07-30
 ---
 

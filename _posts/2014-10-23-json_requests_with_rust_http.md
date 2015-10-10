@@ -1,7 +1,7 @@
 ---
 layout: post
 title: JSON Requests with rust-http
-tags: [json, requests, rust, http, library]
+tags: [code, json, requests, rust, http, library]
 ---
 
 I've been playing around with [Rust](http://www.rust-lang.org/) a lot the past couple weeks. It's a neat little language with some cool ideas (I particularly like its memory-safety features, though they take some getting used to), but sadly the ecosystem has some catching up to do.

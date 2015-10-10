@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Refreshing Browsers over SSH
-tags: [ssh, linux, browsers]
+tags: [linux, ssh, browsers]
 ---
 
 Today I was faced with the challenge of having to refresh a Chrome browser window on a networked Ubuntu machine via SSH. (Admittedly, I could have walked over to the computer in question and hit F5, but where's the fun in that?) This seemed like it would be simple, but I immediately ran into problems.

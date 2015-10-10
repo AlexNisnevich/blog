@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The Church-Rosser Theorem and the Consistency of Lambda Calculus
-tags: [theory, computability, math, lambda calculus]
+tags: [math, theory, computability, lambda calculus]
 date: 2013-05-17
 ---
 
