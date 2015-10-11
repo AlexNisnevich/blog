@@ -17,7 +17,11 @@ layout: nil
  {% for post in site.posts %}
  <entry>
    <title>{{ post.title }}</title>
-   <link href="http://{{ site.domain }}/blog{{ post.url }}"/>
+   {% if post.external_url %}
+    <link href="http://{{ site.domain }}/blog{{ post.url }}"/>
+   {% else %}
+    <link href="{{ post.external_url }}"/>
+   {% endif %}
    <updated>{{ post.date | date_to_xmlschema }}</updated>
    <id>http://{{ site.domain }}{{ post.id }}</id>
    <content type="html">{{ post.content | xml_escape }}</content>

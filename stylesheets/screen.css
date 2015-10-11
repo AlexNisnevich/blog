@@ -283,7 +283,7 @@ table td, table th {
   font-size: 70%;
 }
 #archive .external-site a {
-  padding: 0;
+  padding: 0 1px;
   color: #999;
 }
 #archive .external-site a:hover {
