@@ -18,13 +18,17 @@ layout: nil
  <entry>
    <title>{{ post.title }}</title>
    {% if post.external_url %}
-    <link href="http://{{ site.domain }}/blog{{ post.url }}"/>
-   {% else %}
     <link href="{{ post.external_url }}"/>
+   {% else %}
+    <link href="http://{{ site.domain }}/blog{{ post.url }}"/>
    {% endif %}
    <updated>{{ post.date | date_to_xmlschema }}</updated>
    <id>http://{{ site.domain }}{{ post.id }}</id>
-   <content type="html">{{ post.content | xml_escape }}</content>
+   {% if post.external_url %}
+    <content type="html">See {{ post.external_url }}</content>
+   {% else %}
+    <content type="html">{{ post.content | xml_escape }}</content>
+   {% endif %}
  </entry>
  {% endfor %}
 
