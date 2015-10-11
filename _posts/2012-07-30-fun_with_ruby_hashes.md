@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Playing Around with Ruby Hashes
-tags: [ruby, data structures, recursion]
+tags: [code, ruby, data structures, recursion]
 ---
 
 As a relative Ruby newbie, one of the things I love about it is how easy and elegant it is to modify existing classes.
