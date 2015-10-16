@@ -74,5 +74,5 @@ end
 
 @dir = 'blog'
 def make_symlink
-  sh 'mkdir -p _site && cd _site && sudo ln -s . ' + @dir
+  sh 'mkdir -p _site && cd _site && ln -s . ' + @dir
 end

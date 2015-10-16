@@ -50,6 +50,9 @@
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="javascripts/jquery-2.1.4.min.js"></script>
     <script>
+      // helpers
+      jQuery.fn.reverse = [].reverse; // add reverse() to jQuery
+
       // enable MathJax
       MathJax.Hub.Config({
         tex2jax: {
@@ -77,6 +80,17 @@
             window.location.hash = $(this).text();
           }
         })
+
+        // indicating new years on index page
+        var lastDate = null;
+        $("#archive time").reverse().each(function () {
+          var date = $(this).text().split("-")[0];
+          var rest = $(this).text().split("-").slice(1).join("-");
+          if (date != lastDate) {
+            lastDate = date;
+            $(this).html("<strong>" + date + "</strong>-" + rest);
+          }
+        });
       });
     </script>
   </body>

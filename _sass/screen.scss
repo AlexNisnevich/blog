@@ -143,6 +143,10 @@ table {
         text-transform: uppercase;
         color: #999;
         padding-right: 2px;
+
+        strong {
+            color: #CCC;
+        }
     }
 
     .external-site {

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Face Tracking with OpenCV and a USB Missile Launcher
-tags: [fun, python, usb, linux, osx, windows, opencv, vision, ai, hardware]
+tags: [fun, python, usb, linux, osx, windows, opencv, vision, ai, hardware, jimmy]
 ---
 
 **[Check out Sentinel for Linux, Windows, and OS X on GitHub](https://github.com/AlexNisnevich/sentinel)**

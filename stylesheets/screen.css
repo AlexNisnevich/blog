@@ -278,6 +278,9 @@ table td, table th {
   color: #999;
   padding-right: 2px;
 }
+#archive time strong {
+  color: #CCC;
+}
 #archive .external-site {
   color: #999;
   font-size: 70%;
