@@ -4,7 +4,11 @@ title: How many closed lambda-calculus terms are there of a given length?
 tags: [math, theory, lambda calculus, ruby, integers]
 ---
 
-_**Update (6/2/16):** Reddit user [u/julesjacobs](https://www.reddit.com/u/julesjacobs) has managed to find [an elegant recurrence relation for this problem](https://www.reddit.com/r/math/comments/4kftx8/how_many_closed_lambdacalculus_terms_are_there_of/d3f4b52)! As it turns out, my approach slightly undercounted the number of terms (for length 10, I calculated 893 terms, while the true answer is 893), but was correct for N<10. Fun fact: there are 147677899847908815123862539373715632995852464035157843195311323850864810096812226643364709183774473672545 terms of length 100._
+_**Update (6/2/16):** Reddit user [u/julesjacobs](https://www.reddit.com/u/julesjacobs) has managed to find [an elegant recurrence relation for this problem](https://www.reddit.com/r/math/comments/4kftx8/how_many_closed_lambdacalculus_terms_are_there_of/d3f4b52)! As it turns out, my approach slightly undercounted the number of terms (for length 10, I calculated 893 terms, while the true answer is 896), but was correct for N<10._
+
+_Fun fact: there are 147677899847908815123862539373715632995852464035157843195311323850864810096812226643364709183774473672545 terms of length 100._
+
+---
 
 I thought of this question a few months ago, and, as far as I can tell, nobody has really done any work on it before. And I'm not surprised – it doesn't seem to really be a question of any practical significance, just an idle curiosity.
 
