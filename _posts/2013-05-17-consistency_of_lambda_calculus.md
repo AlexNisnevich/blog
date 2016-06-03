@@ -9,23 +9,23 @@ For my [Computability final paper](https://www.dropbox.com/s/u1c6pbi0qwtnjqi/The
 
 ### What is the Church-Rosser Theorem?
 
-The main operation of &lambda;-calculus (at least in its standard form) is &beta;-reduction. Loosely speaking, &beta;-reduction means that, given a function that takes an argument `\(x\)` and returns `\(M\)`, applying this function to some argument `\(y\)` yields the same result as substituting `\(y\)` for every occurrence of `\(x\)` in `\(M\)`. In the notation of &lambda;-calculus, we write this as:
+The main operation of &lambda;-calculus (at least in its standard form) is &beta;-reduction. Loosely speaking, &beta;-reduction means that, given a function that takes an argument <span>\\(x\\)</span> and returns <span>\\(M\\)</span>, applying this function to some argument <span>\\(y\\)</span> yields the same result as substituting <span>\\(y\\)</span> for every occurrence of <span>\\(x\\)</span> in <span>\\(M\\)</span>. In the notation of &lambda;-calculus, we write this as:
 
-`\[
+<div>\[
 (\lambda x . M) y = M [x := y]
-\]`
+\]</div>
 
-where `\((λx.M)\)` means "the function that returns `\(M\)` given `\(x\)`" and `\(M[x := y]\)` means "the result of substituting `\(y\)` for `\(x\)` in `\(M\)`".
+where <span>\\((λx.M)\\)</span> means "the function that returns <span>\\(M\\)</span> given <span>\\(x\\)</span>" and <span>\\(M[x := y]\\)</span> means "the result of substituting <span>\\(y\\)</span> for <span>\\(x\\)</span> in <span>\\(M\\)</span>".
 
-A statement `\(M\)` can be _&beta;-reduced_ to `\(N\)` if you can apply the above formula some number of times to `\(M\)` to turn it into `\(N\)`.
+A statement <span>\\(M\\)</span> can be _&beta;-reduced_ to <span>\\(N\\)</span> if you can apply the above formula some number of times to <span>\\(M\\)</span> to turn it into <span>\\(N\\)</span>.
 
-For example, `\(((λx.(λy.y))z)z\)` &beta;-reduces to `\(z\)`, because
+For example, <span>\\(((λx.(λy.y))z)z\\)</span> &beta;-reduces to <span>\\(z\\)</span>, because
 
-`\[
+<div>\[
 \Big(\big(\lambda x . (\lambda y . y)\big) z\Big) z = \big((\lambda y . y) [x := z]\big) z = (\lambda y . y) z = y [y := z] = z
-\]`
+\]</div>
 
-The **Church-Rosser Theorem** for &beta;-reduction states that whenever some expression `\(M\)` can be &beta;-reduced to two different expressions `\(N\)` and `\(P\)`, there exists some expression `\(Q\)` that both `\(N\)` and `\(P\)` can &beta;-reduce to. This property is also called _confluence_, and is sometimes referred to as the _diamond property_, because the resulting graph of reductions looks like this:
+The **Church-Rosser Theorem** for &beta;-reduction states that whenever some expression <span>\\(M\\)</span> can be &beta;-reduced to two different expressions <span>\\(N\\)</span> and <span>\\(P\\)</span>, there exists some expression <span>\\(Q\\)</span> that both <span>\\(N\\)</span> and <span>\\(P\\)</span> can &beta;-reduce to. This property is also called _confluence_, and is sometimes referred to as the _diamond property_, because the resulting graph of reductions looks like this:
 
 <img class="figure" src="/blog/images/confluence.jpg">
 
@@ -45,9 +45,9 @@ In the final section of my paper, I show that it follows from the Church-Rosser 
 
 Then, I show that two terms cannot be equal to each other in &lambda;-calculus if they are not &beta;-equivalent. This is a result that follows directly from the axioms of &lambda;-calculus.
 
-Putting all of these pieces together, if two terms `\(M\)` and `\(N\)` do not share the same &beta;-normal form, then the statement `\(M = N\)` is not provable in &lambda;-calculus.
+Putting all of these pieces together, if two terms <span>\\(M\\)</span> and <span>\\(N\\)</span> do not share the same &beta;-normal form, then the statement <span>\\(M = N\\)</span> is not provable in &lambda;-calculus.
 
-It's easy to find two terms that do not share a &beta;-normal form - for example, `\(I = λx.x\)` and `\(K = λx.(λy.x)\)`. Thus, the statement `\(I = K\)` is not provable in &lambda;-calculus, and so &lambda;-calculus is a consistent theory, because if &lambda;-calculus were inconsistent, then by definition every (syntactically valid) statement would be provable in it.
+It's easy to find two terms that do not share a &beta;-normal form - for example, <span>\\(I = λx.x\\)</span> and <span>\\(K = λx.(λy.x)\\)</span>. Thus, the statement <span>\\(I = K\\)</span> is not provable in &lambda;-calculus, and so &lambda;-calculus is a consistent theory, because if &lambda;-calculus were inconsistent, then by definition every (syntactically valid) statement would be provable in it.
 
 ### Interested in this sort of thing?
 
