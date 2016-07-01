@@ -13,7 +13,7 @@ In the talk, we argue that natural-language UIs can enable users to interact wit
 
 Getting a little more hands-on, I give a quick tutorial _(starting around 7:20)_ on [CCG (combinatory categorial grammar)](https://en.wikipedia.org/wiki/Combinatory_categorial_grammar) and basic [lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus), finally culminating into a complete semantic parse of the example phrase _"top 5 opportunities in California by amount"_:
 
-<img class="figure" src="/images/strata-2016-parse.jpg" alt="Semantic CCG parse of &quot;top 5 opportunities in California by amount&quot;" style="width: 560px;">
+<img class="figure" src="/blog/images/strata-2016-parse.jpg" alt="Semantic CCG parse of &quot;top 5 opportunities in California by amount&quot;" style="width: 560px;">
 
 Leading up to the talk, we released **[montague](https://github.com/Workday/upshot-montague)**, a little CCG semantic parsing library for Scala that emphasizes simplicity and expressibility. **montague** is an open-source version of the CCG parser that [powered UPSHOT's English-to-SQL translation functionality](https://github.com/Workday/upshot-montague#background).
 
