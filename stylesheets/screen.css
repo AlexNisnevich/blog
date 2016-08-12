@@ -316,6 +316,10 @@ table td, table th {
   background-color: #444;
   color: #AAA;
 }
+#archive.filtered time strong {
+  font-weight: default;
+  color: default;
+}
 
 .appetiteObscureTitle {
   font: 34px Coustard, helvetica, arial;

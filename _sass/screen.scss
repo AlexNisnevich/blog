@@ -192,6 +192,13 @@ table {
             }
         }
     }
+
+    &.filtered {
+        time strong {
+            font-weight: inherit;
+            color: inherit; 
+        }
+    }
 }
 
 // one-off styles

@@ -71,10 +71,12 @@
       $("document").ready(function () {
         $(".tag").click(function () {
           if ($(this).hasClass("selected")) {
+            $("#archive").removeClass("filtered");
             $(".tag").removeClass("selected");
             $("#archive li").show();
             window.location = '';
           } else {
+            $("#archive").addClass("filtered");
             $(".tag").addClass("selected");
             $("#archive li").hide();
             $("#archive li[data-tag=" + $(this).text() + "]").show();
