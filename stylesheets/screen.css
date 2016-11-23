@@ -317,8 +317,8 @@ table td, table th {
   color: #AAA;
 }
 #archive.filtered time strong {
-  font-weight: default;
-  color: default;
+  font-weight: inherit;
+  color: inherit;
 }
 
 .appetiteObscureTitle {
