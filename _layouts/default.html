@@ -24,7 +24,6 @@
       })();
     </script>
     {% endif %}
-    <script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
 
   </head>
   <body>
@@ -47,25 +46,12 @@
     <a href="http://github.com/{{ site.github.username }}"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
   {% endif %}
 
-    <script type="text/javascript"
- src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+
     <script>
       // helpers
       jQuery.fn.reverse = [].reverse; // add reverse() to jQuery
-
-      // enable MathJax
-      MathJax.Hub.Config({
-        tex2jax: {
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-        }
-      });
-      MathJax.Hub.Queue(function() {
-          var all = MathJax.Hub.getAllJax(), i;
-          for(i=0; i < all.length; i += 1) {
-              all[i].SourceElement().parentNode.className += ' has-jax';
-          }
-      });
 
       // tags on index page
       $("document").ready(function () {
@@ -94,6 +80,19 @@
             $(this).html("<strong>" + date + "</strong>-" + rest);
           }
         });
+      });
+
+      // enable MathJax
+      MathJax.Hub.Config({
+        tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      });
+      MathJax.Hub.Queue(function() {
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i=0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
       });
     </script>
   </body>
