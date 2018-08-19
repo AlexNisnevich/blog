@@ -280,6 +280,7 @@ table td, table th {
 }
 #archive time strong {
   color: #CCC;
+  margin-left: -4px;
 }
 #archive .external-site {
   color: #999;

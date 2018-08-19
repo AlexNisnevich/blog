@@ -146,6 +146,7 @@ table {
 
         strong {
             color: #CCC;
+            margin-left: -4px;
         }
     }
 
@@ -196,7 +197,7 @@ table {
     &.filtered {
         time strong {
             font-weight: inherit;
-            color: inherit; 
+            color: inherit;
         }
     }
 }
