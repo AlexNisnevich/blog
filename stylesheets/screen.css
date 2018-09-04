@@ -177,6 +177,10 @@ h2, h2 a {
   text-decoration: none;
   line-height: 1.2em;
 }
+h2.subtitle, h2 a.subtitle {
+  font-size: 25px;
+  font-style: italic;
+}
 
 code {
   font-family: 'Ubuntu Mono', monospace;

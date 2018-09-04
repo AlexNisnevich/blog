@@ -28,6 +28,11 @@ h2, h2 a {
     color: #EBFFB4;
     text-decoration: none;
     line-height: 1.2em;
+
+    &.subtitle {
+        font-size: 25px;
+        font-style: italic;
+    }
 }
 
 code {
