@@ -10,7 +10,7 @@ About six months ago, I read Tobias Toft's excellent article ["An intro to Pen P
 
 This is the story of my first experiment with pen plotters – plotting a land-use map of Downtown Berkeley:
 
-<img class="figure" src="/images/plotting_maps_5.png" style="width: 95%" />
+<img class="figure" src="/blog/images/plotting_maps_5.png" style="width: 95%" />
 
 ### Setting up and using an HP 7475A plotter
 
@@ -28,7 +28,7 @@ I tested the plotter out by sending some commands over [Coolterm](http://freewar
 
 The first step to plotting a map is loading the appropriate shapefile in a GIS environment (I use the open-source [QGIS](https://qgis.org/en/site/)) and exporting each desired layer as PDF. I followed the instructions in the ["Preparing Data"](https://docs.qgis.org/2.18/en/docs/training_manual/foreword/preparing_data.html#hard-ty) section of the QGIS tutorial to load a map of Berkeley from [OpenStreetMap](http://www.openstreetmap.org/):
 
-<img class="figure" src="/images/plotting_maps_1.png" style="width: 100%" />
+<img class="figure" src="/blog/images/plotting_maps_1.png" style="width: 100%" />
 
 From there, I exported a PDF for each layer I was interested in:
 
@@ -76,7 +76,7 @@ And _voila_, we now have an HPGL file that we can send directly to the plotter.
 
 Here's what it looks like with just the `roads` layer plotted:
 
-<img class="figure" src="/images/plotting_maps_2.jpg" style="width: 95%" />
+<img class="figure" src="/blog/images/plotting_maps_2.jpg" style="width: 95%" />
 
 Unfortunately, the polygon layers don't end up looking very good when simply overlaid on top of the roads layer _(I neglected to take a photo of this; you'll have to take my word for it)_, since they're just rectangular outlines that are difficult to see next to the black lines of the roads.
 
@@ -103,23 +103,23 @@ The workflow I finally settled on is a bit convoluted, but it does work:
 
 Here's what it looks like when I plot the resulting hatch lines for just one layer (the "commercial" layer):
 
-<img class="figure" src="/images/plotting_maps_3.jpg" style="width: 95%" />
+<img class="figure" src="/blog/images/plotting_maps_3.jpg" style="width: 95%" />
 
 Not bad, huh?
 
 Once we have hatching for one layer working, we can do the rest of them just by repeating the process for each layer. I did have to carefully align each layer together in Illustrator (and then print them out to Postscript one at a time by selectively hiding layers):
 
-<img class="figure" src="/images/plotting_maps_4.png" style="width: 100%" />
+<img class="figure" src="/blog/images/plotting_maps_4.png" style="width: 100%" />
 
 That said, you can create some cool glitchy art by neglecting to properly align the layers:
 
-<img class="figure" src="/images/plotting_maps_6.jpg" style="width: 80%" />
+<img class="figure" src="/blog/images/plotting_maps_6.jpg" style="width: 80%" />
 
 ### The Final Product
 
 I ran `plot_hpgl_file.py` and crossed my fingers. After 10 minutes of meticulous plotting, the map came out of the plotter, and actually looked halfway decent. I added some text and carefully cut the paper from 11"x17" to 11"x14" to reduce the amount of unsightly white space at the bottom:
 
-<img class="figure" src="/images/plotting_maps_5.png" style="width: 95%" />
+<img class="figure" src="/blog/images/plotting_maps_5.png" style="width: 95%" />
 
 Not perfect, but it's certainly not bad for a week's work.
 
