@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Secrets of natural language UIs: Translating English into computer actions"
-tags: [reaserach, talks, language, joseph, nlp, strata, upshot, ux, translation, english, sql, scala, lambda calculus]
+tags: [research, talks, language, joseph, nlp, strata, upshot, ux, translation, english, sql, scala, lambda calculus]
 ---
 [Joseph Turian](https://github.com/turian) and I gave a talk at [Strata 2016](http://conferences.oreilly.com/strata/hadoop-big-data-ca) entitled ["Secrets of natural language UIs: Translating English into computer actions"](http://conferences.oreilly.com/strata/hadoop-big-data-ca/public/schedule/detail/47360).
 
