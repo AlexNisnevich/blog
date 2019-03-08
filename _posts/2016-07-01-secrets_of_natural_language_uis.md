@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Secrets of natural language UIs: Translating English into computer actions"
-tags: [talks, language, joseph, nlp, strata, upshot, ux, translation, english, sql, scala, lambda calculus]
+tags: [reaserach, talks, language, joseph, nlp, strata, upshot, ux, translation, english, sql, scala, lambda calculus]
 ---
 [Joseph Turian](https://github.com/turian) and I gave a talk at [Strata 2016](http://conferences.oreilly.com/strata/hadoop-big-data-ca) entitled ["Secrets of natural language UIs: Translating English into computer actions"](http://conferences.oreilly.com/strata/hadoop-big-data-ca/public/schedule/detail/47360).
 
@@ -9,7 +9,7 @@ Here's a video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/lnV2JnNBM1I" frameborder="0" allowfullscreen></iframe>
 
-In the talk, we argue that natural-language UIs can enable users to interact with complicated data in a way that traditional UIs cannot. As an example, we discuss the implementation of [UPSHOT](http://venturebeat.com/2014/01/24/salesforce-prize-winner-upshot-teases-investors-with-voice-triggered-analytics/)'s English-to-SQL interface. 
+In the talk, we argue that natural-language UIs can enable users to interact with complicated data in a way that traditional UIs cannot. As an example, we discuss the implementation of [UPSHOT](http://venturebeat.com/2014/01/24/salesforce-prize-winner-upshot-teases-investors-with-voice-triggered-analytics/)'s English-to-SQL interface.
 
 Getting a little more hands-on, I give a quick tutorial _(starting around 7:20)_ on [CCG (combinatory categorial grammar)](https://en.wikipedia.org/wiki/Combinatory_categorial_grammar) and basic [lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus), finally culminating into a complete semantic parse of the example phrase _"top 5 opportunities in California by amount"_:
 
