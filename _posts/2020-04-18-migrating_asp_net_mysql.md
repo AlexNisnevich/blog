@@ -62,7 +62,7 @@ A network-related or instance-specific error occurred while establishing a conne
 Wait, what? We've switched over the connection strings to use `MySqlClient` – how could we still be trying to access SQL Server after?
 
 After some disbelief, I finally realized that:
-1. While testing my changes, I (ill-advisedly) set up the new MySQL database on the same box, with the same database namem and with the same admin user credentials as the old SQL Server database (albeit on a different port) – in other words, with an identical connection string, and
+1. While testing my changes, I (foolishly) set up the new MySQL database on the same box, with the same database name and with the same admin user credentials as the old SQL Server database (albeit on a different port) – in other words, with an identical connection string, and
 2. I'd neglected to make any changes to the `<membership>` section of `Web.config`, so the default `System.Web.Security.SqlMembershipProvider` provider was still being used – and `SqlMembershipProvider` [only supports SQL Server](https://docs.microsoft.com/en-us/dotnet/api/system.web.security.sqlmembershipprovider?view=netframework-4.8).
 
 So, by a unfortunate confluence of events, even though the application was correctly connecting to the new MySQL database via `MySql.Data.MySqlClient`, the membership provider was reading the same connection strings as SQL Server connections and connecting to the SQL Server database that happened to be on the same box, with the same admin user credentials – a SQL Server database that had still existed in my initial tests, before I shut it down!
