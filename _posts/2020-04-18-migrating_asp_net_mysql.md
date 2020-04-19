@@ -10,7 +10,7 @@ What I thought would be a fairly routine switchover turned out to be a rather in
 
 Here's what I did:
 
-# Step 1. Copy over the Database
+### Step 1. Copy over the Database
 To copy over the data from the old SQL Server database to the new MySQL database, I used [MySQL Workbench's Migration Wizard](https://www.mysql.com/products/workbench/migrate/), connecting to the old database through a SQL Server ODBC driver.
 
 One would hope that this would be an automatic process, but unfortunately, it didn't quite work without manual intervention, for a few reasons: 
@@ -18,7 +18,7 @@ One would hope that this would be an automatic process, but unfortunately, it di
 - Timestamp literals (e.g. in default values for TIMESTAMP fields) were not correct in the generated SQL, I assume because of differences in how dates and times are represented in SQL Server vs MySQL. I had to fix these by hand.  
 - After all this, some indices and constraints still got messed up, and needed to be manually fixed before copying over the data from the original database.
     
-# Step 2. Install New Packages
+### Step 2. Install New Packages
 [NuGet](https://www.nuget.org/) wasn't really a thing when I first created this application (in 2011), so I wasn't looking forward to this step, but I was pleasantly surprised by how easy NuGet is to use and how solid the Visual Studio integration for it is.
 
 One thing that was a little tricky was that my application uses .NET Framework 4.0 (and I've been unable to upgrade it to 4.5+ for a variety of reasons), so I couldn't use any of the last fewpain versions of `MySql.Data` (both v8 and v6.10 require .NET Framework 4.5). It took some trial and error, but I ended up installing the following packages:
@@ -27,38 +27,42 @@ One thing that was a little tricky was that my application uses .NET Framework 4
 - `MySql.Web` 6.9.12 (for membership, see Step 4 below)
 - `WebMatrix.WebData` (for membership, see Step 4 below)
 
-# Step 3. Configure MySQL in web.config
+### Step 3. Configure MySQL in web.config
 Now that `MySql.Data.MySqlClient` is installed, switching over to it is actually quite painless, and requires no code changes. I made the following changes to my `Web.config` file:
 - In `configuration/connectionStrings`, update all the connection strings to point to the MySQL database and swap out `providerName="System.Data.SqlClient"` for `providerName="MySql.Data.MySqlClient"`.
 - In `system.data/DbProviderFactories`, add the following (this may be automatically added for you by NuGet):
-```
+{% highlight xml %}
 <add name="MySQL Data Provider" invariant="MySql.Data.MySqlClient" description=".Net Framework Data Provider for MySQL" type="MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
-```
+{% endhighlight %}
 - Replace the `entityFramework` section with the following:
-```
-  <entityFramework codeConfigurationType="MySql.Data.Entity.MySqlEFConfiguration, MySql.Data.Entity.EF6">
-    <defaultConnectionFactory type="MySql.Data.Entity.MySqlConnectionFactory, MySql.Data.Entity.EF6" />
-    <providers>
-      <provider invariantName="MySql.Data.MySqlClient" type="MySql.Data.MySqlClient.MySqlProviderServices, MySql.Data.Entity.EF6, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"></provider>
-    </providers>
-  </entityFramework>
-```
+{% highlight xml %}
+<entityFramework codeConfigurationType="MySql.Data.Entity.MySqlEFConfiguration, MySql.Data.Entity.EF6">
+  <defaultConnectionFactory type="MySql.Data.Entity.MySqlConnectionFactory, MySql.Data.Entity.EF6" />
+  <providers>
+    <provider invariantName="MySql.Data.MySqlClient" type="MySql.Data.MySqlClient.MySqlProviderServices, MySql.Data.Entity.EF6, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"></provider>
+  </providers>
+</entityFramework>
+{% endhighlight %}
 - In `runtime/assemblyBinding`, add the following:
-```
-      <dependentAssembly>
-        <assemblyIdentity name="MySql.Data" publicKeyToken="c5687fc88969c44d" />
-        <bindingRedirect oldVersion="1.0.0.0-6.9.12.0" newVersion="6.9.12.0" />
-      </dependentAssembly>
-```
+{% highlight xml %}
+<dependentAssembly>
+  <assemblyIdentity name="MySql.Data" publicKeyToken="c5687fc88969c44d" />
+  <bindingRedirect oldVersion="1.0.0.0-6.9.12.0" newVersion="6.9.12.0" />
+</dependentAssembly>
+{% endhighlight %}
 
-# And now ...
+### And now ...
 
 After I performed steps 1–3, I tried running my application. Everything worked! I tried changing up some values in the MySQL database to make sure that we weren't still pointing to the old SQL Server database. It picked up the new values! Well, that wasn't so bad.
 
 So I shut off SQL Server, reload the page, and ...
-```
+
+{% highlight bash %}
+
 A network-related or instance-specific error occurred while establishing a connection to SQL Server.
-```
+
+{% endhighlight %}
+
 Wait, what? We've switched over the connection strings to use `MySqlClient` – how could we still be trying to access SQL Server after?
 
 After some disbelief, I finally realized that:
@@ -69,19 +73,19 @@ So, by a unfortunate confluence of events, even though the application was corre
 
 If, like me, you're using `SqlMembershipProvider`, there's one more step you'll need to take:
 
-# Step 4. Switch over to MySqlMembershipProvider (if needed)
+### Step 4. Switch over to MySqlMembershipProvider (if needed)
 
 First, add the `MySql.Web` and `WebMatrix.WebData` packages with NuGet if you haven't already.
 
 Then, switch to `MySqlMembershipProvider` in the `<membership>` section of your `Web.config`: 
-```
- <membership defaultProvider="MySQLMembershipProvider">
-    <membership>	
-      <providers>	       
-        <add name="MySQLMembershipProvider" type="MySql.Web.Security.MySQLMembershipProvider, MySql.Web, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" connectionStringName="..." ... />
-    </membership>
+{% highlight xml %}
+<membership defaultProvider="MySQLMembershipProvider">
+  <membership>	
+    <providers>	       
+      <add name="MySQLMembershipProvider" type="MySql.Web.Security.MySQLMembershipProvider, MySql.Web, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" connectionStringName="..." ... />
+  </membership>
 </membership>
-```
+{% endhighlight %}
 
 You may also need to configure `MySQLProfileProvider` and `MySQLRoleProvider` in `Web.config`, or this may automatically be done for you by the NuGet installation. In any case, I didn't have to do anything with these.
 
