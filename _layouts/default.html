@@ -6,10 +6,10 @@
     <meta name="description" content="{{ page.description }}" />
     {% endif %}
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" id="googlefonts-css" href="http://fonts.googleapis.com/css?family=Coustard%7CActor&amp;ver=3.9.1" type="text/css" media="all">
+    <link rel="stylesheet" id="googlefonts-css" href="https://fonts.googleapis.com/css?family=Coustard%7CActor&amp;ver=3.9.1" type="text/css" media="all">
     <link rel="stylesheet" media="screen" href="/blog/stylesheets/screen.css" type="text/css" />
     {% if site.feedburner %}
-    <link href="http://feeds.feedburner.com/{{ site.feedburner.id }}" rel="alternate" title="{{ site.title }}" type="application/atom+xml" />
+    <link href="https://feeds.feedburner.com/{{ site.feedburner.id }}" rel="alternate" title="{{ site.title }}" type="application/atom+xml" />
     {% endif %}
     {% if site.google_analytics %}
     <!-- google analytics async -->
@@ -19,7 +19,7 @@
       _gaq.push(['_trackPageview']);
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        ga.src = 'https://ssl.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
     </script>
@@ -44,11 +44,11 @@
     </div>
 
   {% if site.github %}
-    <a href="http://github.com/{{ site.github.username }}"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+    <a href="https://github.com/{{ site.github.username }}"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
   {% endif %}
 
-    <script type="text/javascript" src="javascripts/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <script type="text/javascript" src="/blog/javascripts/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML"></script>
 
     <script>
       // helpers
