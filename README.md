@@ -1,3 +1,24 @@
+# AlexNisnevich.blog
+
+## Install
+
+If on OS X, may need to `sudo chmod -R 0777 /Library/Ruby/Gems/` first?
+```
+bundle install
+```
+
+## Run
+
+In one terminal window:
+```
+rake server
+```
+
+In another terminal window:
+```
+rake build
+```
+
 # Jekyll Template
 
 This is a template project for jekyll that you can clone and customise to suit your needs.  Its quite opinionated in what it provides, the idea is to get you up and running with feed support, analytics and comments and feedback.  This is meant for a standalone blog, not for [github pages](http://pages.github.com/)
@@ -13,7 +34,7 @@ Please don't fork otherwise I'll see lots of noise on the fork queue that are yo
     git remote add origin git@github.com:username/reponame.git
     git push -u origin master
 
-The following sections detail how to set up and use the template.  The commands are known to work on my macbook, YRMV.
+The following sections detail how sto set up and use the template.  The commands are known to work on my macbook, YRMV.
 
 ## Ruby 1.9.2 via RVM
 
