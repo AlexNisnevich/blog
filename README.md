@@ -9,14 +9,8 @@ bundle install
 
 ## Run
 
-In one terminal window:
 ```
 rake server
-```
-
-In another terminal window:
-```
-rake build
 ```
 
 # Jekyll Template
