@@ -32,5 +32,4 @@ show_related_posts: true
 num_related_posts: 3
 
 plugins:
-  # Other plugins ...
   - jekyll-tagging-related_posts

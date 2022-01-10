@@ -6,6 +6,5 @@ gem 'compass'
 gem 'pygments.rb'
 
 group :jekyll_plugins do
-  # Other plugins ...
   gem 'jekyll-tagging-related_posts'
 end
