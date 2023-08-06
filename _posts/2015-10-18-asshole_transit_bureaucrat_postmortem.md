@@ -4,15 +4,15 @@ title: Postmortem - Asshole Transit Bureaucrat 2015
 tags: [games, creations, elm, frp, ludum dare, fun, asshole transit bureaucrat 2015, jam, greg, tikhon, matt, transportation]
 ---
 
-->[![Asshole Transit Bureaucrat 2015](http://i.imgur.com/sMHxmYf.png?2)](http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=3353)<-
+->[![Asshole Transit Bureaucrat 2015](http://i.imgur.com/sMHxmYf.png?2)](https://web.archive.org/web/20160820081148/http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=3353)<-
 
-This postmortem's been a long time coming, in part because I don't know if I can call my team's submission to this last Ludum Dare, [Asshole Transit Bureaucrat 2015](http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=3353), a _game_, per se. But we did end up scoring well in a few categories, so perhaps I was a bit too harsh. Let's discuss what went right and wrong.
+This postmortem's been a long time coming, in part because I don't know if I can call my team's submission to this last Ludum Dare, [Asshole Transit Bureaucrat 2015](https://web.archive.org/web/20160820081148/http://ludumdare.com/compo/ludum-dare-33/?action=preview&uid=3353), a _game_, per se. But we did end up scoring well in a few categories, so perhaps I was a bit too harsh. Let's discuss what went right and wrong.
 
 ## What went wrong
 
 ### Too much conceptual complexity
 
-This is a bit of a common problem with me and Ludum Dare: it's been an issue with [It's Not Easy Being Muammar](http://ludumdare.com/compo/ludum-dare-20/?action=preview&uid=3353) and, to some extent, [Asteroid Tycoon](http://alex.nisnevich.com/blog/2014/05/07/asteroid_tycoon_postmortem.html). In this case, the complexity bit us in two ways.
+This is a bit of a common problem with me and Ludum Dare: it's been an issue with [It's Not Easy Being Muammar](https://web.archive.org/web/20160821020212/http://ludumdare.com/compo/ludum-dare-20/?action=preview&uid=3353) and, to some extent, [Asteroid Tycoon](http://alex.nisnevich.com/blog/2014/05/07/asteroid_tycoon_postmortem.html). In this case, the complexity bit us in two ways.
 
 On the one hand, it was hard for players to understand what was going on. The goal was already a difficult one to wrap your head around (make a transit system _less_ efficient? what does that _mean_?), but the fact that the only thing you were able to control was the order of stops in a bus route made it even worse. Add to that the fact that there were some subtle issues with the buses that prevented them from always following their prescribed routes, and players were left completely clueless.
 
@@ -48,7 +48,7 @@ I was unsure initially, but now I'm glad we submitted it, incomplete though it w
 
 The look and feel of the game are something I'm proud of, especially given what we managed to accomplish with no artists or full-time musicians.
 
-We made some good tradeoffs. For art, rather than taking the easy way out and making a purely text-oriented game (as I've [done](http://ludumdare.com/compo/ludum-dare-27/?action=preview&uid=3353) [before](http://ludumdare.com/compo/ludum-dare-22/?action=preview&uid=3353)), we painstakingly put together an almost-hypnotic minimalist traffic simulator. It's a lot of fun to look at, gameplay aside.
+We made some good tradeoffs. For art, rather than taking the easy way out and making a purely text-oriented game (as I've [done](https://web.archive.org/web/20160818212509/http://www.ludumdare.com/compo/ludum-dare-27/?action=preview&uid=3353) [before](https://web.archive.org/web/20160818213213/http://ludumdare.com/compo/ludum-dare-22/?action=preview&uid=3353)), we painstakingly put together an almost-hypnotic minimalist traffic simulator. It's a lot of fun to look at, gameplay aside.
 
 And for music, we only had a few hours of our Matt's time, so we had a choice. He could either make a couple really quick tracks, or a single complex and well-put-together track. We opted for the latter, and it was a good choice - it's just one track that repeats over and over, but it's a damn good one, and fits well with the aesthetics of the game.
 

@@ -1,9 +1,9 @@
 # standard jekyll configuration
 
 permalink: date
-highlighter: pygments
+highlighter: rouge
 exclude: ['Rakefile', 'README.md', 'config.rb']
-markdown: rdiscount
+markdown: kramdown
 
 # configuration required for some pages
 
