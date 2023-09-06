@@ -160,10 +160,10 @@ If I may brag for a moment: Six months after its release to the world, Untrusted
 
 A few articles have been written about us. Some of my favorites are:
 
-- our mention in PC Gamer's [list of 100 best free online games](http://www.pcgamer.com/2014/05/30/the-best-free-online-games-on-pc/3/)
-- Rachel Ponce's review, ["Untrusted is a game more like real world programming than you might think"](http://www.brainsforgames.rachelnponce.com/2014/04/mini-review-untrusted-is-game-more-like.html)
-- [KillBot 86's review](http://www.killbot86.com/games/new-doctor-who-game-teaches-kids-code-untrusted-teaches-adults-hack/)
-- [Games with Purpose's review](http://gameswithpurpose.org/untrusted/)
+- our mention in PC Gamer's [list of 100 best free online games](https://web.archive.org/web/20140824073418/http://www.pcgamer.com/2014/05/30/the-best-free-online-games-on-pc/3/)
+- Rachel Ponce's review, ["Untrusted is a game more like real world programming than you might think"](https://web.archive.org/web/20211025141923/http://www.brainsforgames.rachelnponce.com/2014/04/mini-review-untrusted-is-game-more-like.html)
+- [KillBot 86's review](https://web.archive.org/web/20150121084716/http://www.killbot86.com/games/new-doctor-who-game-teaches-kids-code-untrusted-teaches-adults-hack/)
+- [Games with Purpose's review](https://web.archive.org/web/20180831220857/http://gameswithpurpose.org/untrusted/)
 - [GameSideStory's review](http://www.gamesidestory.com/2014/09/05/gametest-untrusted-navigateur/) (in French)
 
 What excites us the most is all the different ways we've seen Untrusted used. For example:

@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'jekyll', '~>3.8'
-gem 'rdiscount'
+gem 'jekyll', '~>4.3'
 gem 'compass'
-gem 'pygments.rb'
 
 group :jekyll_plugins do
   gem 'jekyll-tagging-related_posts'

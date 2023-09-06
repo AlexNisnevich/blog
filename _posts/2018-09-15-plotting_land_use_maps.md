@@ -39,7 +39,7 @@ From there, I exported a PDF for each layer I was interested in:
 
 Initially I separately exported the "residential" layer as well, but I found that it cluttered up the map too much. There is also a layer consisting of all structures, which likewise would have been cool to use (in particular, it would have made the university grounds on the right side look less sparse) but likewise it caused too much clutter.
 
-I selected each layer (or set of layers) in turn and exported to PDF (**Project | Export to PDF**), being careful to preserve the exact same dimensions and map coordinates between each PDF.
+I selected each layer (or set of layers) in turn and exported to PDF (**Project \| Export to PDF**), being careful to preserve the exact same dimensions and map coordinates between each PDF.
 
 ### Converting PDF -> HPGL
 
@@ -64,7 +64,7 @@ while (( "$#" >= 2 )); do
 
   pdf2ps $PNG_FILE $PS_FILE
   pstoedit -f plot-hpgl $PS_FILE $HPGL_FILE
-  cat $HPGL_FILE | sed -e "s/SP[0-9]*;/SP$PEN;/g" >> $OUTPUT_FILE
+  cat $HPGL_FILE \| sed -e "s/SP[0-9]*;/SP$PEN;/g" >> $OUTPUT_FILE
 
   rm $PS_FILE
   rm $HPGL_FILE
@@ -92,13 +92,13 @@ The workflow I finally settled on is a bit convoluted, but it does work:
 
 - Load the PS file corresponding to a single layer in Illustrator (using `pdf2ps` to generate the PS from the QGIS PDF export).
 - Remove the background layer to leave just the layer with the polygon paths.
-- Select the remaining layer. If there are multiple paths, use **Pathfinder | Unite**.
-- With the layer still selected, create a compound path with **Object | Compound Path | Make**.
+- Select the remaining layer. If there are multiple paths, use **Pathfinder \| Unite**.
+- With the layer still selected, create a compound path with **Object \| Compound Path \| Make**.
 - Fill the path with [a pattern I made of diagonal strokes](https://github.com/AlexNisnevich/hp7475a/blob/master/Hatching.ai), and remove the stroke outline.
-- Adjust the spacing of the hatching lines as desired with **Object | Transform | Scale** (with only "Transform Patterns" checked).
-- Convert the compount path to a group of hatching lines with **Object | Expand** and then **Object | Path | Outline Stroke**.
-- Release the clipping mask: **Object | Clipping Mask | Release**.
-- Select everything and click **Pathfinder | Crop** in the **Properties** panel.
+- Adjust the spacing of the hatching lines as desired with **Object \| Transform \| Scale** (with only "Transform Patterns" checked).
+- Convert the compount path to a group of hatching lines with **Object \| Expand** and then **Object \| Path \| Outline Stroke**.
+- Release the clipping mask: **Object \| Clipping Mask \| Release**.
+- Select everything and click **Pathfinder \| Crop** in the **Properties** panel.
 - Finally, export the result back to PS by printing to Postscript using the "Device Independent" PPD. I then converted the PS file to HPGL using a modified version of my `pdf2hpgl.sh` script that simply skips the `pdf2ps` step.
 
 Here's what it looks like when I plot the resulting hatch lines for just one layer (the "commercial" layer):

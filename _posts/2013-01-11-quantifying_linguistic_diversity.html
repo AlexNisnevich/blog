@@ -4,7 +4,7 @@ title: Quantifying Linguistic Diversity
 tags: [research, language, economics, ruby, scraping, mechanize, graphs]
 ---
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <h3>Adventures in Reinventing the Wheel</h3>
 
@@ -118,8 +118,8 @@ end
 <p>All told, this was a fun little project. It was unfortunate that I only found out later that the LDI already exists, and so my data collection was unnecessary, but it was nice to get some experience in scraping data, and I think that I've come up with some novel ways to present language diversity data. In the end, I feel that there is certainly room for more research to be done in the interconnection between the linguistic and economic spheres of countries.</p>
 
 <script type="text/javascript">
-	google.load("visualization", "1", {packages:["corechart"]});
-	google.setOnLoadCallback(drawChart);
+	google.charts.load("current", {packages:["corechart"]});
+	google.charts.setOnLoadCallback(drawChart);
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
 			['ID', 'Linguistic Diversity Index', 'GDP (PPP)/capita in Int$', 'Region'],
@@ -324,7 +324,7 @@ end
 	}
 </script>
 <script type='text/javascript'>
-	google.load('visualization', '1', {'packages': ['geomap']});
+	google.load('visualization', '1', {'packages': ['geochart']});
 	google.setOnLoadCallback(drawMap);
 
 	function drawMap() {
@@ -526,7 +526,7 @@ end
 		};
 
 		var container = document.getElementById('map_canvas');
-		var geomap = new google.visualization.GeoMap(container);
+		var geomap = new google.visualization.GeoChart(container);
 		geomap.draw(data, options);
 	};
 </script>

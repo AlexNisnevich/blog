@@ -16,4 +16,4 @@ The album is available on Spotify ...
 
 If you like what you hear, [pre-order the vinyl](https://qrates.com/projects/16558)! We're doing a very limited press of 200 copies.
 
-<img src="/blog/images/gator-covers.png" style="width: 100%"" />
+<img src="/blog/images/gator-covers.png" style="width: 100%" />
