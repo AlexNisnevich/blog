@@ -38,7 +38,7 @@ Once the frame of 2x4s was assembled, I made a "lip" on the inside out of ½"-sq
 
 <img class="figure" src="https://i.imgur.com/xu5md0C.jpg" style="width: 100%" />
 
-I also made a 1½"-diameter round hole at the center of one of the long sides of the frame, for running a power cord through.
+I also made a 1¼"-diameter round hole at the center of one of the long sides of the frame, for running a power cord through.
 
 Now it's time to fit the monitor inside!
 
