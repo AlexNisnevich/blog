@@ -8,6 +8,9 @@ Getting Wordbots from concept to fully-playable beta was a _journey_. It was one
 
 [link to a "what is wordbots?" for those who don't know?]
 
+## Table of Contents 
+[TODO TOC ... this post is long enough to need it!]
+
 ## First, A Visualization!
 Before I talk about my successes and challenges with Wordbots, it might be helpful to throw up a little graph I made illustrating the development process as the story of git commits and releases:
 ![enter image description here](https://github.com/AlexNisnevich/blog/blob/master/_notebooks/wordbots-graphs/wordbots-dev-history.png?raw=true)
@@ -15,7 +18,7 @@ I should mention that I was fortunate to have a lot of help ... blah blah blah J
 
 And as you can see from the chart, working on Wordbots was not a totally smooth process ...
 
-## A brief history of Wordbots
+## A (semi-)brief history of Wordbots
 
 ### The beginning (summer 2016–fall 2017)
 * original idea - came from Montague, itself an open-source version of what we were working on at Upshot (circa 2014, open sourced in early 2016). game as exercise for Montague
@@ -46,24 +49,46 @@ During a weeklong "Wordbots retreat" in the Lost Coast (a location strategically
 
 Other than that, the major gameplay improvements during this time were all aimed at providing a better UX for players, especially new players: a massive interface redesign that included art by Chris Wooten (TODO link), Help and Community pages, a "New Here?" feature, more flavor throughout the game (as well flavor text support for cards), etc.
 
-### The final push and beta release (fall 2022–spring 2023)
+### The final push (fall 2022–spring 2023)
 
 I was finally able to get out of my slump and really mount a concerted effort to finish Wordbots in fall of 2022. I'd planned a two-month sabbatical from work to work on another project that fell through at the last minute, so I unexpectedly had a whole bunch of free time, so much free time that after a while I was finally able to push through my mental block and start working on Wordbots in earnest.
 
-In October 2022, I added one final major parser feature, and one that I could only have implemented while on sabbatical because of its huge complexity ... **card rewrite effects**. Finally, Wordbots had an actual gameplay mechanic that no other card game could really match - cards could rewrite the very text of other cards. It's certainly a silly addition to Wordbots, and perhaps not necessarily worth the ROI on the effort that was spent to make it possible. But it makes me smile, and so into the game it went.
+In October 2022, I added one final major parser feature, and one that I could only have implemented while on sabbatical because of its huge complexity: **card rewrite effects**. Finally, Wordbots had an actual gameplay mechanic that no other card game could really match - cards could rewrite the very text of other cards. It's certainly a silly addition to Wordbots, and perhaps not necessarily worth the ROI on the effort that was spent to make it possible. But it makes me smile, and so into the game it went.
 
 Other than that, I began to finally work in earnest on checking off boxes on that old "Wordbots: The Final Stretch" doc I'd written way back in 2019. Much had happened since then, but the overall roadmap was still solid, and I was able to pick up where I left off. Jacob and I started a mostly-weekly tradition of Wordbots playtests with each other, and over the next few months, we found and fixed literally dozens of issues with our multiplayer implementation. Other playtests helped us identify other bugs within the game as well as missing quality-of-life features that we proceeded to add, like support for draws, more robust game disconnection handling, support for card rarities in sets, etc. By April 2023, we felt like Wordbots had finally reached the point at which it could handle an influx of new players - it could survive in the wild. In other words, it was ready for beta release.
 
-But I should back up a little. As these final six months of Wordbots polishing were happening, there was of course a much bigger development in the NLP world - the November 2022 release of ChatGPT. [...] 
+### An aside: Wordbots as a symbolic AI island in a sea of LLMs
+
+But I should back up a little. As these final six months of Wordbots polishing were happening, there was of course a much bigger development in the NLP world - the November 2022 release of ChatGPT, which changed the public conversation about NLP seemingly overnight. As I starting grappling with all my feelings about this brave new world we were entering, one thing I struggled to figure out was _what was the place of Wordbots in the new NLP world?_ After all, as cool as the Wordbots concept seemed to me, it was built on old – let's say _ancient_ tech – after all, the whole parsing subsystem was really just a CKY parser with bells and whistles – 1960s-era technology. 
+
+What I ultimately settled on was the idea of Wordbots as a demonstration of the continued relevance of older NLP approaches, and the idea that, as powerful as statistical NLP is today, there is still value in symbolic methods. 
+
+Could an LLM be used to produce code from card text the way Wordbots does? I'm sure such a thing could be implemented. But Wordbots's symbolic-NLP underpinnings offer some advantages that are really useful: consistency and interpretability [TODO more about this]
+
+This new way of thinking about the purpose of Wordbots helped inspire me over the course of the final push towards beta release, and also led me to write the slightly cheeky _"No LLMs were used in the making of Wordbots"_ disclaimer on the [About page](https://wordbots.io/about).
+
+### Wordbots today (/post-release thoughts)
+
+### And finally, the release! (May 2023)
 
 [don't forget to mention Hacker News release and how stressful that was]
 
 ## What went right
 
+* Sticking through to completion
+* Not being afraid to invest in dev productivity (heavy focus on unit tests, TypeScript refactor halfway through, massive breaking changes in how cards were stored in the DB when we realized the old schema wasn't working for us anymore)
+* soliciting feedback / playtests throughout - many of our biggest and most important features were player suggestions!
+* ...
+
 ## What went wrong
 
-## The state of Wordbots today (/post-release thoughts)
+* Struggling with motivation, thinking of it as an obligation rather than a fun project half the time
+* Sticking to tools we knew rather than doing more initial research (React? MaterialUI? ancient version of Scala used by Montague)
+* Never really figuring out how to make use of the many people I had / not doing a good job of splitting up work
+* Not thinking about onboarding / new-player experience until waaay too late in the game (essentially wasting our biggest playtest as a result)
+* ...
 
-## Conclusions
+## Final Thoughts / Conclusions
 
 ## Acknowledgements
+
