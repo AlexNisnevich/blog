@@ -1,4 +1,9 @@
-# A Belated Wordbots Dev Diary and Postmortem (~1 Year Post-Release)
+---
+layout: post
+title: A Belated Wordbots Dev Diary / Postmortem (~1 Year Post-Release)
+tags: []
+date: 2024-05-29
+---
 
 About a year ago, I "released"* [Wordbots](https://wordbots.io/), the tactical card game with user-created cards that I'd been working on since 2016.
 
@@ -9,8 +14,8 @@ Getting Wordbots from concept to fully-playable beta was a _journey_. It was one
 [TODO link to a "what is wordbots?" for those who don't know?]
 
 ## <a name="toc"></a>Table of Contents
-* [First, A Visualization!](#visualization)
-* [A (semi-)brief history of Wordbots](#history)
+* [First, a visualization!](#visualization)
+* [A (not so) brief history of Wordbots](#history)
   * [The beginning (summer 2016–fall 2017)](#history-1)
   * [Slow but steady improvement (fall 2017–summer 2019)](#history-2)
   * [Distractions and demoralization (summer 2019–summer 2022)](#history-3)
@@ -23,22 +28,39 @@ Getting Wordbots from concept to fully-playable beta was a _journey_. It was one
 * [Final thoughts / Conclusions](#final-thoughts)
 * [Acknowledgements](#acknowledgements)
 
-## <a name="visualization"></a>First, A Visualization!
+## <a name="visualization"></a>First, a visualization!
 Before I talk about my successes and challenges with Wordbots, it might be helpful to throw up a little graph I made illustrating the development process as the story of git commits and releases:
-![Charts showing the development history of Wordbots](https://github.com/AlexNisnevich/blog/blob/master/_notebooks/wordbots-graphs/wordbots-dev-history.png?raw=true)
+
+<img class="figure" style="max-width: 100%" src="/blog/images/wordbots-dev-history.png" />
 
 I should mention that I was fortunate to have a lot of help ... blah blah blah Jacob ... blah blah blah see acknowledgements ... blah blah blah commit ... blah blah blah in the end about 95% of the commits were my own, so this chart shows both the development cycle/cadence of Wordbots as a whole as well as illustrating my own personal journey working on Wordbots.
 
 As the chart makes painfully clear, working on Wordbots was not a totally smooth process. Let me go into how it all went down ...
 
-## <a name="history"></a>A (semi-)brief history of Wordbots
+## <a name="history"></a>A (not so) brief history of Wordbots
 
 ### <a name="history-1"></a>The beginning (summer 2016–fall 2017)
-* original idea - came from Montague, itself an open-source version of what we were working on at Upshot (circa 2014, open sourced in early 2016). game as exercise for Montague
-* threw together first pass at parser in the fall of 2016
-* Jacob had some React+Redux experience already and threw together a quick game mockup in December 2016
-* I started funemployment January 2017 and began working on Wordbots essentially full-time. By early April we had v0.1.0, a fully functional prototype with working card creation and multiplayer gameplay
-* Progress came fast as I was on a roll and working on Wordbots nonstop: April brought spectator support, activated abilities, card import/export, turn timer, and a huge amount of new card mechanics. May brought user accounts, auto-generated documentation, SFX, and more card mechanics.  June brought tutorial mode and the "Did You Mean" feature in the creator. July: practice mode, in-game animations, UX redesign.
+The original idea for Wordbots came to me as I was working on open-sourcing [Montague](https://github.com/Workday/upshot-montague), the semantic parsing library that I'd worked on with [Joseph Turian]() and [Thomas Kim]() at the long-forgotten NLP startup [UPSHOT]().
+
+At its core, Montague is a fancy CKY parser that parses a CCG grammar and maps parsed tokens to semantic definitions, given as lambda-calculus terms in a provided lexicon. It is _ancient_ technology by NLP standards (after all, the CKY parsing algorithm dates back to a 1961 paper), but we came up with a clever design that ties these concepts together in what I think is a user-friendly way. In essence, Montague took something that had been _possible_ for decades (domain-constrained semantic parsing) and made it easy (and, dare I say, even fun).
+
+Our original use case for semantic parsing at UPSHOT was translating English to database queries – hardly riveting stuff. But as we were writing the documentation for Montague, I began to brainstorm other possible applications for it, initially just to better figure out how to communicate the breadth of what our parser was capable of. After working through [a few toy examples](), I started thinking of what semantic parsing could be used for within a gaming context. I thought back to card games I liked like Magic: the Gathering and Fluxx, where individual cards (sometimes even player-made cards, in Fluxx) could completely alter the rules of the game being played. [... positional card games ... Cosmic Encounter ...]
+
+[game as exercise for Montague]
+
+We open-sourced Montague in March 2016, and Joseph and I [gave a talk about it]() at the Strata conference that June. That fall, I started playing around with Montague on my own, building up a lexicon that could handle simple actions and trigger expressions like "At the end of each turn, each creature takes 1 damage" and turn them into very abstract JavaScript code. But there was still no actual game that these cards supported – it was essentially just a tech demo with a completely artificial lexicon that vaguely evoked a positional card game.
+
+While visiting my family over Thanksgiving, I showed [my brother]() what I'd built, and he was clearly as excited about the concept as I was. He had some React experience at the time (I'd never touched React at that point) and we quickly threw together a game prototype in React over the long weekend, using Hannu Kärkkäinen's [react-hex-grid]() library for the board rendering and logic. By the end of 2016, we had some very basic rendering for board and cards – nothing resembling a game yet, but enough of a framework that we could envision a path forward:
+
+<img class="figure" style="max-width: 50%" src="/blog/images/wordbots-f25aaa8630acada25c64eb61bbdaf0350224cbf8.png" />
+
+I left my job at the start of 2017 and decided that I may as well take advantage of my newfound free time. I resolved to stay "funemployed" until the end of the year and try to finish Wordbots in that time period. I started working on Wordbots essentially full-time in January, gaining proficiency in the React+Redux ecosystem along the way, and Jacob and I were able to make rapid progress on the prototype. By early April, we reached our v0.1.0 milestone: a fully-functional prototype with working card creation and multiplayer gameplay, albeit limited features aside from that (and it certainly wasn't much to look at):
+
+<img class="figure" style="max-width: 70%" src="/blog/images/wordbots-v0.2.0-alpha.png" />
+
+Progress continued quickly as I was on a roll and working on Wordbots nonstop. By the end of April _(v0.4.0)_, we had spectator support, activated abilities, card import/export, turn timer, and a huge amount of new card mechanics. By the end of May _(v0.5.4)_: user accounts, auto-generated documentation, SFX, and more card mechanics. June _(v0.6.2)_: tutorial mode and the "Did You Mean" feature in the creator. July _(v0.7.0)_: practice mode, in-game animations, UX redesign.
+
+We were quickly running through our feature roadmap, and an end seemed in sight. But I couldn't maintain this pace for long.
 
 ### <a name="history-2"></a>Slow but steady improvement (fall 2017–summer 2019)
 * In fall of 2017, I started a new job and also went on some big international trips in short succession, breaking my cycle of nonstop Wordbots work.
@@ -90,20 +112,48 @@ This new way of thinking about the purpose of Wordbots helped inspire me over th
 
 ## <a name="what-went-right"></a>What went right
 
-* the concept itself (after all it was a strong enough idea that the vision was able to push us through despite all the obstacles we faced)
-* Sticking through to completion
-* Not being afraid to invest in dev productivity (heavy focus on unit tests, TypeScript refactor halfway through, massive breaking changes in how cards were stored in the DB when we realized the old schema wasn't working for us anymore)
-* soliciting feedback / playtests throughout - many of our biggest and most important features were player suggestions!
-* me working on the full stack, from client to parser (this is also slightly a con because it was a symptom of me not being able to split work / motivate others to work on wordbots, but a pro in the sense that as I lost steam on one part of the game I was able to shift gears to other parts)
+#### Sticking through to completion
+
+...
+
+#### Investing in developer productivity
+
+(heavy focus on unit tests, TypeScript refactor halfway through, massive breaking changes in how cards were stored in the DB when we realized the old schema wasn't working for us anymore)
+
+#### Soliciting feedback throughout
+
+many of our biggest and most important features were player suggestions!
+
+#### Me working throughout the whole stack, from the game client to the parser
+
+(this is also slightly a con because it was a symptom of me not being able to split work / motivate others to work on wordbots, but a pro in the sense that as I lost steam on one part of the game I was able to shift gears to other parts)
+
+#### The Wordbots concept itself
+
+And finally, I should mention the general concept itself for Wordbots – after all, it was a strong-enough idea that the vision was able to push us through to the end despite all the challenges along the way!
 
 ## <a name="what-went-wrong"></a>What went wrong
 
+#### Struggling with motivation
+
 * Struggling with motivation, thinking of it as an obligation rather than a fun project half the time
+
+#### Sticking to tools we knew
+
 * Sticking to tools we knew rather than doing more initial research (React? MaterialUI? ancient version of Scala used by Montague)
+
+#### Never finding a good way to split up work among a team
+
 * Never really figuring out how to make use of the many people I had / not doing a good job of splitting up work
+
+#### Not thinking about the new-player experience soon enough
+
 * Not thinking about onboarding / new-player experience until waaay too late in the game (essentially wasting our biggest playtest as a result)
+
+#### Spending too much time on dead ends
+
 * spending perhaps too much time exploring dead ends or not-very-useful avenues just by being driven by what's interesting to work on rather than what is important for Wordbots ("hackathon" mentality) - examples include automated cost calculation, the automated card generation thing for tests
-* ...
+
 
 ## <a name="final-thoughts"></a>Final Thoughts / Conclusions
 
