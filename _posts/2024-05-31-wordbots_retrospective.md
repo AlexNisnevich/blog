@@ -23,7 +23,7 @@ Getting Wordbots from concept to fully playable beta was a _journey_. It was one
   * [And finally, the release! (April 2023 and beyond)](#history-5)
 * [What went right](#what-went-right)
 * [What went wrong](#what-went-wrong)
-* [Final thoughts / Conclusions](#final-thoughts)
+* [Final thoughts](#final-thoughts)
 * [Acknowledgements](#acknowledgements)
 
 ## <a name="visualization"></a>First, a visualization!
@@ -31,7 +31,7 @@ Before I talk about my successes and challenges with Wordbots, it might be helpf
 
 <img class="figure" style="max-width: 100%" src="/blog/images/wordbots-dev-history.png" />
 
-I should mention that I was fortunate to have a lot of help throughout this process, especially from [my brother](https://github.com/jacobnisnevich) but also from a whole host of people who made contributions of code or art or playtesting or feedback, [who are credited here](https://app.wordbots.io/about). I did end up making the vast majority of commits in both the core game and the parser, so this chart simultaneously shows the development cycle/cadence of Wordbots as a whole while also illustrating my own personal journey working on it.
+I should mention that I was fortunate to have a lot of help throughout this process, especially from [my brother](https://github.com/jacobnisnevich) but also from a whole host of people who made contributions of code or art or playtesting or feedback, [who are credited here](https://app.wordbots.io/about). I did end up making the vast majority of commits in both the core game and the parser, so this chart represents both the development cycle/cadence of Wordbots as a whole and my own personal journey working on it.
 
 As the chart makes painfully clear, working on Wordbots was not a totally smooth process. Let me explain how it all went down.
 
@@ -40,9 +40,9 @@ As the chart makes painfully clear, working on Wordbots was not a totally smooth
 ### <a name="history-1"></a>The beginning (summer 2016–fall 2017)
 The original idea for Wordbots came to me as I was working on open-sourcing [Montague](https://github.com/Workday/upshot-montague), the semantic parsing library that I'd worked on with [Joseph Turian](https://github.com/turian) and Thomas Kim at the long-forgotten NLP startup [UPSHOT](https://blog.workday.com/en-us/2015/workday-acquires-upshot-strengthens-data-science-expertise.html).
 
-At its core, Montague is a fancy CKY parser that parses a CCG grammar and maps parsed tokens to semantic definitions, given as lambda-calculus terms in a provided lexicon. It is _ancient_ technology by NLP standards (after all, the CKY parsing algorithm dates back to a 1961 paper), but we came up with a clever design that ties these concepts together in what I think is a user-friendly way. In essence, Montague took something that had been _possible_ for decades (domain-constrained semantic parsing) and made it easy (and, dare I say, even fun).
+At its core, Montague is a fancy CKY parser that parses a [CCG grammar](https://en.wikipedia.org/wiki/Combinatory_categorial_grammar) and maps parsed tokens to semantic definitions, given as [lambda-calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms in a provided lexicon. It is _ancient_ technology by NLP standards (after all, the CKY parsing algorithm dates back to [a 1961 paper](https://aclanthology.org/1961.earlymt-1.31/)), but we came up with a clever design that ties these concepts together in a user-friendly way. In essence, Montague took something that had been _possible_ for decades (domain-constrained semantic parsing) and made it more accessible and (dare I say?) fun to implement.
 
-Our original use case for semantic parsing at UPSHOT was translating English to database queries – hardly riveting stuff. But as we were writing the documentation for Montague, I began to brainstorm other possible applications for it, initially just to better figure out how to communicate the breadth of what our parser was capable of. After working through [a few toy examples](https://github.com/Workday/upshot-montague?tab=readme-ov-file#getting-started), I started thinking of what semantic parsing could be used for within a gaming context. I thought back to card games like Magic: the Gathering and Fluxx, where individual cards (in Fluxx, sometimes even player-made cards!) could completely alter the game's rules. I'd also recently played and enjoyed the now-defunct online tactical card game [Atomic Brawl](https://atomicbrawl.com/) and imagined a tactical card game with cards that players could make themselves, with the card text automatically parsed and translated to a programming language, perhaps JavaScript. While writing the Montague README, I even mentioned this idea as an ["exercise for the reader"](https://github.com/Workday/upshot-montague?tab=readme-ov-file#applications):
+Our original use case for semantic parsing at UPSHOT was translating English to database queries – hardly riveting stuff. But as we were writing the documentation for Montague, I began to brainstorm other possible applications for it, initially to figure out how to communicate the breadth of what our parser was capable of. After working through [a few toy examples](https://github.com/Workday/upshot-montague?tab=readme-ov-file#getting-started), I started thinking of what semantic parsing could be used for within a gaming context. I thought back to card games like Magic: the Gathering and Fluxx, where individual cards (in Fluxx, sometimes even player-made cards!) could completely alter the game's rules. I'd also recently played and enjoyed the now-defunct online tactical card game [Atomic Brawl](https://atomicbrawl.com/) and imagined a tactical card game with cards that players could make themselves, with the card text automatically parsed and translated to a programming language, perhaps JavaScript. While writing the Montague README, I even mentioned this idea as an ["exercise for the reader"](https://github.com/Workday/upshot-montague?tab=readme-ov-file#applications):
 
 > **Applications Exercise 5. † Game semantics.** Come up with a semantic scheme for representing rule descriptions for a simple card game (think Magic, Hearthstone, etc., but simplify!) For example, a card may say something like "Whenever your opponent loses life, draw a card". Then write a parser for it.
 
@@ -52,7 +52,7 @@ While visiting my family over Thanksgiving, I showed [my brother Jacob](https://
 
 <img class="figure" style="max-width: 50%" src="/blog/images/wordbots-f25aaa8630acada25c64eb61bbdaf0350224cbf8.png" />
 
-I left my job at the start of 2017 and decided that I may as well take advantage of my newfound free time. I resolved to stay "funemployed" until the end of the year and try to finish Wordbots by then. I started working on Wordbots essentially full-time in January, gaining proficiency in the React ecosystem along the way, and Jacob and I were able to make rapid progress on the prototype. By early April, we reached our v0.1.0 milestone: a fully functional prototype with working card creation and multiplayer gameplay, albeit limited features aside from that (and it certainly wasn't much to look at):
+I left my job at the start of 2017 and decided that I may as well take advantage of my newfound free time. I resolved to stay "funemployed" until the end of the year and try to finish Wordbots by then. I started working on Wordbots full-time in January, gaining proficiency in the React ecosystem along the way, and Jacob and I were able to make rapid progress on the prototype. By early April, we reached our v0.1.0 milestone: a fully functional prototype with working card creation and multiplayer gameplay, albeit limited features aside from that (and it certainly wasn't much to look at):
 
 <img class="figure" style="max-width: 70%" src="/blog/images/wordbots-v0.2.0-alpha.png" />
 
@@ -76,9 +76,9 @@ We brainstormed a few possible solutions to the fairness question:
 * Set up some kind of market-based mechanic where players could trade cards for in-game currency, where a given card's market value would determine if it was a "fair" card or not?
 * Allow players to make whatever cards they want, but establish game formats where each player is equally likely to have access to an overpowered card in-game?
 
-The final approach seemed to be the only feasible one. Based on player feedback (thanks, Adam B!), we developed a format we called Shared-Deck (later renamed Mash-Up), where both players bring their own deck to the game, but both players' decks are shuffled into one mega-deck that both players draw from throughout the game. The Shared-Deck/Mash-Up format injected new life into Wordbots and made matches exciting again. For perhaps the first time, I actually found myself having fun _playing_ Wordbots with people, not just developing it.
+The final approach seemed to be the only feasible one. Based on player feedback (thanks, Adam B!), we developed a format we called Shared-Deck (later renamed Mash-Up), where each player brings their own deck to the game, but both players' decks are shuffled into one mega-deck that both players draw from throughout the game. The Shared-Deck/Mash-Up format injected new life into Wordbots and made matches exciting again. For perhaps the first time, I actually found myself having fun _playing_ Wordbots with people, not just developing it.
 
-In the fall, thanks to some word-of-mouth among Jacob's friends, we'd assembled a small team of people interested in working on Wordbots and even started holding regular standups. Unfortunately, it ended up proving hard to divide the work, and Jacob and I still ended up doing the bulk of it. But having the regular cadence of standups helped maintain developer interest, at least amongst Jacob and me. And our broader team provided a useful sounding board for trying new ideas and for deciding how to prioritize our work.
+In the fall, thanks to some word-of-mouth among Jacob's friends, we'd assembled a small team of people interested in working on Wordbots and even started holding regular standups. Unfortunately, it proved hard to divide the work, and Jacob and I still ended up doing the bulk of it. Still, having the regular cadence of standups helped maintain developer interest, at least amongst Jacob and me. And our broader team provided a useful sounding board for trying new ideas and for deciding how to prioritize our work.
 
 Around this time, a succession of particularly hard-to-catch bugs convinced us that it would be worth it to begin migrating the codebase from JavaScript to TypeScript. I was initially leery of such a massive undertaking but was convinced to try TypeScriptifying a little bit at a time, starting with the particularly brittle multiplayer code (and eventually ending, about two years later, with the React components). Little by little, we gained type safety throughout the Wordbots client code. Though it was a slog at times, the TypeScript refactor ultimately paid dividends by eliminating whole classes of bugs and making significant chunks of our code easier to reason about. 
 
@@ -204,12 +204,14 @@ And these are just the rabbit holes that I crawled back out of! Some rabbit hole
 
 We were able to get off to a running start by leveraging tools we were already familiar with – Scala 2.10 and [Montague](https://github.com/Workday/upshot-montague) on the parser side and the JavaScript+React+Redux+Material UI ecosystem on the client side – but this also proved to be a double-edged sword in some cases:
 * Using JavaScript from the beginning instead of TypeScript led to a painful migration process as we realized how crucial the type-safety guarantees of TypeScript were for what we were doing.
-* Material UI proved not to be an ideal UI framework for making things like "game-y", and I had to mess with it intensively over many years to get Wordbots to look more like a game than like, say, a business application.
+* Material UI proved not to be an ideal UI framework for making things look "game-y", and I had to mess with it intensively over many years to get Wordbots to look more like a game than like, say, a business application.
 * And my deep reliance on the Scala 2.10 macro system for the parse-tree-visualization feature of Montague makes it impossible to run the Wordbots parser with any version of Scala newer than 2014. Among other issues, this means that the Wordbots parser can never compile down to JavaScript (alas, [Scala.js](https://www.scala-js.org/) requires Scala 2.11+) for running in the browser.
 
-## <a name="final-thoughts"></a>Final Thoughts / Conclusions
+## <a name="final-thoughts"></a>Final Thoughts
 
-[TODO this section]
+I suppose I should write some kind of conclusion, but I don't know what else I have to add at this point. Working on Wordbots was an enormous undertaking, and while the journey was rocky, I'm glad to have made it to the other side. I learned a lot from this process, and I feel it's made me both a better developer and a better project manager, for lack of a better word.
+
+I don't know what my next big project will be. I'm still somewhat recovering from the Wordbots process. I'd like to do something a little smaller in scope next, maybe something without an NLP component. But we'll see!
 
 ## <a name="acknowledgements"></a>Acknowledgements
 
