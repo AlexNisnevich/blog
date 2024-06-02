@@ -7,7 +7,7 @@ date: 2024-05-29
 
 About a year ago, I "released"* [Wordbots](https://wordbots.io/), the tactical card game with user-created cards that I'd been working on since 2016.
 
-_(* I say "released" in quotes because this isn't really the sort of game that will ever become feature-complete, especially not as a side project. But on April 29, 2023, I declared it fully playable and ready to graduate from alpha into an eternal "beta" stage, in which I'm no longer actively developing new features but continue to fix bugs and make minor improvements as time permits._)
+_(* I say "released" in quotes because this isn't really the sort of game that will ever become feature-complete, especially not as a side project. But on April 29, 2023, I declared it fully playable and ready to graduate from alpha into a permanent "beta" stage, in which I'm no longer actively developing new features but continue to fix bugs and make minor improvements as time permits._)
 
 Getting Wordbots from concept to fully playable beta was a _journey_. It was one of the hardest things I've done in my life and by far the largest project I've ever started, in all senses of the word – the biggest in scope, the most time-intensive, and the most emotionally draining to work on. Would I have started working on Wordbots if I'd known how long it would take and what a torturous path I'd go on to "finish" it? I'm not sure. But in any case, I'm glad I did it.
 
@@ -161,27 +161,51 @@ Finally, I should mention the general Wordbots concept itself as a major "pro" �
 
 ## <a name="what-went-wrong"></a>What went wrong
 
-#### Struggling with motivation
+#### 1. Struggling with motivation
 
-* Struggling with motivation, thinking of it as an obligation rather than a fun project half the time
+In an ideal world, I would have kept the same level of motivation that I had at the start of the project all the way through to completion. Of course, this isn't what ended up happening. For a variety of reasons – lack of time, self-doubt, not being sure about what Wordbot's place in the world was – I struggled with motivation at various points, and had a long low period in 2020–2022 where I really thought of Wordbots as an obligation rather than a fun project to work on.
 
-#### Making a multiplayer game in the first place?
+Could I have done it differently? [...]
 
-#### Sticking to tools we knew
+#### 2. Making a multiplayer game in the first place
+
+While Wordbots's multiplayer gameplay is certainly a core part of the experience, I do find myself wishing at times that I'd found some way to implement my original "semantic parsing for game mechanics" idea _without_ the multiplayer part. The issue is that multiplayer games require a community of players, and there's a chicken-and-egg problem in that players aren't going to keep playing if there's nobody to play with, so jumpstarting a community is difficult. While Wordbots _does_ get some activity from time to time, the average person logging in struggles to find anyone to play with. I don't feel as satisfied about Wordbots's release as I do about my last major game, [Untrusted](https://alexnisnevich.github.io/untrusted/), which, as a self-contained single-player puzzle game, is always playable for anybody who wants to try it.
+
+(The issues with building a multiplayer game also tied into my struggles with motivation, as I began over time to suspect that there was never going to be a stable Wordbots playerbase, causing me to question what the purpose of Wordbots even was.)
+
+What could a singleplayer Wordbots have looked like? I'm not entirely sure. At one point I imagined the concept of a Wordbots "puzzle mode" (inspired perhaps by the [puzzle mode in _Faeria_](https://faeria.fandom.com/wiki/Solo_mode)), where the player is required to win the game in one move from predetermined board positions, with the added conceit that certain cards in the player's hand would have missing words or phrases, and the player could drag and drop from a pool of phrases to fill in the cards in a way that would make the puzzle winnable. I imagined it as kind of a _Faeria_ (tactical card game puzzle) meets _Untrusted_ (fill in the right words to make a level winnable) meets _The Incredible Machine_ (drag and drop tools to complete a challenge) sort of thing. I never got around to even attempting to implement this gameplay mode, but it certainly would have been an interesting route to try.
+
+#### 3. Not thinking about the new-player experience soon enough
+
+It took us a long time to advance past the proof-of-concept stage, where Jacob and I just wanted to demonstrate that what we were building was possible from the technical standpoint. As a result, for most of our development process, the look and feel of Wordbots was not really designed to be inviting to new players. Even when we set out to run our biggest playtest round in 2018, we'd neglected to think about how bad the user experience really was for new players; in the end, most people who tried to playtest Wordbots didn't even know what to do or what was really going on with it.
+
+Fortunately, we turned this around and really prioritized working on the UX for new players starting around 2020, aided by some very helpful alpha testers. But we missed out on a lot of good potential feedback by not working [...] 
+
+#### 4. Never finding a good way to split up work among a team
+
+By the fall of 2018, Jacob and I had assembled a small group of developers who were passionate about the Wordbots concept and interested in helping us. Unfortunately, we never really found away to harness the extra manpower we had access to in the development process. We'd have regular standups with the whole group, and Jacob and I would try to assign tasks to people, but for the most part it still ended up being the two of us working on all development tasks (though the rest of the group still offered help in the form of playtesting and discussion of features).
+
+I think part of the problem was the inherent complexity of Wordbots: working on the parser requires fairly specialized knowledge, while the game client is fairly thorny itself due to having to deal with arbitrary card execution as well as all of the already-complex systems required to run a multiplayer game. Even tasks that Jacob and I envisioned as simple and self-contained rarely turned out that way, and without easy wins it was hard for our potential collaborators to have the confidence to approach the rest of the system.
+
+And part of the problem was perhaps that Jacob and I aren't great at process – we're both better developers than we are project managers. Setting up a [Zube](zube.io/) kanban board linked to our Github and having occasional freeform standup meetings was about the best we could do, but it wasn't really enough process to bring new people into the fold. 
+
+#### 5. Spending too much time pursuing dead ends
+
+Because Wordbots, at its core, started as a technical demo, it was easy to fall into what I could call a "hackathon mentality" while working on it. Basically, I kept falling into the trap of trying to build a feature just because it was technically interesting to work on, when the feature in question was rarely actually important for the game itself.
+
+Some examples of times that either I or other Wordbots developers got lost in the weeds:
+* **Automated cost calculation** – A few of us briefly went down the rabbit-hole of trying to have the parsing server predict how much a given card ought to cost by going through its AST, but we quickly realized that this was not remotely feasible.
+* **Random card generation for tests** – At one point I got intrigued by the possibility of generating completely random legal cards for various stress-testing scenarios (for both the parser and the game client). Eventually I managed to use some hacky Scala metaprogramming to generate random valid card ASTs within the parser. But for some reason, I got fixated on the idea of generating random card text that would parse, by somehow inverting the parser to turn it into a genrator. After spending quite some time perusing the NLP literature to try to find prior art on this, I finally gave up.
+* **Card rendering on the server** – We have a Discord bot that listens for exported Wordbot card JSON and renders the corresponding card in a readable way. Right now, it just prints a pretty text representation of the card, but for too long, I experimented with various ways to render the card as an PNG on the Wordbots server. The problem is that any technique for rendering React-to-image is inherently flaky, and I ran into constant struggles keeping this thing working. [...] Eventually I decided that printing a text representation was enough for the Discord bot.
+
+And these are just the rabbit holes that I crawled back out of! Some rabbit holes I managed to get to the end of – card rewrite effects are a good example, or, say, the Scala macro hell that I went through to be able to pretty-print lambda expressions for good-looking parse trees in Montague. So, while I certainly wasted a lot of time on these features, at least for these ones I had something to show at the end of it.
+
+#### 6. Sticking to tools we knew
+
+[...]
 
 * Sticking to tools we knew rather than doing more initial research (React? MaterialUI? ancient version of Scala used by Montague)
 
-#### Never finding a good way to split up work among a team
-
-* Never really figuring out how to make use of the many people I had / not doing a good job of splitting up work
-
-#### Not thinking about the new-player experience soon enough
-
-* Not thinking about onboarding / new-player experience until waaay too late in the game (essentially wasting our biggest playtest as a result)
-
-#### Spending too much time on dead ends
-
-* spending perhaps too much time exploring dead ends or not-very-useful avenues just by being driven by what's interesting to work on rather than what is important for Wordbots ("hackathon" mentality) – examples include automated cost calculation, the automated card generation thing for tests
 
 ## <a name="final-thoughts"></a>Final Thoughts / Conclusions
 
