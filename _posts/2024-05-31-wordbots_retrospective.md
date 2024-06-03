@@ -32,7 +32,7 @@ _(For those new to Wordbots, here's [some information about what is](https://app
 Before I talk about my successes and challenges with Wordbots, it might be helpful to throw up a little graph I made illustrating the development process as the story of git commits and releases, from my first-ever parser commit to just after the beta release:
 
 <a href="/blog/images/wordbots-dev-history.png"><img class="figure" style="max-width: 100%" src="/blog/images/wordbots-dev-history.png" /></a>
-<center style="font-size: 0.8em; font-style: italic">Wordbots commits and releases over time (click to embiggen)</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Wordbots commits and releases over time (click to embiggen)</center>
 
 I should mention that I was fortunate to have a lot of help throughout this process, especially from [my brother](https://github.com/jacobnisnevich) but also from a whole host of people who made contributions of code or art or playtesting or feedback, [who are credited here](https://app.wordbots.io/about). Still, for various reasons, I ended up making the vast majority of commits for both the core game and the parser, so this chart represents both the development cadence of Wordbots as a whole and my own personal journey working on it.
 
@@ -46,7 +46,7 @@ The original idea for Wordbots came to me as I was working on open-sourcing [Mon
 At its core, Montague is a fancy CKY parser that parses a [CCG grammar](https://en.wikipedia.org/wiki/Combinatory_categorial_grammar) and maps parsed tokens to semantic definitions, given as [lambda-calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms in a provided lexicon. It is _ancient_ technology by NLP standards (after all, the CKY parsing algorithm dates back to [a 1961 paper](https://aclanthology.org/1961.earlymt-1.31/)), but we came up with a clever design that ties these concepts together in a user-friendly way. In essence, Montague took something that had been _possible_ for decades (domain-constrained semantic parsing) and made it more accessible and (dare I say?) fun to implement.
 
 <img class="figure" style="max-width: 70%" src="/blog/images/montague-upshot-demo.png" />
-<center style="font-size: 0.8em; font-style: italic">Montague is a semantic parsing library, based on UPSHOT's English->SQL parser</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Montague is a semantic parsing library, based on UPSHOT's English->SQL parser</center>
 
 Our original use case for semantic parsing at UPSHOT was translating English to database queries – hardly riveting stuff. But as we were writing the documentation for Montague, I began to brainstorm other possible applications for it, initially to figure out how to communicate the breadth of what our parser was capable of. 
 
@@ -59,12 +59,12 @@ We open-sourced Montague in March 2016, and Joseph and I [gave a talk about it](
 While visiting my family over Thanksgiving, I showed [my brother Jacob](https://github.com/jacobnisnevich) what I'd built, and he was clearly as excited about the concept as I was. He had some React experience at the time (I didn't yet), and we quickly threw together a game prototype in React over the long weekend, using Hannu Kärkkäinen's [`react-hex-grid`](https://github.com/hellenic/react-hexgrid) library for the hex grid rendering and logic. By the end of the year, we had a barebones UI that could render a board and cards – nothing resembling a game yet, but enough of a skeleton that we could envision a path forward:
 
 <img class="figure" style="max-width: 50%" src="/blog/images/wordbots-f25aaa8630acada25c64eb61bbdaf0350224cbf8.png" />
-<center style="font-size: 0.8em; font-style: italic">A *very* early Wordbots commit</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">A *very* early Wordbots commit</center>
 
 I left my job at the start of 2017 and decided that I may as well take advantage of my newfound free time. I resolved to stay "funemployed" until the end of the year and try to finish Wordbots by then. I started working on Wordbots full-time in January, gaining proficiency in the React ecosystem along the way, and Jacob and I were able to make rapid progress on the prototype. By early April, we reached our v0.1.0 milestone: a fully functional prototype with working card creation and multiplayer gameplay, albeit limited features aside from that _(and it certainly wasn't much to look at!)_:
 
 <img class="figure" style="max-width: 70%" src="/blog/images/wordbots-v0.2.0-alpha.png" />
-<center style="font-size: 0.8em; font-style: italic">Wordbots v0.1.0 (April 2017)</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Wordbots v0.1.0 (April 2017)</center>
 
 Progress continued quickly as I built up steam. By the end of April _(v0.4.0)_, we had spectator support, activated abilities, card import/export, turn timer, and a huge amount of new card mechanics. By the end of May _(v0.5.4)_: user accounts, auto-generated documentation, SFX, and more card mechanics. June _(v0.6.2)_: tutorial mode and the "Did You Mean" feature in the card creator. July _(v0.7.0)_: practice mode, in-game animations, and a major UX redesign.
 
@@ -79,7 +79,7 @@ The next few months didn't bring many major new gameplay features. With my more 
 In April 2018, Jacob and I felt the game was sufficiently polished for an official playtesting round. We'd shown it to a few people before, but never anything like this: we solicited participants in our social networks, ultimately sending out a link as well as some playtesting guidelines to 30 of our friends. And then we waited ... And waited ... And waited ... Of our 30 playtesters, only two gave us substantial feedback, and the vast majority never responded at all. As far as I could tell, even people who really wanted to try Wordbots seemed to have been thoroughly stumped by the experience of trying to "play" it.
 
 <img class="figure" style="max-width: 20%" src="/blog/images/wordbots-feedback.png" />
-<center style="font-size: 0.8em; font-style: italic">Our sad playtest spreadsheet (April 2018)</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Our sad playtest spreadsheet (April 2018)</center>
 
 Needless to say, the failed playtest round was demoralizing for us. Still, it was helpful, if disheartening, to learn that our new-player user experience was, to be frank, garbage, and we began to rethink our priorities. One critical conversation that started from this was our attempt to answer a question that we'd been punting on up until this point: 
 
@@ -100,12 +100,12 @@ In the fall, thanks to some word-of-mouth among Jacob's friends, we'd assembled 
 Around this time, a succession of particularly hard-to-catch bugs convinced us that it would be worth it to begin migrating the codebase from JavaScript to TypeScript. I was initially leery of such a massive undertaking but was convinced to try TypeScriptifying a little bit at a time, starting with the particularly brittle multiplayer code (and eventually ending, about two years later, with the React components). Little by little, we gained type safety throughout the Wordbots client code. Though it was a slog at times, the TypeScript refactor ultimately paid dividends by eliminating whole classes of bugs and making significant chunks of our code easier to reason about. 
 
 <img class="figure" style="max-width: 70%" src="/blog/images/wordbots-loc.png" />
-<center style="font-size: 0.8em; font-style: italic">JavaScript vs TypeScript LOC in Wordbots, illustrating the pace of our big TypeScript refactor</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">JavaScript vs TypeScript LOC in Wordbots, illustrating the pace of our big TypeScript refactor</center>
 
 In April 2019, with v0.12.0 of Wordbots, we introduced the concept of "sets", another answer to the "making Wordbots fair" question. Sets provided a way for players to curate their own collections of cards and challenge other players to make decks using only those cards. Finally, there was now a way for players to build and use thematic decks of player-made cards without worrying about huge power imbalances.
 
 <img class="figure" style="max-width: 70%" src="/blog/images/wordbots-sets-description.png" />
-<center style="font-size: 0.8em; font-style: italic">Wordbots's help text on the <a href="https://app.wordbots.io/sets">Sets</a> page. Note that the <b>Set Draft</b> format wasn't added until 2021.</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Wordbots's help text on the <a href="https://app.wordbots.io/sets">Sets</a> page. Note that the <b>Set Draft</b> format wasn't added until 2021.</center>
 
 I intended Sets to be the last major concept added to Wordbots and began to think about what it would take to finally release the game to the wider world. I wrote a document called "Wordbots: The Final Stretch," spelling out the remaining tasks needed to finish Wordbots, in the four categories of User-Friendliness, Robustness, Community, and Accessibility. Of course, "final stretch" turned out to be a little optimistic.
 
@@ -114,17 +114,17 @@ By the summer of 2019, the amount of free time I had to spend on Wordbots plumme
 
 When I circled my thoughts back to Wordbots in this period, I could no longer picture the end goal; it was just a mountain of work that looked more and more daunting as I spent more time away from it. I began to dread the thought of working on Wordbots, but at the same time, I felt guilty for not working on it. There were times when I couldn't sleep because I was so angry with myself at "wasting my time", for putting so much work into this project just to abandon it ...
 
-Throughout it all, I did manage some intermittent bursts of motivation to work on Wordbots. I was able to finally finish that massive TypeScript refactor by the end of 2020 – it was a good thing to work on while my motivation was limited because I could think of it almost as a puzzle – a puzzle of getting all the types to line up and everything to compile – and because got little dopamine bursts by watching our JavaScript line count go down toward zero. Around this time, I also slogged through a significant refactor of how cards are stored in the backend, developing a much more robust system of metadata tracking for cards that fixed a number of bugs and enabled many small quality-of-life features down the line.
+Throughout it all, I did manage some intermittent bursts of motivation to work on Wordbots. I was able to finally finish that massive TypeScript refactor by the end of 2020 – it was a good thing to work on while my motivation was limited because I could think of it almost as a puzzle of getting all the types to line up. Around this time, I also slogged through a significant refactor of how cards are stored in the backend, developing a much more robust system of metadata tracking for cards that fixed a number of bugs and enabled many small quality-of-life features down the line.
 
 During a weeklong "Wordbots retreat" in the Lost Coast (a location strategically chosen for poor network connectivity and few distractions) in the summer of 2021, I powered through the work of creating the Set Draft format, a feature that we'd been discussing as a team for a while, and that quickly became my favorite way to play Wordbots. Drafting provided an elegant solution to the "fairness" issue (since either player was equally likely to draft a given card) while also removing the friction of players having to create a deck before playing. With the Set Draft format implemented in v0.16.0, I could finally see the path forward that had eluded me for the past few years.
 
 Other than that, the major gameplay improvements during this time were all aimed at providing a better UX for new players, including a massive interface redesign, art by [Chris Wooten](https://www.artstation.com/christopherwooten), Help and Community pages, a "New Here?" feature, and more flavor throughout the game, as well as flavor text support for cards.
 
-<img class="figure" style="max-width: 70%" src="/blog/images/wordbots-v0.15.0-alpha.png" />
-<center style="font-size: 0.8em; font-style: italic">Wordbots home page before the interface redesign (v0.15.0, May 2021)</center>
+<img class="figure" style="max-width: 70%" src="/blog/images/wordbots-v0.13.0-alpha.png" />
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Wordbots home page before the interface redesign (v0.13.0, July 2019)</center>
 
 <img class="figure" style="max-width: 70%" src="/blog/images/wordbots-v0.18.0-alpha.png" />
-<center style="font-size: 0.8em; font-style: italic">Wordbots home page after the interface redesign (v0.18.0, October 2022)</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Wordbots home page after the interface redesign (v0.18.0, October 2022)</center>
 
 ### <a name="history-4"></a>The final push (fall 2022–spring 2023)
 
@@ -135,7 +135,7 @@ In October 2022, I added one final major parser feature – and one that I could
 I also put a lot of work into a detailed ["How It Works" page](https://app.wordbots.io/how-it-works) describing the technical background behind Wordbots. I figured that, even if Wordbots was never going to be a successful multiplayer game with a thriving community (and at this point, I was resigned to this fate), at least it could be an interesting tech demo to a certain group of people like me.
 
 <a href="https://app.wordbots.io/static/help/how-it-works.png"><img class="figure" style="max-width: 60%" src="https://app.wordbots.io/static/help/how-it-works.png" /></a>
-<center style="font-size: 0.8em; font-style: italic">A visual summary of how Wordbots turns text into playable cards (click to embiggen)</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">A visual summary of how Wordbots turns text into playable cards (click to embiggen)</center>
 
 #### _Aside: Wordbots as a Symbolic AI island in an LLM world_
 
@@ -144,7 +144,7 @@ Around this time, there was, of course, a much more significant development in t
 I ultimately settled on the idea of Wordbots as a demonstration of the continued relevance of older NLP approaches. As powerful as statistical NLP is today, there's still value in symbolic AI methods. Could an LLM be used to produce code from card text the way Wordbots does? I'm sure such a thing could be implemented. Still, Wordbots's symbolic AI underpinnings offer some valuable advantages, chiefly consistency and interpretability. Each term in Wordbots's lexicon can be used repeatedly in consistent, predictable ways, just like natural language works, and not quite how LLMs tend to work with language. And the Wordbots parser is hardly a black box: every card in the game is happy to show off its full parse tree:
 
 <a href="https://app.wordbots.io/static/help/how-it-works.png"><img class="figure" style="max-width: 100%" src="https://app.wordbots.io/static/help/semantic-parse.png" /></a>
-<center style="font-size: 0.8em; font-style: italic">Zoomed-in parse tree from the diagram above (click to embiggen)</center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Zoomed-in parse tree from the diagram above (click to embiggen)</center>
 
 This new way of thinking about Wordbots' purpose helped inspire me during the final push towards beta release and also led me to write the slightly cheeky _"No LLMs were used in the making of Wordbots"_ disclaimer on the [About page](https://wordbots.io/about).
 
@@ -253,4 +253,4 @@ I don't know what my next big project will be. I'm still somewhat recovering fro
 Whew, that was a mouthful of a post! I want to end by once again thanking everyone who helped me make Wordbots a reality, from [everyone who contributed code, art, or other additions to the game ](https://wordbots.io/about) to all the people around the world who've tried making their own cards or playing a round of Wordbots. Thank you all!
 
 <img class="figure" style="max-width: 70%" src="https://app.wordbots.io/static/artAssets/dome2.png" />
-<center style="font-size: 0.8em; font-style: italic">Art by <a href="https://www.artstation.com/christopherwooten">Chris Wooten</a></center>
+<center style="font-size: 0.8em; font-style: italic; margin-top: -8px;">Art by <a href="https://www.artstation.com/christopherwooten">Chris Wooten</a></center>
