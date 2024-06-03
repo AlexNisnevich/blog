@@ -1,8 +1,8 @@
 ---
 layout: post
 title: A Belated Wordbots Dev Diary / Retrospective (~1 Year Post-Release)
-tags: []
-date: 2024-05-29
+tags: [games, wordbots, creations, javascript, typescript, scala, jacob, react, nlp, linguistics, semantics, montague, upshot, retrospective]
+date: 2024-06-02
 ---
 
 About a year ago, I "released"* [Wordbots](https://wordbots.io/), the tactical card game with user-created cards that I'd been working on since 2016.
