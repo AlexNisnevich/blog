@@ -1,6 +1,5 @@
 _site
 _sass/.sass-cache
 .sass-cache
-_deploy.sh
 Gemfile.lock
 _notebooks/.ipynb_checkpoints

@@ -27,7 +27,7 @@ desc 'Build and deploy'
 task :deploy => :build do
   sh 'rm -rf _site/blog'
   sh 'rm -rf _site/build'
-  sh './_deploy.sh'
+  sh 'sh ./_deploy.sh'
 end
 
 desc 'Check links for site already running on localhost:4000'
@@ -74,5 +74,5 @@ end
 
 @dir = 'blog'
 def make_symlink
-  sh 'mkdir -p _site && cd _site && ln -s . ' + @dir
+  sh 'mkdir -p _site && cd _site && ln -sfn . ' + @dir
 end
