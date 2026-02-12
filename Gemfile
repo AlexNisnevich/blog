@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
+ruby '2.6.10'
+
 gem 'jekyll', '~>4.3'
 gem 'compass'
 
 # pinning system gem versions (TODO can we avoid this?) - AN 2/6/26
+gem 'ffi', '1.2'
 gem 'rexml', '3.4.2'
 gem 'webrick', '1.9.1'
 
